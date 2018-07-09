@@ -1,13 +1,17 @@
 ﻿<header>
     <ul class="container">
-        <li><a>H</a></li>
-        <li><a>C</a></li>
-        <li><a>D</a></li>
+        <li><a ui-sref="home">H</a></li>
+        <li><a ui-sref="wordTranslation">C</a></li>
+        <li><a ui-sref="userDictionary">D</a></li>
+    </ul>
+    <ul class="container">
+        <li><a ui-sref="login">L</a></li>
+        <li><a ui-sref="register">R</a></li>
     </ul>
 </header>
 <main>
     <div class="container">
-        {{ $ctrl.test }}
+        <ui-view></ui-view>
     </div>
 </main>
 <footer>

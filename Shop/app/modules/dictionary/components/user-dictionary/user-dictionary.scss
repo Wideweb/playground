@@ -1,0 +1,27 @@
+﻿.dictionary-page {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.dictionary-page .grid li {
+    box-sizing: border-box;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+
+.dictionary-page .grid li + li {
+    border-top: gainsboro solid 1px;
+}
+
+.dictionary-page .grid li:hover {
+    background-color: blanchedalmond;
+}
+
+.dictionary-page .word dt {
+    font-size: 18px;
+}
+
+.dictionary-page .word dd {
+    font-size: 15px;
+    color: gray;
+}

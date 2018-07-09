@@ -1,0 +1,54 @@
+﻿<div class="panel">
+    <div class="header">
+        Login
+    </div>
+    <div class="body">
+        <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate>
+            <div ng-if="$ctrl.error" class="text-danger validation-summary-errors">{{ $ctrl.error }}</div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input name="email"
+                           type="text"
+                           ng-model="$ctrl.email"
+                           required
+                           class="form-control"
+                           placeholder="Email" />
+                </div>
+                <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.email.$error">
+                    <div class="text-danger" ng-message="required">The Email field is required.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input name="password"
+                           type="password"
+                           ng-model="$ctrl.password"
+                           required
+                           class="form-control"
+                           placeholder="Password" />
+                </div>
+                <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.password.$error">
+                    <div class="text-danger" ng-message="required">The Password field is required.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input name="confirmPassword"
+                           type="password"
+                           ng-model="$ctrl.confirmPassword"
+                           required
+                           equal-to="$ctrl.password"
+                           class="form-control"
+                           placeholder="Confirm Password" />
+                </div>
+                <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.confirmPassword.$error">
+                    <div class="text-danger" ng-message="required">The Confirm Password field is required.</div>
+                    <div class="text-danger" ng-message="equalTo">The password and confirmation password do not match.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-full">Register</button>
+            </div>
+        </form>
+    </div>
+</div>

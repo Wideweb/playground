@@ -3,10 +3,12 @@
   "name": "yourappname",
   "private": true,
   "scripts": {
-    "webpack-script": "webpack --watch"
+    "build": "webpack",
+    "webpack-watch": "webpack --watch"
   },
   "dependencies": {
     "angular": "^1.7.2",
+    "angular-messages": "^1.7.2",
     "jquery": "^3.3.1",
     "angular-ui-router": "^1.0.18"
   },
@@ -28,5 +30,6 @@
     "webpack": "^3.0.0",
     "webpack-chunk-hash": "^0.4.0",
     "webpack-cleanup-plugin": "^0.5.1"
-  }
+  },
+  "-vs-binding": { "BeforeBuild": [ "build" ] }
 }

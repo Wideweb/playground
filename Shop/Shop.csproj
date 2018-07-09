@@ -13,6 +13,34 @@
     <None Remove="app\index.html" />
     <None Remove="app\index.js" />
     <None Remove="app\index.scss" />
+    <None Remove="app\modules\app\components\home\home.component.js" />
+    <None Remove="app\modules\app\components\home\home.ctrl.js" />
+    <None Remove="app\modules\app\components\home\home.scss" />
+    <None Remove="app\modules\app\components\home\home.tpl.html" />
+    <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.component.js" />
+    <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.ctrl.js" />
+    <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.scss" />
+    <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.tpl.html" />
+    <None Remove="app\modules\dictionary\index.js" />
+    <None Remove="app\modules\dictionary\states.js" />
+    <None Remove="app\modules\training\components\word-translation\word-translation.component.js" />
+    <None Remove="app\modules\training\components\word-translation\word-translation.ctrl.js" />
+    <None Remove="app\modules\training\components\word-translation\word-translation.scss" />
+    <None Remove="app\modules\training\components\word-translation\word-translation.tpl.html" />
+    <None Remove="app\modules\training\index.js" />
+    <None Remove="app\modules\training\states.js" />
+    <None Remove="app\modules\common\directives\equalTo.js" />
+    <None Remove="app\modules\common\index.js" />
+    <None Remove="app\modules\auth\components\login\login.component.js" />
+    <None Remove="app\modules\auth\components\login\login.ctrl.js" />
+    <None Remove="app\modules\auth\components\login\login.scss" />
+    <None Remove="app\modules\auth\components\login\login.tpl.html" />
+    <None Remove="app\modules\auth\components\register\register.component.js" />
+    <None Remove="app\modules\auth\components\register\register.ctrl.js" />
+    <None Remove="app\modules\auth\components\register\register.scss" />
+    <None Remove="app\modules\auth\components\register\register.tpl.html" />
+    <None Remove="app\modules\auth\index.js" />
+    <None Remove="app\modules\auth\states.js" />
     <None Remove="app\modules\app\components\layout\layout.component.js" />
     <None Remove="app\modules\app\components\layout\layout.ctrl.js" />
     <None Remove="app\modules\app\components\layout\layout.scss" />
@@ -30,6 +58,90 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="app\index.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\app\components\home\home.component.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\app\components\home\home.ctrl.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\app\components\home\home.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\app\components\home\home.tpl.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\dictionary\components\user-dictionary\user-dictionary.component.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\dictionary\components\user-dictionary\user-dictionary.ctrl.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\dictionary\components\user-dictionary\user-dictionary.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\dictionary\components\user-dictionary\user-dictionary.tpl.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\dictionary\index.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\dictionary\states.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\training\components\word-translation\word-translation.component.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\training\components\word-translation\word-translation.ctrl.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\training\components\word-translation\word-translation.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\training\components\word-translation\word-translation.tpl.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\training\index.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\training\states.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\common\directives\equalTo.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\common\index.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\components\register\register.component.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\components\register\register.ctrl.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\components\register\register.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\components\register\register.tpl.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\components\login\login.component.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\components\login\login.ctrl.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\components\login\login.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\components\login\login.tpl.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\index.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\auth\states.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="app\modules\app\components\layout\layout.scss">
