@@ -1,14 +1,22 @@
 ﻿export default class {
+    static get $inject() {
+        return [
+            'authService'
+        ];
+    }
 
-    constructor() {
-        this.email = '';
-        this.password = '';
-        this.confirmPassword = '';
+    constructor(auth) {
+        this.auth = auth;
+        this.model = this.auth.create();
+        
         this.error = '';
     }
 
     submit() {
-        this.error = 'server'
-        console.log(this.email, this.password)
+        if (this.form.$invalid) {
+            return;
+        }
+
+        this.auth.register(this.model);
     }
 }

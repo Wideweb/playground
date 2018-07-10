@@ -2,6 +2,8 @@
 import angularMessages from 'angular-messages';
 import uiRouter from 'angular-ui-router';
 
+import routingConfiguration  from './configuration/routing.config';
+
 import COMMON_MODULE from '../common';
 import AUTH_MODULE from '../auth';
 import TRAINING_MODULE from '../training';
@@ -26,12 +28,12 @@ const ngModule = angular
     .component('layout', layoutComponent)
     .component('home', homeComponent)
 
-    .config(['$locationProvider', $locationProvider => $locationProvider.hashPrefix('')])
-
     .config(['$stateProvider', $stateProvider => {
         $stateProvider
             .state(appState.name, appState)
             .state(homeState.name, homeState);
     }]);
+
+routingConfiguration(ngModule);
 
 export default ngModule;

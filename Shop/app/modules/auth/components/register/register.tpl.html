@@ -1,6 +1,6 @@
 ﻿<div class="panel">
     <div class="header">
-        Login
+        Register
     </div>
     <div class="body">
         <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate>
@@ -9,7 +9,7 @@
                 <div class="input-wrapper">
                     <input name="email"
                            type="text"
-                           ng-model="$ctrl.email"
+                           ng-model="$ctrl.model.email"
                            required
                            class="form-control"
                            placeholder="Email" />
@@ -22,7 +22,7 @@
                 <div class="input-wrapper">
                     <input name="password"
                            type="password"
-                           ng-model="$ctrl.password"
+                           ng-model="$ctrl.model.password"
                            required
                            class="form-control"
                            placeholder="Password" />
@@ -35,9 +35,9 @@
                 <div class="input-wrapper">
                     <input name="confirmPassword"
                            type="password"
-                           ng-model="$ctrl.confirmPassword"
+                           ng-model="$ctrl.model.confirmPassword"
                            required
-                           equal-to="$ctrl.password"
+                           equal-to="$ctrl.model.password"
                            class="form-control"
                            placeholder="Confirm Password" />
                 </div>
