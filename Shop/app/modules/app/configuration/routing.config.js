@@ -41,8 +41,8 @@ function setEvents($transitions, $state, auth) {
                 transition.abort();
             }
         } else if (toState.name === 'login') {
-            $state.go('home', {}, { location: 'replace' });
             transition.abort();
+            $state.go('home', {}, { location: 'replace' });
         }
     }
 }

@@ -9,19 +9,13 @@ export const ACCESS_TOKEN_KEY = '__ACCESS_TOKEN__';
 export default class {
 
     static get $inject() {
-        return [
-            'userService'
-        ];
+        return [];
     }
 
     /******************************************************************************************
      INITIALIZATION
      ******************************************************************************************/
-    constructor(
-        /* Service */ user,
-    ) {
-        this.user = user;
-    }
+    constructor() {}
 
     /******************************************************************************************
      PUBLIC METHODS
@@ -45,10 +39,6 @@ export default class {
             headers = Object.assign({}, HTTP_OPTIONS.headers, route.options.headers || {});
             // merge options section
             route.options = Object.assign({}, HTTP_OPTIONS, route.options);
-            // add credentials
-            if (this.user.isLoggedIn() || parameters.hasOwnProperty(ACCESS_TOKEN_KEY)) {
-                Object.assign(headers, this.getAuthHeader(parameters[ACCESS_TOKEN_KEY]));
-            }
             // attach saved headers
             route.options.headers = headers;
         }
@@ -62,14 +52,6 @@ export default class {
         /* String */ routeName
     ) {
         return API_ROUTES.hasOwnProperty(routeName) ? JSON.parse(JSON.stringify(API_ROUTES[routeName])).options : {};
-    }
-
-    getAuthHeader(token) {
-        if (token === undefined) {
-            token = this.user.getToken();
-        }
-
-        return { 'Authorization': `Bearer ${token}` };
     }
 
 }

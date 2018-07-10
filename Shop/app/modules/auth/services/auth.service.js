@@ -15,10 +15,10 @@ export default class {
     }
 
     constructor(
-        userService,
+        user,
         proxy
     ) {
-        this.userService = userService;
+        this.user = user;
         this.proxy = proxy;
     }
 
@@ -29,21 +29,27 @@ export default class {
     register(
         /* registerModel */ model
     ) {
-        return this.proxy.call('Register', {}, model);
+        return this.proxy
+            .call('Register', {}, model)
+            .then(() => this.user.load());
     }
 
     login(
         /* string */ email,
         /* string */ password
     ) {
-        return this.proxy.call('Login', {}, { email, password });
+        return this.proxy
+            .call('Login', {}, { email, password })
+            .then(() => this.user.load());
     }
 
     logout() {
-        return this.proxy.call('Logout');
+        return this.proxy
+            .call('Logout')
+            .then(() => this.user.clear());
     }
 
     isLoggedIn() {
-        return this.userService.isLoggedIn();
+        return this.user.isLoggedIn();
     }
 }

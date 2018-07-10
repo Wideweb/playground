@@ -1,17 +1,12 @@
 ﻿const DEFAULT_ANONYMOUS_USER = 'Anonymous';
 const USER_STORAGE_KEY = 'me';
-const TOKEN_KEY = 'id_token';
 
 export class UserModel {
     constructor(data) {
-        this.userId = data.id;
-        this.userName = data.sub;
-        this.userFirstName = data.first_name;
-        this.userLastName = data.last_name;
-        this.userFullName = data.first_name + ' ' + data.last_name;
-        this.userFullNameAlt = data.last_name + ', ' + data.first_name;
-        this.userRole = data.roles[0];
-        this.userRights = data.rights;
+        this.userName = data.userName;
+        this.email = data.email;
+        this.role = data.role;
+        this.isEmailConfirmed = data.IsEmailConfirmed;
     }
 }
 
@@ -19,14 +14,10 @@ const Controller = {
     current: null,
     getDefaultUser: function() {
         return new UserModel({
-            uid: '',
-            sub: '',
-            first_name: '',
-            last_name: '',
-            roles: [DEFAULT_ANONYMOUS_USER],
-            rights: null,
-            lastLogin: null,
-            bpGuid: null,
+            userName: '',
+            email: '',
+            role: DEFAULT_ANONYMOUS_USER,
+            isEmailConfirmed: undefined,
         });
     }
 }
@@ -34,12 +25,17 @@ const Controller = {
 export default class {
     static get $inject() {
         return [
-            'storageService'
+            'storageService',
+            'httpProxyService'
         ];
     }
 
-    constructor(storage) {
+    constructor(
+        storage,
+        proxy
+    ) {
         this.storage = storage;
+        this.proxy = proxy;
     }
 
     get user() {
@@ -50,38 +46,29 @@ export default class {
         return Controller.current;
     }
 
-    get token() {
-        return this.storage.get(TOKEN_KEY);
+    load() {
+        return this.proxy
+            .call('GetUser')
+            .then(data => this.store(data));
     }
 
-    set token(token) {
-        this.storage.put(TOKEN_KEY, token);
-    }
-
-    store(user, accessToken) {
+    store(user) {
         if (!(user instanceof UserModel)) {
             user = new UserModel(user);
         }
 
-        this.storage.put(USER_STORAGE_KEY, user);
-        this.token = accessToken;
+        this.storage.set(USER_STORAGE_KEY, user);
 
         Controller.current = user;
     }
 
     clear() {
-        this.storage.rem(USER_STORAGE_KEY);
-        this.storage.rem(TOKEN_KEY);
-
-        this.user = null;
+        this.storage.remove(USER_STORAGE_KEY);
+        Controller.current = null;
     }
 
     inRole(role) {
-        return this.user.userRole === role;
-    }
-
-    inAnyRole(roles) {
-        return roles.includes(this.user.userRole);
+        return this.user.role === role;
     }
 
     isLoggedIn() {

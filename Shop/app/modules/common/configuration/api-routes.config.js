@@ -27,4 +27,8 @@ export const API_ROUTES = {
         url: API_ENDPOINT + '/Account/Register',
         options: { method: 'POST' }
     },
+    GetUser: {
+        url: API_ENDPOINT + '/api/Manage',
+        options: { method: 'GET' }
+    },
 };
