@@ -1,6 +1,6 @@
 ﻿<ul class="page dictionary-page">
     <li class="add-dictionary-item-form">
-        <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate>
+        <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate autocomplete="off">
             <div ng-if="$ctrl.error" class="text-danger validation-summary-errors">{{ $ctrl.error }}</div>
             <div class="form-group">
                 <div class="input-wrapper">
@@ -33,7 +33,7 @@
             </div>
         </form>
     </li>
-    <li class="grid flexible">
+    <li ng-if="$ctrl.dictionary.list.length" class="grid flexible">
         <ul class="container">
             <li class="row" ng-repeat="item in $ctrl.dictionary.list">
                 <div class="column flexible">
@@ -50,4 +50,5 @@
             </li>
         </ul>
     </li>
+    <li class="empty-grid-message" ng-if="!$ctrl.dictionary.list.length">Dictionary is empty</li>
 </ul>
