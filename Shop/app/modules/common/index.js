@@ -6,6 +6,7 @@ import equalToDirective from './directives/equalTo';
 import apiRouterService from './services/api-router.service';
 import httpProxyService from './services/http-proxy.service';
 import storageService from './services/storage.service';
+import spinnerService from './services/spinner.service';
 
 const ngModule = angular
     .module('common', [
@@ -15,6 +16,7 @@ const ngModule = angular
     .service('apiRouterService', apiRouterService)
     .service('httpProxyService', httpProxyService)
     .service('storageService', storageService)
+    .service('spinnerService', spinnerService)
 
     .directive('equalTo', equalToDirective);
 

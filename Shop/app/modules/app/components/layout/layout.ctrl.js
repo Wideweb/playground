@@ -2,16 +2,19 @@
     static get $inject() {
         return [
             '$state',
-            'authService'
+            'authService',
+            'spinnerService'
         ];
     }
 
     constructor(
         $state,
-        /* Service */ auth
+        /* Service */ auth,
+        /* Service */ spinner
     ) {
         this.$state = $state;
         this.auth = auth;
+        this.spinner = spinner;
     }
 
     logout() {

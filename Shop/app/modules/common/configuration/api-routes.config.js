@@ -31,4 +31,12 @@ export const API_ROUTES = {
         url: API_ENDPOINT + '/api/Manage',
         options: { method: 'GET' }
     },
+    GetDictionary: {
+        url: API_ENDPOINT + '/api/Dictionary',
+        options: { method: 'GET' }
+    },
+    SaveDictionaryItem: {
+        url: API_ENDPOINT + '/api/Dictionary',
+        options: { method: 'Post' }
+    },
 };

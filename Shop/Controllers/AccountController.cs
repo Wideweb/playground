@@ -65,24 +65,20 @@ namespace Shop.Controllers
                     _logger.LogInformation("User logged in.");
                     return Ok();
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToAction(nameof(LoginWith2fa), new { model.RememberMe });
-                }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToAction(nameof(Lockout));
+                    ModelState.AddModelError(string.Empty, "User account locked out.");
+                    return BadRequest(model);
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    return BadRequest(model);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return BadRequest(model);
         }
 
         [HttpGet]
@@ -126,7 +122,7 @@ namespace Shop.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation("User with ID {UserId} logged in with 2fa.", user.Id);
-                return RedirectToLocal(returnUrl);
+                return Ok();
             }
             else if (result.IsLockedOut)
             {
@@ -180,7 +176,7 @@ namespace Shop.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation("User with ID {UserId} logged in with a recovery code.", user.Id);
-                return RedirectToLocal(returnUrl);
+                return Ok();
             }
             if (result.IsLockedOut)
             {
@@ -277,7 +273,7 @@ namespace Shop.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
-                return RedirectToLocal(returnUrl);
+                return Ok();
             }
             if (result.IsLockedOut)
             {
@@ -315,7 +311,7 @@ namespace Shop.Controllers
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-                        return RedirectToLocal(returnUrl);
+                        return Ok();
                     }
                 }
                 AddErrors(result);
@@ -331,7 +327,7 @@ namespace Shop.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return Ok();
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -440,18 +436,6 @@ namespace Shop.Controllers
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
-
-        private IActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
 

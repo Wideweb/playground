@@ -1,76 +1,51 @@
 ﻿<ul class="page dictionary-page">
+    <li>
+        <div class="panel">
+            <div class="header">
+                Add New Word
+            </div>
+            <div class="body">
+                <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate>
+                    <div ng-if="$ctrl.error" class="text-danger validation-summary-errors">{{ $ctrl.error }}</div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input name="term"
+                                   type="text"
+                                   ng-model="$ctrl.term"
+                                   required
+                                   class="form-control"
+                                   placeholder="Word" />
+                        </div>
+                        <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.term.$error">
+                            <div class="text-danger" ng-message="required">The Word field is required.</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input name="translation"
+                                   type="text"
+                                   ng-model="$ctrl.translation"
+                                   required
+                                   class="form-control"
+                                   placeholder="Translation" />
+                        </div>
+                        <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.translation.$error">
+                            <div class="text-danger" ng-message="required">The Translation field is required.</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-full">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </li>
     <li class="content">
         <ul class="grid">
-            <li>
+            <li ng-repeat="item in $ctrl.dictionary.list">
                 <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
-                </dl>
-            </li>
-            <li>
-                <dl class="word">
-                    <dt>to sink</dt>
-                    <dd>тонуть</dd>
+                    <dt>{{ item.term }}</dt>
+                    <dd>{{ item.translation }}</dd>
                 </dl>
             </li>
         </ul>

@@ -68,3 +68,20 @@ footer > .container {
 footer .copy-right {
     text-align: center;
 }
+
+.spinner {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+.spinner > .container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+

@@ -11,6 +11,17 @@
 <main>
     <div class="container">
         <ui-view></ui-view>
+        <div class="spinner" ng-show="$ctrl.spinner.isActive">
+            <div class="container">
+                <ul class="loader">
+                    <li class="ball ball-1"></li>
+                    <li class="ball ball-2"></li>
+                    <li class="ball ball-3"></li>
+                    <li class="ball ball-4"></li>
+                    <li class="ball ball-5"></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </main>
 <footer>
