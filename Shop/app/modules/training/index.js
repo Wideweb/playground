@@ -7,6 +7,8 @@ import COMMON_MODULE from '../common';
 
 import wordTranslationComponent from './components/word-translation/word-translation.component';
 
+import trainingService from './services/training.service';
+
 const ngModule = angular
     .module('training', [
         uiRouter,
@@ -15,6 +17,8 @@ const ngModule = angular
     ])
     
     .component('wordTranslation', wordTranslationComponent)
+
+    .service('trainingService', trainingService)
 
     .config(['$stateProvider', $stateProvider => {
         $stateProvider

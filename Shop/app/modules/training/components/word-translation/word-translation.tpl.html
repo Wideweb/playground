@@ -1,40 +1,21 @@
 ﻿<ul class="page cards-page">
     <li class="content">
-        <ul class="quest previous">
+        <ul ng-if="!$ctrl.training.finish" class="quest">
             <li class="question">
                 <ul class="container">
-                    <li class="answer">?</li>
+                    <li class="hint">?</li>
                     <li class="image"></li>
-                    <li class="word">Sigh</li>
-                    <li class="description">Выберите правильный ответ</li>
+                    <li class="word">{{ $ctrl.training.current.word }}</li>
+                    <li class="description" ng-if="!$ctrl.training.current.isAnswered">Выберите правильный ответ</li>
+                    <li class="answer" ng-if="$ctrl.training.current.isAnswered" ng-class="{ 'wrong': !$ctrl.training.current.isCorrect }">{{ $ctrl.training.current.answer }}</li>
                 </ul>
             </li>
             <li class="answers">
                 <ul class="container">
-                    <li>магазин</li>
-                    <li>приносить</li>
-                    <li>покупать</li>
-                    <li>вздох</li>
+                    <li ng-repeat="option in $ctrl.training.current.options" ng-click="$ctrl.submit(option)">{{ option }}</li>
                 </ul>
             </li>
         </ul>
-        <ul class="quest next">
-            <li class="question">
-                <ul class="container">
-                    <li class="answer">?</li>
-                    <li class="image"></li>
-                    <li class="word">Fed up</li>
-                    <li class="description">Выберите правильный ответ</li>
-                </ul>
-            </li>
-            <li class="answers">
-                <ul class="container">
-                    <li>магазин</li>
-                    <li>приносить</li>
-                    <li>покупать</li>
-                    <li>надоело</li>
-                </ul>
-            </li>
-        </ul>
+        <div ng-if="$ctrl.training.finish">Results: {{ $ctrl.training.correct.length }} / {{ $ctrl.training.list.length }}</div>
     </li>
 </ul>

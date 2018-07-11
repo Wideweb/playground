@@ -43,4 +43,8 @@ export const API_ROUTES = {
         url: API_ENDPOINT + '/api/Dictionary/{id}',
         options: { method: 'Delete' }
     },
+    GetTraining: {
+        url: API_ENDPOINT + '/api/Training',
+        options: { method: 'GET' }
+    },
 };

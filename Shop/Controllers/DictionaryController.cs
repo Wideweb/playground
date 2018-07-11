@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Models;
 using System.Linq;
+using Shop.Utils;
 
 namespace Shop.Controllers
 {
@@ -15,11 +16,6 @@ namespace Shop.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
-
-        private static new List<DictionaryItemView> _dictionary = new List<DictionaryItemView>() {
-            new DictionaryItemView { Id = 1, Term = "Home", Translation = "Дом" },
-            new DictionaryItemView { Id = 2, Term = "Head", Translation = "Голова" }
-        };
 
         public DictionaryController(
           UserManager<ApplicationUser> userManager,
@@ -32,7 +28,7 @@ namespace Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(_dictionary);
+            return Ok(DB.Dictionary);
         }
 
         [HttpPost]
@@ -40,16 +36,17 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(_dictionary.Count <= 0)
+                if(DB.Dictionary.Count <= 0)
                 {
                     item.Id = 1;
                 }
                 else
                 {
-                    item.Id = _dictionary.Max(it => it.Id) + 1;
+                    item.Id = DB.Dictionary.Max(it => it.Id) + 1;
                 }
-                
-                _dictionary.Add(item);
+
+                DB.Dictionary.Add(item);
+                DB.Words.Add(item.Translation);
                 return Ok();
             }
 
@@ -59,7 +56,7 @@ namespace Shop.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            _dictionary.RemoveAll(it => it.Id == id);
+            DB.Dictionary.RemoveAll(it => it.Id == id);
             return Ok();
         }
     }

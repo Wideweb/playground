@@ -27,7 +27,7 @@
     box-sizing: border-box;
 }
 
-.quest .question .answer {
+.quest .question .hint {
     width: 15px;
     height: 15px;
     background-color: cornflowerblue;
@@ -70,6 +70,19 @@
     font-size: 13px;
     font-weight: bold;
     padding-top: 15px;
+}
+
+.quest .question .answer {
+    text-align: center;
+    box-sizing: border-box;
+    color: darkgreen;
+    font-size: 13px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+.quest .question .answer.wrong {
+    color: brown;
 }
 
 .quest .answers > .container {

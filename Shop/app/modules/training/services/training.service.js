@@ -1,5 +1,5 @@
 ﻿/**********************************************************************************************
- * Dictionary Model
+ * Training Item Model
 **********************************************************************************************/
 class Model {
 
@@ -9,20 +9,12 @@ class Model {
     constructor(
         /* Object */ data
     ) {
-        this.id = data.id;
-        this.term = data.term;
-        this.translation = data.translation;
-    }
+        this.word = data.dictionaryItem.term;
+        this.answer = data.dictionaryItem.translation;
+        this.options = data.options;
 
-    /******************************************************************************************
-     * serialization
-     ******************************************************************************************/
-    serialize() {
-        return {
-            id: this.id,
-            term: this.term,
-            translation: this.translation
-        }
+        this.isAnswered = false;
+        this.isCorrect = undefined;
     }
 }
 
@@ -31,7 +23,7 @@ class Model {
  **********************************************************************************************/
 const Controller = {
     list: [],
-    map: {},
+    index: 0,
 
     /******************************************************************************************
      * METHODS
@@ -42,7 +34,6 @@ const Controller = {
         list.forEach(data => {
             let item = new Model(data);
             Controller.list.push(item);
-            Controller.map[item.id] = item;
         });
 
         return Controller.list;
@@ -53,18 +44,8 @@ const Controller = {
      ******************************************************************************************/
     clear: () => {
         Controller.list = [];
-        Controller.map = {};
-    },
-
-    /******************************************************************************************
-     Set an instance to be current (by ID) -> or nothing
-     ******************************************************************************************/
-    setCurrent: (
-        /* String? */ id
-    ) => {
-        Controller.current = Controller.map[id];
-        return Controller.current;
-    },
+        Controller.index = 0;
+    }
 
 };
 
@@ -97,46 +78,43 @@ export default class {
     }
 
     /******************************************************************************************
-     * registered instances reference
+     * training finish flag
      ******************************************************************************************/
-    get map() {
-        return Controller.map;
+    get finish() {
+        return Controller.index >= Controller.list.length;
+    }
+
+    /******************************************************************************************
+     A reference to current instance
+     ******************************************************************************************/
+    get current() {
+        return Controller.list[Controller.index];
+    }
+
+    get correct() {
+        return Controller.list.filter(item => item.isCorrect);
     }
 
     /******************************************************************************************
      Public Methods
      ******************************************************************************************
-     Load user dictionary
+     Load training
      ******************************************************************************************/
     load() {
         return this.proxy
-            .call('GetDictionary')
+            .call('GetTraining')
             .then((data) => {
                 Controller.clear();
                 Controller.register(data);
             });
     }
 
-    /******************************************************************************************
-     * Save dictionary term
-     ******************************************************************************************/
-    save(
-        /* string */ term,
-        /* string */ translation
-    ) {
-        return this.proxy
-            .call('SaveDictionaryItem', {}, { term, translation })
-            .then(() => this.load());
+    submit(answer) {
+        this.current.isAnswered = true;
+        this.current.isCorrect = this.current.answer === answer;
     }
 
-    /******************************************************************************************
-     * Remove dictionary term
-     ******************************************************************************************/
-    remove(
-        /* int */ id
-    ) {
-        return this.proxy
-            .call('RemoveDictionaryItem', { id })
-            .then(() => this.load());
+    next() {
+        !this.finish ? Controller.index++ : void 0;
     }
 }
