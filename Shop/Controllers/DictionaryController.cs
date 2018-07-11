@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Models;
+using System.Linq;
 
 namespace Shop.Controllers
 {
@@ -16,8 +17,8 @@ namespace Shop.Controllers
         private readonly ILogger _logger;
 
         private static new List<DictionaryItemView> _dictionary = new List<DictionaryItemView>() {
-            new DictionaryItemView { Term = "Home", Translation = "Дом" },
-            new DictionaryItemView { Term = "Head", Translation = "Голова" }
+            new DictionaryItemView { Id = 1, Term = "Home", Translation = "Дом" },
+            new DictionaryItemView { Id = 2, Term = "Head", Translation = "Голова" }
         };
 
         public DictionaryController(
@@ -39,11 +40,27 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(_dictionary.Count <= 0)
+                {
+                    item.Id = 1;
+                }
+                else
+                {
+                    item.Id = _dictionary.Max(it => it.Id) + 1;
+                }
+                
                 _dictionary.Add(item);
                 return Ok();
             }
 
             return BadRequest(item);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            _dictionary.RemoveAll(it => it.Id == id);
+            return Ok();
         }
     }
 }

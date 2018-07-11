@@ -9,6 +9,7 @@ class Model {
     constructor(
         /* Object */ data
     ) {
+        this.id = data.id;
         this.term = data.term;
         this.translation = data.translation;
     }
@@ -18,8 +19,9 @@ class Model {
      ******************************************************************************************/
     serialize() {
         return {
-            term: term,
-            translation: translation
+            id: this.id,
+            term: this.term,
+            translation: this.translation
         }
     }
 }
@@ -124,6 +126,17 @@ export default class {
     ) {
         return this.proxy
             .call('SaveDictionaryItem', {}, { term, translation })
+            .then(() => this.load());
+    }
+
+    /******************************************************************************************
+     * Remove dictionary term
+     ******************************************************************************************/
+    remove(
+        /* int */ id
+    ) {
+        return this.proxy
+            .call('RemoveDictionaryItem', { id })
             .then(() => this.load());
     }
 }

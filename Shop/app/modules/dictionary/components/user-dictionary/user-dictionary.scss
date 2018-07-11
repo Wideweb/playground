@@ -3,25 +3,49 @@
     padding-right: 0;
 }
 
-.dictionary-page .grid li {
+.dictionary-page .grid .row {
     box-sizing: border-box;
     padding: 10px 40px;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
 }
 
-.dictionary-page .grid li + li {
+.dictionary-page .grid .row + .row {
     border-top: gainsboro solid 1px;
+}
+
+.dictionary-page .grid .column + .column {
+    margin-left: 20px;
+}
+
+.dictionary-page .grid .action {
+    visibility: hidden;
+}
+
+.dictionary-page .grid .row:hover .action {
+    padding-top: 13px;
+    visibility: visible;
 }
 
 .dictionary-page .grid li:hover {
     background-color: blanchedalmond;
 }
 
-.dictionary-page .word dt {
+.dictionary-page .word .term {
     font-size: 18px;
+    padding-bottom: 4px;
+    line-height: normal;
+    box-sizing: border-box;
 }
 
-.dictionary-page .word dd {
+.dictionary-page .word .translation {
     font-size: 15px;
     color: gray;
+    line-height: normal;
+}
+
+.add-dictionary-item-form {
+    padding: 20px;
+    max-width: 400px
 }

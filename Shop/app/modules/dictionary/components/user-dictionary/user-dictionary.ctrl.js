@@ -11,6 +11,10 @@
         this.dictionary = dictionary;
     }
 
+    remove(id) {
+        this.dictionary.remove(id);
+    }
+
     submit() {
         if (this.form.$invalid) {
             return;

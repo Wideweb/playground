@@ -1,52 +1,52 @@
 ﻿<ul class="page dictionary-page">
-    <li>
-        <div class="panel">
-            <div class="header">
-                Add New Word
+    <li class="add-dictionary-item-form">
+        <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate>
+            <div ng-if="$ctrl.error" class="text-danger validation-summary-errors">{{ $ctrl.error }}</div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input name="term"
+                           type="text"
+                           ng-model="$ctrl.term"
+                           required
+                           class="form-control"
+                           placeholder="Word" />
+                </div>
+                <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.term.$error">
+                    <div class="text-danger" ng-message="required">The Word field is required.</div>
+                </div>
             </div>
-            <div class="body">
-                <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate>
-                    <div ng-if="$ctrl.error" class="text-danger validation-summary-errors">{{ $ctrl.error }}</div>
-                    <div class="form-group">
-                        <div class="input-wrapper">
-                            <input name="term"
-                                   type="text"
-                                   ng-model="$ctrl.term"
-                                   required
-                                   class="form-control"
-                                   placeholder="Word" />
-                        </div>
-                        <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.term.$error">
-                            <div class="text-danger" ng-message="required">The Word field is required.</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-wrapper">
-                            <input name="translation"
-                                   type="text"
-                                   ng-model="$ctrl.translation"
-                                   required
-                                   class="form-control"
-                                   placeholder="Translation" />
-                        </div>
-                        <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.translation.$error">
-                            <div class="text-danger" ng-message="required">The Translation field is required.</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-full">Save</button>
-                    </div>
-                </form>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input name="translation"
+                           type="text"
+                           ng-model="$ctrl.translation"
+                           required
+                           class="form-control"
+                           placeholder="Translation" />
+                </div>
+                <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.translation.$error">
+                    <div class="text-danger" ng-message="required">The Translation field is required.</div>
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-full">Save</button>
+            </div>
+        </form>
     </li>
     <li class="content">
         <ul class="grid">
-            <li ng-repeat="item in $ctrl.dictionary.list">
-                <dl class="word">
-                    <dt>{{ item.term }}</dt>
-                    <dd>{{ item.translation }}</dd>
-                </dl>
+            <li class="row" ng-repeat="item in $ctrl.dictionary.list">
+                <div class="column flexible">
+                    <dl class="word">
+                        <dt class="term">{{ item.term }}</dt>
+                        <dd class="translation">{{ item.translation }}</dd>
+                    </dl>
+                </div>
+                <div class="column">
+                    <div class="action">
+                        <a ng-click="$ctrl.remove(item.id)">remove</a>
+                    </div>
+                </div>
             </li>
         </ul>
     </li>

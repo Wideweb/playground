@@ -39,4 +39,8 @@ export const API_ROUTES = {
         url: API_ENDPOINT + '/api/Dictionary',
         options: { method: 'Post' }
     },
+    RemoveDictionaryItem: {
+        url: API_ENDPOINT + '/api/Dictionary/{id}',
+        options: { method: 'Delete' }
+    },
 };
