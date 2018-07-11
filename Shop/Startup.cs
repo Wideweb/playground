@@ -10,6 +10,7 @@ using Shop.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Threading.Tasks;
 
 namespace Shop
 {
@@ -62,8 +63,12 @@ namespace Shop
             {
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Name = "Shop";
-                options.LoginPath = "/Account/Login";
                 options.SlidingExpiration = true;
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
             });
 
             // Add application services.

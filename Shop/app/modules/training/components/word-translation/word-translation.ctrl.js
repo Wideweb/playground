@@ -16,6 +16,10 @@
         this.wait = false;
     }
 
+    hint() {
+        this.submit(null);
+    }
+
     submit(option) {
         if (this.wait) {
             return;

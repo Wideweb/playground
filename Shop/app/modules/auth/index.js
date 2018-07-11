@@ -30,6 +30,19 @@ const ngModule = angular
         $stateProvider
             .state(loginState.name, loginState)
             .state(registerState.name, registerState);
+    }])
+
+    .run(['httpResponseHandler', 'userService', '$state', (handler, user, $state) => {
+        handler.register((response) => {
+            if (response.status === 401) {
+                user.clear();
+                $state.go('login');
+                throw {
+                    title: 'Error',
+                    text: 'Bad credentials.'
+                };
+            }
+        })
     }]);
 
 export default ngModule;

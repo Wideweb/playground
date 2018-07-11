@@ -3,7 +3,7 @@
         <ul ng-if="!$ctrl.training.finish" class="quest">
             <li class="question">
                 <ul class="container">
-                    <li class="hint">?</li>
+                    <li class="hint" ng-click="$ctrl.hint()">?</li>
                     <li class="image"></li>
                     <li class="word">{{ $ctrl.training.current.word }}</li>
                     <li class="description" ng-if="!$ctrl.training.current.isAnswered">Выберите правильный ответ</li>

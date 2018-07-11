@@ -68,17 +68,17 @@ namespace Shop.Controllers
                 if (result.IsLockedOut)
                 {
                     ModelState.AddModelError(string.Empty, "User account locked out.");
-                    return BadRequest(model);
+                    return BadRequest(ModelState);
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return BadRequest(model);
+                    return BadRequest(ModelState);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return BadRequest(model);
+            return BadRequest(ModelState);
         }
 
         [HttpGet]

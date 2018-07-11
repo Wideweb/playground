@@ -4,7 +4,9 @@
     </div>
     <div class="body">
         <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate>
-            <div ng-if="$ctrl.error" class="text-danger validation-summary-errors">{{ $ctrl.error }}</div>
+            <div ng-if="$ctrl.error.length" class="text-danger validation-summary-errors">
+                <div ng-repeat="error in $ctrl.error">{{ error }}</div>
+            </div>
             <div class="form-group">
                 <div class="input-wrapper">
                     <input name="email"
@@ -50,5 +52,16 @@
                 <button type="submit" class="btn btn-full">Register</button>
             </div>
         </form>
+    </div>
+</div>
+<div class="spinner" ng-show="$ctrl.spinner.isActive">
+    <div class="container">
+        <ul class="loader">
+            <li class="ball ball-1"></li>
+            <li class="ball ball-2"></li>
+            <li class="ball ball-3"></li>
+            <li class="ball ball-4"></li>
+            <li class="ball ball-5"></li>
+        </ul>
     </div>
 </div>
