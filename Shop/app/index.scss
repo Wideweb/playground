@@ -137,17 +137,17 @@ a {
 }
 
 .page {
-    padding: 20px;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
 .page .title {
     font-size: 20px;
 }
 
-.page .content {
-    font-size: 15px;
-}
-
-.page .title + .content {
-    padding-top: 20px;
+.page .title {
+    padding-bottm: 20px;
 }

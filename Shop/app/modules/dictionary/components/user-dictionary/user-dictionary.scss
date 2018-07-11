@@ -1,6 +1,7 @@
-﻿.dictionary-page {
-    padding-left: 0;
-    padding-right: 0;
+﻿.dictionary-page {}
+
+.dictionary-page .grid {
+    overflow-y: auto;
 }
 
 .dictionary-page .grid .row {
