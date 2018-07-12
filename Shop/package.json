@@ -13,7 +13,9 @@
     "jquery": "^3.3.1",
     "angular-ui-router": "^1.0.18",
     "whatwg-fetch": "^2.0.4",
-    "angular-cookies": "^1.7.2"
+    "angular-cookies": "^1.7.2",
+    "@aspnet/signalr": "^1.0.2",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
