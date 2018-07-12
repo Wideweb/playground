@@ -1,21 +1,26 @@
-﻿<div class="container">
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            Message<input type="text" id="messageInput" />
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <hr />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
-</div>
+﻿<ul class="page home-page">
+    <li class="message-list flexible">
+        <ul class="container">
+            <li ng-repeat="message in $ctrl.messages">
+                {{ message.user }}: {{ message.message }}
+            </li>
+        </ul>
+    </li>
+    <li class="message-form">
+        <form name="$ctrl.form" ng-submit="$ctrl.sendMessage()" novalidate autocomplete="off">
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input name="message"
+                           type="text"
+                           ng-model="$ctrl.message"
+                           required
+                           class="form-control"
+                           placeholder="Message" />
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-full">Send</button>
+            </div>
+        </form>
+    </li>
+</ul>

@@ -3,35 +3,44 @@
 export default class {
     static get $inject() {
         return [
+            '$scope',
+            '$timeout',
             'userService'
         ];
     }
 
     constructor(
+        $scope,
+        $timeout,
         /* Service */ user
     ) {
+        this.$scope = $scope;
+        this.$timeout = $timeout;
         this.user = user.user;
+        this.messages = [];
+        this.message = '';
 
-        const connection = new signalR.HubConnectionBuilder()
+        this.connection = new signalR.HubConnectionBuilder()
             .withUrl("/chatHub")
             .build();
 
-        connection.on("ReceiveMessage", (user, message) => {
-            const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            const encodedMsg = user + " says " + msg;
-            const li = document.createElement("li");
-            li.textContent = encodedMsg;
-            document.getElementById("messagesList").appendChild(li);
+        this.connection.on("ReceiveMessage", (user, message) => {
+            $scope.$apply(() => this.messages.push({ user, message }));
+
+            this.$timeout(() => $('.message-list').scrollTop($('.message-list').prop("scrollHeight")), 0);
         });
 
-        connection.start().catch(err => console.error(err.toString()));
-
-        document.getElementById("sendButton").addEventListener("click", event => {
-            const user = this.user.email;;
-            const message = document.getElementById("messageInput").value;
-            connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));
-            event.preventDefault();
-        });
+        this.connection.start().catch(err => console.error(err.toString()));
     }
-  
+
+    sendMessage() {
+        if (!this.message) {
+            return;
+        }
+
+        this.connection
+            .invoke("SendMessage", this.user.email, this.message)
+            .catch(err => console.error(err.toString()));
+        this.message = '';
+    }
 }
