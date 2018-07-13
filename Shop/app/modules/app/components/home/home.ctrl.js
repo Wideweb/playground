@@ -15,7 +15,9 @@ export default class {
         this.$scope = $scope;
         this.$timeout = $timeout;
         this.messages = [];
-        this.users = [];
+        this.users = ['alckevich@live1.com', 'aaaaaaaaalckevich@live2.com', 'alckevich@live3.com', 'alckevich@live4.com', 'alckevich@live5.com'];
+        this.channels = ['All'];
+        this.to = 'All';
         this.message = '';
 
         this.connection = new signalR.HubConnectionBuilder()
@@ -58,5 +60,15 @@ export default class {
             .invoke("SendMessage", this.message)
             .catch(err => console.error(err.toString()));
         this.message = '';
+    }
+
+    selectChannel(channel) {
+        this.to = channel;
+        this.messages = [];
+    }
+
+    selectUser(user) {
+        this.to = user;
+        this.messages = [];
     }
 }

@@ -1,8 +1,16 @@
 ﻿<div class="page home-page">
-    <ul class="users-list">
-        <li ng-repeat="user in $ctrl.users">{{ user }}</li>
-    </ul>
+    <div class="aside">
+        <div class="title">Channels</div>
+        <ul class="aside-list">
+            <li ng-click="$ctrl.selectChannel(channel)" class="channel" ng-repeat="channel in $ctrl.channels" title="{{ channel }}">#{{ channel }}</li>
+        </ul>
+        <div class="title">Users</div>
+        <ul class="aside-list">
+            <li ng-click="$ctrl.selectUser(user)" class="user" ng-repeat="user in $ctrl.users" title="{{ user }}">{{ user }}</li>
+        </ul>
+    </div>
     <div class="chat flexible">
+        <div class="to">#{{ $ctrl.to }}</div>
         <ul class="message-list flexible">
             <li ng-repeat="message in $ctrl.messages">
                 {{ message.user }}: {{ message.message }}
@@ -12,11 +20,11 @@
             <div class="form-group">
                 <div class="input-wrapper">
                     <input name="message"
-                            type="text"
-                            ng-model="$ctrl.message"
-                            required
-                            class="form-control"
-                            placeholder="Message" />
+                           type="text"
+                           ng-model="$ctrl.message"
+                           required
+                           class="form-control"
+                           placeholder="Message" />
                 </div>
             </div>
             <div class="form-group">

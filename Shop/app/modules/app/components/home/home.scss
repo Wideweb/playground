@@ -67,10 +67,10 @@
 }
 
 .message-list {
-    margin: 20px 20px 0 20px;
+    margin: 0 20px;
     box-sizing: border-box;
     border: 2px solid gray;
-    box-sizing: border-box;
+    min-height: 100px;
 }
 
 .message-list > .container {
@@ -83,12 +83,53 @@
     flex-direction: row;
 }
 
-.users-list {
+.aside {
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
     width: 200px;
     background-color: beige;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.aside .title {
+    font-size: 15px;
+    color: gray;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+.aside-list + .title {
+    padding-top: 30px;
+}
+
+.aside-list li {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.aside-list li:hover {
+    background-color: blanchedalmond;
+}
+
+.aside-list li + li {
+    border-top: 2px solid white;
 }
 
 .chat {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+}
+
+.chat .to {
+    box-sizing: border-box;
+    padding: 10px 20px;
+    color: dimgray;
 }
