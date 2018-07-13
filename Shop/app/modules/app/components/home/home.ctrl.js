@@ -4,20 +4,18 @@ export default class {
     static get $inject() {
         return [
             '$scope',
-            '$timeout',
-            'userService'
+            '$timeout'
         ];
     }
 
     constructor(
         $scope,
-        $timeout,
-        /* Service */ user
+        $timeout
     ) {
         this.$scope = $scope;
         this.$timeout = $timeout;
-        this.user = user.user;
         this.messages = [];
+        this.users = [];
         this.message = '';
 
         this.connection = new signalR.HubConnectionBuilder()
@@ -26,6 +24,24 @@ export default class {
 
         this.connection.on("ReceiveMessage", (user, message) => {
             $scope.$apply(() => this.messages.push({ user, message }));
+
+            this.$timeout(() => $('.message-list').scrollTop($('.message-list').prop("scrollHeight")), 0);
+        });
+
+        this.connection.on("UserConnected", (user) => {
+            $scope.$apply(() => {
+                this.messages.push({ user, message: 'Connected' });
+                this.users.push(user);
+            });
+
+            this.$timeout(() => $('.message-list').scrollTop($('.message-list').prop("scrollHeight")), 0);
+        });
+
+        this.connection.on("UserDisconnected", (user) => {
+            $scope.$apply(() => {
+                this.messages.push({ user, message: 'Disconnected' });
+                this.users.splice(this.users.indexOf(user), 1);
+            });
 
             this.$timeout(() => $('.message-list').scrollTop($('.message-list').prop("scrollHeight")), 0);
         });
@@ -39,7 +55,7 @@ export default class {
         }
 
         this.connection
-            .invoke("SendMessage", this.user.email, this.message)
+            .invoke("SendMessage", this.message)
             .catch(err => console.error(err.toString()));
         this.message = '';
     }
