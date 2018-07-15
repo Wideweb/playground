@@ -46,6 +46,10 @@ export default class {
         return Controller.current;
     }
 
+    get name() {
+        return this.user.email;
+    }
+
     load() {
         return this.proxy
             .call('GetUser')

@@ -39,6 +39,11 @@ namespace Shop.Services
             return _connections.SelectMany(it => it.Value);
         }
 
+        public IEnumerable<T> GetAllKeys()
+        {
+            return _connections.Select(it => it.Key);
+        }
+
         public IEnumerable<string> GetConnections(T key)
         {
             HashSet<string> connections;

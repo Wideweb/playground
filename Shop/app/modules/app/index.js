@@ -14,6 +14,8 @@ import { appState, homeState } from './states';
 import layoutComponent from './components/layout/layout.component';
 import homeComponent from './components/home/home.component';
 
+import chatService from './services/chat.service';
+
 const ngModule = angular
     .module('app', [
         uiRouter,
@@ -27,6 +29,8 @@ const ngModule = angular
 
     .component('layout', layoutComponent)
     .component('home', homeComponent)
+
+    .service('chatService', chatService)
 
     .config(['$stateProvider', $stateProvider => {
         $stateProvider
