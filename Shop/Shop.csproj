@@ -23,6 +23,12 @@
     <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.tpl.html" />
     <None Remove="app\modules\dictionary\index.js" />
     <None Remove="app\modules\dictionary\states.js" />
+    <None Remove="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.component.js" />
+    <None Remove="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.ctrl.js" />
+    <None Remove="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.scss" />
+    <None Remove="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.tpl.html" />
+    <None Remove="app\modules\tic-tac-toe\index.js" />
+    <None Remove="app\modules\tic-tac-toe\states.js" />
     <None Remove="app\modules\training\components\word-translation\word-translation.component.js" />
     <None Remove="app\modules\training\components\word-translation\word-translation.ctrl.js" />
     <None Remove="app\modules\training\components\word-translation\word-translation.scss" />
@@ -88,6 +94,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="app\modules\dictionary\states.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.component.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.ctrl.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.tpl.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\tic-tac-toe\index.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\tic-tac-toe\states.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="app\modules\training\components\word-translation\word-translation.component.js">

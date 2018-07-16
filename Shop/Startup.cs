@@ -102,6 +102,7 @@ namespace Shop
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chatHub");
+                routes.MapHub<TicTacToeHub>("/ticTacToeHub");
             });
 
             app.UseMvc();
