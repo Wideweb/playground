@@ -1,3 +1,40 @@
-﻿<ul class="page tic-tac-toe-page">
-    
-</ul>
+﻿<div class="page tic-tac-toe-page">
+    <div class="search-status" ng-if="!$ctrl.ticTacToe.current">
+        <span>Searching...</span>
+    </div>
+    <div class="winner" ng-if="$ctrl.ticTacToe.current && $ctrl.ticTacToe.current.winner">
+        <span>Winner: {{ $ctrl.ticTacToe.current.winner }}</span>
+    </div>
+    <div ng-if="$ctrl.ticTacToe.current && !$ctrl.ticTacToe.current.winner" class="game flexible">
+        <ul class="container">
+            <li class="users">
+                <ul class="container">
+                    <li class="user">{{ $ctrl.ticTacToe.current.firstPlayer }}</li>
+                    <li class="user">{{ $ctrl.ticTacToe.current.secondPlayer }}</li>
+                </ul>
+            </li>
+            <li ng-class="{ 'invisible': !$ctrl.ticTacToe.isMyTurn }" class="turn-indicator">
+                <span>Your turn</span>
+            </li>
+            <li class="board flexible">
+                <div class="container">
+                    <ul class="row">
+                        <li ng-click="$ctrl.select(0)" class="cell {{ $ctrl.ticTacToe.map[0] }}"></li>
+                        <li ng-click="$ctrl.select(1)" class="cell {{ $ctrl.ticTacToe.map[1] }}"></li>
+                        <li ng-click="$ctrl.select(2)" class="cell {{ $ctrl.ticTacToe.map[2] }}"></li>
+                    </ul>
+                    <ul class="row">
+                        <li ng-click="$ctrl.select(3)" class="cell {{ $ctrl.ticTacToe.map[3] }}"></li>
+                        <li ng-click="$ctrl.select(4)" class="cell {{ $ctrl.ticTacToe.map[4] }}"></li>
+                        <li ng-click="$ctrl.select(5)" class="cell {{ $ctrl.ticTacToe.map[5] }}"></li>
+                    </ul>
+                    <ul class="row">
+                        <li ng-click="$ctrl.select(6)" class="cell {{ $ctrl.ticTacToe.map[6] }}"></li>
+                        <li ng-click="$ctrl.select(7)" class="cell {{ $ctrl.ticTacToe.map[7] }}"></li>
+                        <li ng-click="$ctrl.select(8)" class="cell {{ $ctrl.ticTacToe.map[8] }}"></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

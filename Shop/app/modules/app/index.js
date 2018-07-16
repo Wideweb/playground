@@ -8,6 +8,7 @@ import COMMON_MODULE from '../common';
 import AUTH_MODULE from '../auth';
 import TRAINING_MODULE from '../training';
 import DICTIONARY_MODULE from '../dictionary';
+import TIC_TAC_TOE_MODULE from '../tic-tac-toe';
 
 import { appState, homeState } from './states';
 
@@ -24,7 +25,8 @@ const ngModule = angular
         COMMON_MODULE.name,
         AUTH_MODULE.name,
         TRAINING_MODULE.name,
-        DICTIONARY_MODULE.name
+        DICTIONARY_MODULE.name,
+        TIC_TAC_TOE_MODULE.name
     ])
 
     .component('layout', layoutComponent)

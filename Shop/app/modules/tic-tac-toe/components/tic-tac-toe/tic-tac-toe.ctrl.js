@@ -1,35 +1,23 @@
 ﻿export default class {
     static get $inject() {
         return [
-            '$timeout',
-            'trainingService'
+            'ticTacToeService'
         ];
     }
 
     constructor(
-        $timeout,
-        /*Service*/ training
+        ticTacToe
     ) {
-        this.$timeout = $timeout;
-        this.training = training;
+        this.ticTacToe = ticTacToe;
 
-        this.wait = false;
+        this.ticTacToe.search();
     }
 
-    hint() {
-        this.submit(null);
+    select(index) {
+        this.ticTacToe.isMyTurn && this.ticTacToe.selectSlot(index);
     }
 
-    submit(option) {
-        if (this.wait) {
-            return;
-        }
-
-        this.wait = true;
-        this.training.submit(option);
-        this.$timeout(() => {
-            this.training.next();
-            this.wait = false;
-        }, 1000);
+    $onDestroy() {
+        this.ticTacToe.disconnect();
     }
 }

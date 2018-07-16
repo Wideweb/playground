@@ -11,9 +11,16 @@ class Model {
     constructor(
         /* Object */ data
     ) {
+        this.init(data);   
+    }
+
+    init(data) {
         this.id = data.rid;
         this.turn = data.turn ? data.firstPlayer : data.secondPlayer;
         this.map = data.map;
+        this.firstPlayer = data.firstPlayer;
+        this.secondPlayer = data.secondPlayer;
+        this.winner = data.winner;
     }
 }
 
@@ -23,8 +30,7 @@ class Model {
 const Controller = {
     connection: null,
     isConnected: false,
-    list: [],
-    map: {},
+    current: null,
 
     /******************************************************************************************
      * METHODS
@@ -32,47 +38,19 @@ const Controller = {
      * registration of a new instance
      ******************************************************************************************/
     register: (data) => {
-        let item = new Model(data);
-
-        if (!Controller.map[item.id]) {
-            Controller.list.push(item);
-            Controller.map[item.id] = item;
-        } else {
-            item = Controller.map[item.id];
-            item.connected = true;
-        }
-
-        return item;
+        Controller.current
+            ? Controller.current.init(data)
+            : Controller.current = new Model(data);
     },
 
     /******************************************************************************************
      Clean up registered instances
      ******************************************************************************************/
     clear: () => {
-        Controller.list = [];
-        Controller.map = {};
-    },
-
-    /******************************************************************************************
-     Set an instance to be current (by ID) -> or nothing
-     ******************************************************************************************/
-    setCurrent: (
-        /* String? */ id
-    ) => {
-        Controller.current = Controller.map[id];
-        Controller.current && (Controller.current.unreadNumber = 0);
-        return Controller.current;
-    },
-
-    /******************************************************************************************
-     Mark chat as disconnected
-     ******************************************************************************************/
-    remove: (
-        /* String? */ id
-    ) => {
-        let chat = Controller.map[id];
-        chat && (chat.connected = false);
-    },
+        Controller.connection = null;
+        Controller.isConnected = false;
+        Controller.current = null;
+    }
 };
 
 /**********************************************************************************************
@@ -108,13 +86,6 @@ export default class {
     /******************************************************************************************
      References to private resources
      ******************************************************************************************
-     * registered users
-     ******************************************************************************************/
-    get users() {
-        return Controller.list.filter(item => item.isPrivate && item.connected);
-    }
-
-    /******************************************************************************************
      * My turn flag
      ******************************************************************************************/
     get isMyTurn() {
@@ -126,6 +97,20 @@ export default class {
      ******************************************************************************************/
     get isConnected() {
         return Controller.isConnected;
+    }
+
+    /******************************************************************************************
+     A reference to current instance
+     ******************************************************************************************/
+    get current() {
+        return Controller.current;
+    }
+
+    /******************************************************************************************
+     A reference to current instance map
+     ******************************************************************************************/
+    get map() {
+        return Controller.current.map;
     }
 
     /******************************************************************************************
@@ -150,10 +135,28 @@ export default class {
             });
 
         connection.on("SelectSlot", (state) => {
+            state.map = state.map.map(item => {
+                if (item === this.me.name) {
+                    return 'mine';
+                }
+                if (!!item) {
+                    return 'enemy';
+                }
+                return 'empty';
+            });
             this.$rootScope.$apply(() => Controller.register(state));
         });
 
         connection.on("Start", (state) => {
+            state.map = state.map.map(item => {
+                if (item === this.me.name) {
+                    return 'mine';
+                }
+                if (!!item) {
+                    return 'enemy';
+                }
+                return 'empty';
+            });
             this.$rootScope.$apply(() => Controller.register(state));
         });
 
@@ -178,13 +181,13 @@ export default class {
     /******************************************************************************************
      * Send message to channel
      ******************************************************************************************/
-    SelectSlot(index) {
-        if (!text || !Controller.isConnected) {
+    selectSlot(index) {
+        if (!this.isMyTurn || !Controller.isConnected) {
             return Promise.reject();
         }
 
         return Controller.connection
-            .invoke("SendMessage", channel, text)
+            .invoke("SelectSlot", Controller.current.id, index)
             .catch(err => {
                 console.error(err.toString());
                 return this.$q.reject(err);

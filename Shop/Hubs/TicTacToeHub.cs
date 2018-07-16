@@ -14,11 +14,13 @@ namespace Shop.Hubs
         private bool _turn;
         private string _firstPlayer;
         private string _secondPlayer;
-        private List<string> _map;
+        private string[] _map;
+        private string _winner;
 
         public Guid Rid => _rid;
-        public bool IsReady => string.IsNullOrEmpty(_firstPlayer) || string.IsNullOrEmpty(_secondPlayer);
-        public List<string> Players => new List<string>() { _firstPlayer, _secondPlayer };
+        public bool IsReady => !string.IsNullOrEmpty(_firstPlayer) && !string.IsNullOrEmpty(_secondPlayer);
+        public bool IsEmpty => string.IsNullOrEmpty(_firstPlayer) && string.IsNullOrEmpty(_secondPlayer);
+        public IEnumerable<string> Players => new List<string>() { _firstPlayer, _secondPlayer }.Where(item => !string.IsNullOrEmpty(item));
 
         public TicTacToe(Guid rid)
         {
@@ -26,7 +28,8 @@ namespace Shop.Hubs
             _turn = true;
             _firstPlayer = null;
             _secondPlayer = null;
-            _map = new List<string>(9);
+            _winner = null;
+            _map = new string[9];
         }
 
         public void AddPlayer(string name)
@@ -73,7 +76,51 @@ namespace Shop.Hubs
             }
 
             _map[index] = activePlayer;
+            FindWinner();
             NextTurn();
+        }
+
+        private void FindWinner()
+        {
+            if(!string.IsNullOrEmpty(_map[0]) && _map[0] == _map[1] && _map[1] == _map[2])
+            {
+                _winner = _map[0];
+            }
+
+            if (!string.IsNullOrEmpty(_map[3]) && _map[3] == _map[4] && _map[4] == _map[5])
+            {
+                _winner = _map[3];
+            }
+
+            if (!string.IsNullOrEmpty(_map[6]) && _map[6] == _map[7] && _map[7] == _map[8])
+            {
+                _winner = _map[6];
+            }
+
+            if (!string.IsNullOrEmpty(_map[0]) && _map[0] == _map[3] && _map[3] == _map[6])
+            {
+                _winner = _map[0];
+            }
+
+            if (!string.IsNullOrEmpty(_map[1]) && _map[1] == _map[4] && _map[4] == _map[7])
+            {
+                _winner = _map[1];
+            }
+
+            if (!string.IsNullOrEmpty(_map[2]) && _map[2] == _map[5] && _map[5] == _map[8])
+            {
+                _winner = _map[2];
+            }
+
+            if (!string.IsNullOrEmpty(_map[0]) && _map[0] == _map[4] && _map[4] == _map[8])
+            {
+                _winner = _map[0];
+            }
+
+            if (!string.IsNullOrEmpty(_map[2]) && _map[2] == _map[4] && _map[4] == _map[6])
+            {
+                _winner = _map[2];
+            }
         }
 
         private void NextTurn()
@@ -89,7 +136,8 @@ namespace Shop.Hubs
                 FirstPlayer = _firstPlayer,
                 SecondPlayer = _secondPlayer,
                 Map = _map,
-                Turn = _turn
+                Turn = _turn,
+                Winner = _winner
             };
         }
     }
@@ -101,6 +149,7 @@ namespace Shop.Hubs
         public string FirstPlayer { get; set; }
         public string SecondPlayer { get; set; }
         public IEnumerable<string> Map { get; set; }
+        public string Winner { get; set; }
     }
 
     [Authorize]
@@ -136,6 +185,8 @@ namespace Shop.Hubs
         {
             string name = Context.User.Identity.Name;
             TicTacToe openedRoom;
+
+            _connections.Add(name, Context.ConnectionId);
 
             lock (_rooms)
             {
@@ -180,6 +231,14 @@ namespace Shop.Hubs
                     foreach (var connectionId in _connections.GetConnections(player))
                     {
                         await Clients.Client(connectionId).SendAsync("UserDisconnected", room.Rid, name);
+                    }
+                }
+
+                if (room.IsEmpty)
+                {
+                    lock (_rooms)
+                    {
+                        _rooms.Remove(room.Rid);
                     }
                 }
             }

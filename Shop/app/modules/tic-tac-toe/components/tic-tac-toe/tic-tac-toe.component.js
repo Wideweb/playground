@@ -1,6 +1,6 @@
-﻿import controller from './word-translation.ctrl';
-import template from './word-translation.tpl.html';
-import './word-translation.scss';
+﻿import controller from './tic-tac-toe.ctrl';
+import template from './tic-tac-toe.tpl.html';
+import './tic-tac-toe.scss';
 
 let wordTranslationComponent = {
     restrict: 'E',
