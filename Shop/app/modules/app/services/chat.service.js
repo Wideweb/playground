@@ -13,6 +13,7 @@ class MessageModel {
     ) {
         this.from = data.from;
         this.text = data.text;
+        this.isMine = data.isMine;
     }
 }
 
@@ -154,6 +155,13 @@ export default class {
     }
 
     /******************************************************************************************
+     * selected chat privat flag
+     ******************************************************************************************/
+    get isPrivate() {
+        return Controller.current ? Controller.current.isPrivate : false;
+    }
+
+    /******************************************************************************************
      * Is connection with Chant hub established
      ******************************************************************************************/
     get isConnected() {
@@ -242,7 +250,7 @@ export default class {
             chat = Controller.register({ channel });
         }
 
-        let message = new MessageModel({ from: user, text });
+        let message = new MessageModel({ from: user, text, isMine: user === this.me.name });
         chat.messages.push(message);
 
         this.id !== channel && chat.unreadNumber++;
@@ -258,7 +266,7 @@ export default class {
             chat = Controller.register({ user: id });
         }
 
-        let message = new MessageModel({ from, text });
+        let message = new MessageModel({ from, text, isMine: from === this.me.name });
         chat.messages.push(message);
 
         this.id !== id && chat.unreadNumber++;
