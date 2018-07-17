@@ -74,6 +74,7 @@ namespace Shop
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<TrainingService, TrainingService>();
 
             services.AddMvc();
 

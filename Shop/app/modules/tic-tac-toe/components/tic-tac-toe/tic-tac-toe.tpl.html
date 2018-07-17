@@ -16,24 +16,40 @@
             <li ng-class="{ 'invisible': !$ctrl.ticTacToe.isMyTurn }" class="turn-indicator">
                 <span>Your turn</span>
             </li>
-            <li class="board flexible">
+            <li class="board">
                 <div class="container">
                     <ul class="row">
-                        <li ng-click="$ctrl.select(0)" class="cell {{ $ctrl.ticTacToe.map[0] }}"></li>
-                        <li ng-click="$ctrl.select(1)" class="cell {{ $ctrl.ticTacToe.map[1] }}"></li>
-                        <li ng-click="$ctrl.select(2)" class="cell {{ $ctrl.ticTacToe.map[2] }}"></li>
+                        <li ng-click="$ctrl.select(0)" class="cell" ng-class="$ctrl.cellClass(0)"></li>
+                        <li ng-click="$ctrl.select(1)" class="cell" ng-class="$ctrl.cellClass(1)"></li>
+                        <li ng-click="$ctrl.select(2)" class="cell" ng-class="$ctrl.cellClass(2)"></li>
                     </ul>
                     <ul class="row">
-                        <li ng-click="$ctrl.select(3)" class="cell {{ $ctrl.ticTacToe.map[3] }}"></li>
-                        <li ng-click="$ctrl.select(4)" class="cell {{ $ctrl.ticTacToe.map[4] }}"></li>
-                        <li ng-click="$ctrl.select(5)" class="cell {{ $ctrl.ticTacToe.map[5] }}"></li>
+                        <li ng-click="$ctrl.select(3)" class="cell" ng-class="$ctrl.cellClass(3)"></li>
+                        <li ng-click="$ctrl.select(4)" class="cell" ng-class="$ctrl.cellClass(4)"></li>
+                        <li ng-click="$ctrl.select(5)" class="cell" ng-class="$ctrl.cellClass(5)"></li>
                     </ul>
                     <ul class="row">
-                        <li ng-click="$ctrl.select(6)" class="cell {{ $ctrl.ticTacToe.map[6] }}"></li>
-                        <li ng-click="$ctrl.select(7)" class="cell {{ $ctrl.ticTacToe.map[7] }}"></li>
-                        <li ng-click="$ctrl.select(8)" class="cell {{ $ctrl.ticTacToe.map[8] }}"></li>
+                        <li ng-click="$ctrl.select(6)" class="cell" ng-class="$ctrl.cellClass(6)"></li>
+                        <li ng-click="$ctrl.select(7)" class="cell" ng-class="$ctrl.cellClass(7)"></li>
+                        <li ng-click="$ctrl.select(8)" class="cell" ng-class="$ctrl.cellClass(8)"></li>
                     </ul>
                 </div>
+            </li>
+            <li ng-if="$ctrl.question" class="quest">
+                <ul class="container">
+                    <li class="question">
+                        <ul class="container">
+                            <li class="word">{{ $ctrl.question.word }}</li>
+                            <li class="description" ng-if="!$ctrl.question.isAnswered">Выберите правильный ответ</li>
+                            <li class="answer" ng-if="$ctrl.question.isAnswered">{{ $ctrl.question.answer }}</li>
+                        </ul>
+                    </li>
+                    <li class="answers" ng-if="!$ctrl.question.isAnswered">
+                        <ul class="container">
+                            <li ng-repeat="option in $ctrl.question.options" ng-click="$ctrl.submit($index)">{{ option }}</li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

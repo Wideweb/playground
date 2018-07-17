@@ -81,6 +81,10 @@
     background-color: blanchedalmond;
 }
 
+.board .cell:not(.enemy):not(.mine).current {
+    background-color: blanchedalmond;
+}
+
 .board .row:last-child .cell {
     border-bottom: solid 1px darkgray;
 }
@@ -91,4 +95,19 @@
 
 .invisible {
     visibility: hidden;
+}
+
+.page.tic-tac-toe-page .quest {
+    position: relative;
+    width: 100%;
+    transform: none;
+    left: 0;
+}
+
+.page.tic-tac-toe-page .quest .question > .container {
+    padding-top: 0;
+}
+
+.page.tic-tac-toe-page .answers > .container {
+    justify-content: center;
 }

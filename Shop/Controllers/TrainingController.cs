@@ -4,10 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Models;
-using System.Linq;
-using Shop.Extensions;
-using Shop.Utils;
-using System.Collections.Generic;
+using Shop.Services;
 
 namespace Shop.Controllers
 {
@@ -17,43 +14,24 @@ namespace Shop.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
+        private readonly TrainingService _trainingService;
 
-        
+
 
         public TrainingController(
           UserManager<ApplicationUser> userManager,
-          ILogger<ManageController> logger)
+          ILogger<ManageController> logger,
+          TrainingService trainingService)
         {
             _userManager = userManager;
             _logger = logger;
+            _trainingService = trainingService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            DB.Dictionary.Shuffle();
-            var training = new List<TrainingItemView>();
-            var trainingCapacity = DB.Dictionary.Count < 10 ? DB.Dictionary.Count : 10;
-
-            for (var i = 0; i < trainingCapacity; i++)
-            {
-                DB.Words.Shuffle();
-                var dictionaryItem = DB.Dictionary[i];
-                var options = DB.Words.Take(4).ToList();
-
-                if(!options.Any(it => it == dictionaryItem.Translation))
-                {
-                    options.RemoveAt(0);
-                    options.Add(dictionaryItem.Translation);
-                }
-
-                training.Add(new TrainingItemView {
-                    DictionaryItem = dictionaryItem,
-                    Options = options
-                });
-            }
-
-            return Ok(training);
+            return Ok(_trainingService.GenerateSession(10));
         }
     }
 }

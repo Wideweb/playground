@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Shop.Models;
 using Shop.Services;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace Shop.Hubs
         public bool IsReady => !string.IsNullOrEmpty(_firstPlayer) && !string.IsNullOrEmpty(_secondPlayer);
         public bool IsEmpty => string.IsNullOrEmpty(_firstPlayer) && string.IsNullOrEmpty(_secondPlayer);
         public IEnumerable<string> Players => new List<string>() { _firstPlayer, _secondPlayer }.Where(item => !string.IsNullOrEmpty(item));
+        public bool Started { get; set; }
+        public List<TrainingItemView> Questions { get; set; }
 
         public TicTacToe(Guid rid)
         {
@@ -62,7 +65,7 @@ namespace Shop.Hubs
             }
         }
 
-        public void SelectSlot(int index, string player)
+        public void SelectSlot(int index, int option, string player)
         {
             var activePlayer = _turn ? _firstPlayer : _secondPlayer;
             if(activePlayer != player)
@@ -75,8 +78,12 @@ namespace Shop.Hubs
                 throw new Exception($"the cell {index} is already occupied by {_map[index]}");
             }
 
-            _map[index] = activePlayer;
-            FindWinner();
+            if (Questions[index].DictionaryItem.Translation == Questions[index].Options[option])
+            {
+                _map[index] = activePlayer;
+                FindWinner();
+            }
+            
             NextTurn();
         }
 
@@ -86,40 +93,37 @@ namespace Shop.Hubs
             {
                 _winner = _map[0];
             }
-
-            if (!string.IsNullOrEmpty(_map[3]) && _map[3] == _map[4] && _map[4] == _map[5])
+            else if (!string.IsNullOrEmpty(_map[3]) && _map[3] == _map[4] && _map[4] == _map[5])
             {
                 _winner = _map[3];
             }
-
-            if (!string.IsNullOrEmpty(_map[6]) && _map[6] == _map[7] && _map[7] == _map[8])
+            else if (!string.IsNullOrEmpty(_map[6]) && _map[6] == _map[7] && _map[7] == _map[8])
             {
                 _winner = _map[6];
             }
-
-            if (!string.IsNullOrEmpty(_map[0]) && _map[0] == _map[3] && _map[3] == _map[6])
+            else if (!string.IsNullOrEmpty(_map[0]) && _map[0] == _map[3] && _map[3] == _map[6])
             {
                 _winner = _map[0];
             }
-
-            if (!string.IsNullOrEmpty(_map[1]) && _map[1] == _map[4] && _map[4] == _map[7])
+            else if (!string.IsNullOrEmpty(_map[1]) && _map[1] == _map[4] && _map[4] == _map[7])
             {
                 _winner = _map[1];
             }
-
-            if (!string.IsNullOrEmpty(_map[2]) && _map[2] == _map[5] && _map[5] == _map[8])
+            else if (!string.IsNullOrEmpty(_map[2]) && _map[2] == _map[5] && _map[5] == _map[8])
             {
                 _winner = _map[2];
             }
-
-            if (!string.IsNullOrEmpty(_map[0]) && _map[0] == _map[4] && _map[4] == _map[8])
+            else if (!string.IsNullOrEmpty(_map[0]) && _map[0] == _map[4] && _map[4] == _map[8])
             {
                 _winner = _map[0];
             }
-
-            if (!string.IsNullOrEmpty(_map[2]) && _map[2] == _map[4] && _map[4] == _map[6])
+            else if (!string.IsNullOrEmpty(_map[2]) && _map[2] == _map[4] && _map[4] == _map[6])
             {
                 _winner = _map[2];
+            }
+            else if (_map.All(x => !string.IsNullOrEmpty(x)))
+            {
+                _winner = "Draw";
             }
         }
 
@@ -137,7 +141,8 @@ namespace Shop.Hubs
                 SecondPlayer = _secondPlayer,
                 Map = _map,
                 Turn = _turn,
-                Winner = _winner
+                Winner = _winner,
+                Questions = Questions
             };
         }
     }
@@ -150,6 +155,7 @@ namespace Shop.Hubs
         public string SecondPlayer { get; set; }
         public IEnumerable<string> Map { get; set; }
         public string Winner { get; set; }
+        public IEnumerable<TrainingItemView> Questions {get;set;}
     }
 
     [Authorize]
@@ -161,7 +167,14 @@ namespace Shop.Hubs
         private readonly static Dictionary<Guid, TicTacToe> _rooms = 
             new Dictionary<Guid, TicTacToe>();
 
-        public async Task SelectSlot(Guid rid, int index)
+        private readonly TrainingService _trainingService;
+
+        public TicTacToeHub(TrainingService trainingService)
+        {
+            _trainingService = trainingService;
+        }
+
+        public async Task SelectSlot(Guid rid, int index, int option)
         {
             string name = Context.User.Identity.Name;
 
@@ -170,7 +183,7 @@ namespace Shop.Hubs
                 throw new Exception($"room {rid} doesn\'t exist");
             }
 
-            room.SelectSlot(index, name);
+            room.SelectSlot(index, option, name);
 
             foreach (var player in room.Players)
             {
@@ -202,13 +215,20 @@ namespace Shop.Hubs
 
             if (openedRoom.IsReady)
             {
-                foreach(var player in openedRoom.Players)
+                if (!openedRoom.Started)
+                {
+                    openedRoom.Questions = _trainingService.GenerateSession(9);
+                }
+
+                foreach (var player in openedRoom.Players)
                 {
                     foreach (var connectionId in _connections.GetConnections(player))
                     {
                         await Clients.Client(connectionId).SendAsync("Start", openedRoom.ToViewModel());
                     }
                 }
+
+                openedRoom.Started = true;
             }
 
             await base.OnConnectedAsync();

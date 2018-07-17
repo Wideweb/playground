@@ -17,7 +17,6 @@ class Model {
     init(data) {
         this.id = data.rid;
         this.turn = data.turn ? data.firstPlayer : data.secondPlayer;
-        this.map = data.map;
         this.firstPlayer = data.firstPlayer;
         this.secondPlayer = data.secondPlayer;
         this.winner = data.winner;
@@ -62,7 +61,8 @@ export default class {
             '$rootScope',
             '$q',
             'httpProxyService',
-            'userService'
+            'userService',
+            'ticTacToeCellService'
         ];
     }
 
@@ -73,12 +73,14 @@ export default class {
         $rootScope,
         $q,
         proxy,
-        me
+        me,
+        map
     ) {
         this.$rootScope = $rootScope;
         this.$q = $q;
         this.proxy = proxy;
         this.me = me;
+        this.map = map;
 
         Controller.connection = null;
     }
@@ -107,13 +109,6 @@ export default class {
     }
 
     /******************************************************************************************
-     A reference to current instance map
-     ******************************************************************************************/
-    get map() {
-        return Controller.current.map;
-    }
-
-    /******************************************************************************************
      * Establish a connection with the Chat Hub And Start searching the room
      ******************************************************************************************/
     search() {
@@ -135,29 +130,17 @@ export default class {
             });
 
         connection.on("SelectSlot", (state) => {
-            state.map = state.map.map(item => {
-                if (item === this.me.name) {
-                    return 'mine';
-                }
-                if (!!item) {
-                    return 'enemy';
-                }
-                return 'empty';
+            this.$rootScope.$apply(() => {
+                Controller.register(state);
+                this.map.register(state);
             });
-            this.$rootScope.$apply(() => Controller.register(state));
         });
 
         connection.on("Start", (state) => {
-            state.map = state.map.map(item => {
-                if (item === this.me.name) {
-                    return 'mine';
-                }
-                if (!!item) {
-                    return 'enemy';
-                }
-                return 'empty';
+            this.$rootScope.$apply(() => {
+                Controller.register(state);
+                this.map.register(state);
             });
-            this.$rootScope.$apply(() => Controller.register(state));
         });
 
         connection.on("UserDisconnected", (user) => {
@@ -179,15 +162,22 @@ export default class {
     }
 
     /******************************************************************************************
-     * Send message to channel
+     * Select slot
      ******************************************************************************************/
-    selectSlot(index) {
-        if (!this.isMyTurn || !Controller.isConnected) {
+    select(index) {
+        this.map.select(index);
+    }
+
+    /******************************************************************************************
+     * Submit selected slod
+     ******************************************************************************************/
+    submit(option) {
+        if (!this.isMyTurn || !Controller.isConnected || !this.map.current) {
             return Promise.reject();
         }
 
         return Controller.connection
-            .invoke("SelectSlot", Controller.current.id, index)
+            .invoke("SelectSlot", Controller.current.id, this.map.index, option)
             .catch(err => {
                 console.error(err.toString());
                 return this.$q.reject(err);
