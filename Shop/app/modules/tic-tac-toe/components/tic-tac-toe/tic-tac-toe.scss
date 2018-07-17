@@ -111,3 +111,15 @@
 .page.tic-tac-toe-page .answers > .container {
     justify-content: center;
 }
+
+.wrong {
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes blink {
+    50% {
+        background-color: tomato;
+    }
+}

@@ -136,6 +136,14 @@ export default class {
             });
         });
 
+        connection.on("SelectSlotFailed", (state, index, option) => {
+            this.$rootScope.$apply(() => {
+                Controller.register(state);
+                this.map.register(state);
+                this.map.list[index].status = 'wrong';
+            });
+        });
+        
         connection.on("Start", (state) => {
             this.$rootScope.$apply(() => {
                 Controller.register(state);

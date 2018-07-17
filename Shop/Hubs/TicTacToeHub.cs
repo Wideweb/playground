@@ -78,13 +78,15 @@ namespace Shop.Hubs
                 throw new Exception($"the cell {index} is already occupied by {_map[index]}");
             }
 
-            if (Questions[index].DictionaryItem.Translation == Questions[index].Options[option])
-            {
-                _map[index] = activePlayer;
-                FindWinner();
-            }
-            
             NextTurn();
+
+            if (Questions[index].DictionaryItem.Translation != Questions[index].Options[option])
+            {
+                throw new Exception("Wrong Answer");
+            }
+
+            _map[index] = activePlayer;
+            FindWinner();
         }
 
         private void FindWinner()
@@ -183,13 +185,32 @@ namespace Shop.Hubs
                 throw new Exception($"room {rid} doesn\'t exist");
             }
 
-            room.SelectSlot(index, option, name);
+            bool fail = false;
+            try
+            {
+                room.SelectSlot(index, option, name);
+            }
+            catch (Exception e)
+            {
+                fail = true;
+            }
 
             foreach (var player in room.Players)
             {
                 foreach (var connectionId in _connections.GetConnections(player))
                 {
                     await Clients.Client(connectionId).SendAsync("SelectSlot", room.ToViewModel());
+                }
+            }
+
+            if (fail)
+            {
+                foreach (var player in room.Players)
+                {
+                    foreach (var connectionId in _connections.GetConnections(player))
+                    {
+                        await Clients.Client(connectionId).SendAsync("SelectSlotFailed", room.ToViewModel(), index, option);
+                    }
                 }
             }
         }
