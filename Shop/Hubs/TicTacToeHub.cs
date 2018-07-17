@@ -189,27 +189,21 @@ namespace Shop.Hubs
             try
             {
                 room.SelectSlot(index, option, name);
-            }
-            catch (Exception e)
-            {
-                fail = true;
-            }
-
-            foreach (var player in room.Players)
-            {
-                foreach (var connectionId in _connections.GetConnections(player))
+                foreach (var player in room.Players)
                 {
-                    await Clients.Client(connectionId).SendAsync("SelectSlot", room.ToViewModel());
+                    foreach (var connectionId in _connections.GetConnections(player))
+                    {
+                        await Clients.Client(connectionId).SendAsync("SelectSlot", room.ToViewModel());
+                    }
                 }
             }
-
-            if (fail)
+            catch (Exception e)
             {
                 foreach (var player in room.Players)
                 {
                     foreach (var connectionId in _connections.GetConnections(player))
                     {
-                        await Clients.Client(connectionId).SendAsync("SelectSlotFailed", room.ToViewModel(), index, option);
+                        await Clients.Client(connectionId).SendAsync("SelectSlotFailed", room.ToViewModel(), index, option, name);
                     }
                 }
             }

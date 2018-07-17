@@ -136,11 +136,16 @@ export default class {
             });
         });
 
-        connection.on("SelectSlotFailed", (state, index, option) => {
+        connection.on("SelectSlotFailed", (state, index, option, user) => {
             this.$rootScope.$apply(() => {
                 Controller.register(state);
                 this.map.register(state);
-                this.map.list[index].status = 'wrong';
+
+                if (this.me.name === user) {
+                    this.map.list[index].status = 'wrong';
+                } else {
+                    this.map.list[index].status = 'enemy-wrong';
+                }
             });
         });
         
@@ -182,6 +187,10 @@ export default class {
     submit(option) {
         if (!this.isMyTurn || !Controller.isConnected || !this.map.current) {
             return Promise.reject();
+        }
+
+        if (this.map.current.status === 'wrong' || this.map.current.status === 'enemy-wrong') {
+            this.map.current.status = 'empty';
         }
 
         return Controller.connection

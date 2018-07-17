@@ -112,14 +112,26 @@
     justify-content: center;
 }
 
-.wrong {
-    animation-name: blink;
+.page.tic-tac-toe-page .wrong {
+    animation-name: blink-wrong;
     animation-duration: 1s;
     animation-iteration-count: 1;
 }
 
-@keyframes blink {
+.page.tic-tac-toe-page .enemy-wrong {
+    animation-name: blink-enemy-wrong;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes blink-wrong {
     50% {
         background-color: tomato;
+    }
+}
+
+@keyframes blink-enemy-wrong {
+    50% {
+        background-color: orange;
     }
 }
