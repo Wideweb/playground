@@ -2,10 +2,7 @@
     <div class="search-status" ng-if="!$ctrl.ticTacToe.current">
         <span>Searching...</span>
     </div>
-    <div class="winner" ng-if="$ctrl.ticTacToe.current && $ctrl.ticTacToe.current.winner">
-        <span>Winner: {{ $ctrl.ticTacToe.current.winner }}</span>
-    </div>
-    <div ng-if="$ctrl.ticTacToe.current && !$ctrl.ticTacToe.current.winner" class="game flexible">
+    <div ng-if="$ctrl.ticTacToe.current" class="game flexible">
         <ul class="container">
             <li class="users">
                 <ul class="container">
@@ -13,8 +10,9 @@
                     <li class="user">{{ $ctrl.ticTacToe.current.secondPlayer }}</li>
                 </ul>
             </li>
-            <li ng-class="{ 'invisible': !$ctrl.ticTacToe.isMyTurn }" class="turn-indicator">
-                <span>Your turn</span>
+            <li class="turn-indicator">
+                <span ng-if="$ctrl.ticTacToe.isMyTurn">Your turn</span>
+                <span ng-if="!$ctrl.ticTacToe.isMyTurn">Enemy turn</span>
             </li>
             <li class="board">
                 <div class="container">
@@ -49,6 +47,24 @@
                             <li ng-repeat="option in $ctrl.question.options" ng-click="$ctrl.submit($index)">{{ option }}</li>
                         </ul>
                     </li>
+                </ul>
+            </li>
+            <li class="disconnect-inicator-wrapper" ng-if="!$ctrl.ticTacToe.current.isEnemyConnected && !$ctrl.ticTacToe.current.winner">
+                <div class="disconnect-inicator-back"></div>
+                <ul class="disconnect-inicator">
+                    <li>{{ $ctrl.ticTacToe.current.firstPlayer }} disconnected</li>
+                    <li><a class="new-game-button" ng-click="$ctrl.search()">Start new game</a></li>
+                </ul>
+            </li>
+            <li class="end-inicator-wrapper" ng-if="$ctrl.ticTacToe.current.winner">
+                <div class="end-inicator-back"></div>
+                <ul class="end-inicator" ng-class="{'won': $ctrl.ticTacToe.current.won, 'draw': $ctrl.ticTacToe.current.draw }">
+                    <li>
+                        <span ng-if="$ctrl.ticTacToe.current.won && !$ctrl.ticTacToe.current.draw">You won</span>
+                        <span ng-if="!$ctrl.ticTacToe.current.won && !$ctrl.ticTacToe.current.draw">You lost</span>
+                        <span ng-if="$ctrl.ticTacToe.current.draw">Draw</span>
+                    </li>
+                    <li><a class="new-game-button" ng-click="$ctrl.search()">Start new game</a></li>
                 </ul>
             </li>
         </ul>

@@ -12,10 +12,10 @@
  * TRAINING DATA loading
  **********************************************************************************************/
 ticTacToeData.$inject = [
-    'ticTacToeCellService'
+    'ticTacToeService'
 ];
-function ticTacToeData(map) {
+function ticTacToeData(ticTacToe) {
     console.log('ticTacToe data loading...');
-    map.clear();
+    ticTacToe.clear();
     return Promise.resolve();
 }

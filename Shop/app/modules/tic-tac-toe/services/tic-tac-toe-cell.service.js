@@ -1,7 +1,11 @@
 ﻿const CELL_STATUS = {
-    MINE: 'mine',
-    ENEMY: 'enemy',
-    EMPTY: 'empty'
+    EMPTY: 'cell-empty',
+    MINE: 'cell-mine',
+    ENEMY: 'cell-enemy',
+    WRONG: 'cell-wrong',
+    ENEMY_WRONG: 'cell-enemy-wrong',
+    WINNER: 'cell-mine cell-winner',
+    ENEMY_WINNER: 'cell-enemy cell-winner'
 }
 
 /**********************************************************************************************
@@ -101,7 +105,9 @@ export default class {
      ******************************************************************************************/
     register({
         /* Array */ map,
-        /* Array */ questions
+        /* Array */ questions,
+        /* Array */ path,
+        /* String */ winner
     }) {
         Controller.list = [];
 
@@ -121,6 +127,18 @@ export default class {
 
             Controller.register(question);
         }
+
+        if (winner) {
+            for (let index of path) {
+                if (this.list[index].user === this.me.name) {
+                    this.list[index].status = CELL_STATUS.WINNER;
+                } else {
+                    this.list[index].status = CELL_STATUS.ENEMY_WINNER;
+                }
+            }
+
+            this.list.forEach(item => item.isAnswered = true);
+        }
     }
 
     /******************************************************************************************
@@ -133,7 +151,7 @@ export default class {
     /******************************************************************************************
      Clear service data
      ******************************************************************************************/
-    clear(index) {
+    clear() {
         Controller.clear();
     }
 }

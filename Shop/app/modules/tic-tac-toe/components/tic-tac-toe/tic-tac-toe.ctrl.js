@@ -23,7 +23,7 @@
     }
 
     cellClass(index) {
-        let className = this.map[index].status;
+        let className = this.map[index] && this.map[index].status;
         if (index === this.ticTacToe.map.index) {
             className += ' current';
         }
@@ -42,6 +42,10 @@
 
         this.wait = true;
         this.ticTacToe.submit(option);
+    }
+
+    search() {
+        this.ticTacToe.disconnect().then(() => this.ticTacToe.search());
     }
 
     $onDestroy() {

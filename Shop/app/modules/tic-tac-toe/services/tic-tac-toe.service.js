@@ -20,6 +20,9 @@ class Model {
         this.firstPlayer = data.firstPlayer;
         this.secondPlayer = data.secondPlayer;
         this.winner = data.winner;
+        this.won = this.winner === data.me;
+        this.draw = this.winner === 'Draw';
+        this.isEnemyConnected = true;
     }
 }
 
@@ -131,6 +134,7 @@ export default class {
 
         connection.on("SelectSlot", (state) => {
             this.$rootScope.$apply(() => {
+                state.me = this.me.name;
                 Controller.register(state);
                 this.map.register(state);
             });
@@ -138,26 +142,28 @@ export default class {
 
         connection.on("SelectSlotFailed", (state, index, option, user) => {
             this.$rootScope.$apply(() => {
+                state.me = this.me.name;
                 Controller.register(state);
                 this.map.register(state);
 
                 if (this.me.name === user) {
-                    this.map.list[index].status = 'wrong';
+                    this.map.list[index].status = 'cell-wrong';
                 } else {
-                    this.map.list[index].status = 'enemy-wrong';
+                    this.map.list[index].status = 'cell-enemy-wrong';
                 }
             });
         });
         
         connection.on("Start", (state) => {
             this.$rootScope.$apply(() => {
+                state.me = this.me.name;
                 Controller.register(state);
                 this.map.register(state);
             });
         });
 
-        connection.on("UserDisconnected", (user) => {
-            this.$rootScope.$apply(() => console.log('UserDisconnected'));
+        connection.on("UserDisconnected", (rid, user) => {
+            this.$rootScope.$apply(() => this.current.isEnemyConnected = false);
         });
 
         Controller.connection = connection;
@@ -167,10 +173,15 @@ export default class {
      * Break connection with the Hub
      ******************************************************************************************/
     disconnect() {
-        Controller.connection.stop().then(() => {
-            Controller.isConnected = false;
-            Controller.connection = null;
-            Controller.clear();
+        return Controller.connection.stop().then(() => {
+            const deferred = this.$q.defer();
+
+            this.$rootScope.$apply(() => {
+                Controller.clear();
+                deferred.resolve();
+            });
+
+            return deferred.promise();
         });
     }
 
@@ -189,8 +200,8 @@ export default class {
             return Promise.reject();
         }
 
-        if (this.map.current.status === 'wrong' || this.map.current.status === 'enemy-wrong') {
-            this.map.current.status = 'empty';
+        if (this.map.current.status === 'cell-wrong' || this.map.current.status === 'cell-enemy-wrong') {
+            this.map.current.status = 'cell-empty';
         }
 
         return Controller.connection
@@ -200,5 +211,13 @@ export default class {
                 return this.$q.reject(err);
             })
             .then(() => this.$q.resolve());
+    }
+
+    /******************************************************************************************
+     * Clear service data
+     ******************************************************************************************/
+    clear() {
+        Controller.clear();
+        this.map.clear();
     }
 }
