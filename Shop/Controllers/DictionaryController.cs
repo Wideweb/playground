@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Models;
 using System.Linq;
+using Shop.Data.Models;
+using Shop.Services;
 using Shop.Utils;
 
 namespace Shop.Controllers
@@ -16,19 +17,23 @@ namespace Shop.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
+        private readonly IDataAcessService<Word> _dictionary;
 
         public DictionaryController(
-          UserManager<ApplicationUser> userManager,
-          ILogger<ManageController> logger)
+            UserManager<ApplicationUser> userManager,
+            ILogger<ManageController> logger,
+            IDataAcessService<Word> dictionary)
         {
             _userManager = userManager;
             _logger = logger;
+            _dictionary = dictionary;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(DB.Dictionary);
+            var values = _dictionary.GetAll();
+            return Ok(values);
         }
 
         [HttpPost]
@@ -36,17 +41,7 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(DB.Dictionary.Count <= 0)
-                {
-                    item.Id = 1;
-                }
-                else
-                {
-                    item.Id = DB.Dictionary.Max(it => it.Id) + 1;
-                }
-
-                DB.Dictionary.Add(item);
-                DB.Words.Add(item.Translation);
+                _dictionary.Save(item);
                 return Ok();
             }
 
@@ -56,7 +51,7 @@ namespace Shop.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            DB.Dictionary.RemoveAll(it => it.Id == id);
+            _dictionary.Delete(id);
             return Ok();
         }
     }

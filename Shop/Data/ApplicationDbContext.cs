@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Shop.Data.Models;
 using Shop.Models;
 
 namespace Shop.Data
@@ -14,6 +15,9 @@ namespace Shop.Data
             : base(options)
         {
         }
+        
+        public DbSet<Word> Words { get; set; }
+        public DbSet<Translation> Translations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
