@@ -130,13 +130,15 @@ namespace Shop.Hubs
 
             _logger.LogTrace($"User disconnected | name:{name}");
 
-            var occupiedRooms = _rooms.Values.Where(room => room.Players.Contains(name));
+            var occupiedRooms = _rooms.Values.Where(room => room.Players.Contains(name)).ToList();
             foreach(var room in occupiedRooms)
             {
                 lock (_rooms)
                 {
                     room.RemovePlayer(name);
                 }
+
+                _logger.LogTrace($"User removed from room | name:{name}, rid:{room.Rid}");
 
                 foreach (var player in room.Players)
                 {
@@ -152,6 +154,8 @@ namespace Shop.Hubs
                     {
                         _rooms.Remove(room.Rid);
                     }
+
+                    _logger.LogTrace($"Room is deleted | rid:{room.Rid}");
                 }
             }
 

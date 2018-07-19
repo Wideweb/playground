@@ -150,11 +150,15 @@
 
 .disconnect-inicator-wrapper {
     position: absolute;
+    top: 0;
+    position: absolute;
     width: 100%;
     height: 100%;
 }
 
 .disconnect-inicator-back {
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 100%;
     background-color: black;
@@ -194,6 +198,8 @@
 }
 
 .end-inicator-wrapper {
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 100%;
 }
@@ -220,6 +226,8 @@
 }
 
 .end-inicator-back {
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 100%;
     background-color: black;
