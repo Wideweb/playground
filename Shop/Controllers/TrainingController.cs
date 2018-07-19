@@ -16,11 +16,9 @@ namespace Shop.Controllers
         private readonly ILogger _logger;
         private readonly TrainingService _trainingService;
 
-
-
         public TrainingController(
           UserManager<ApplicationUser> userManager,
-          ILogger<ManageController> logger,
+          ILogger<TrainingService> logger,
           TrainingService trainingService)
         {
             _userManager = userManager;

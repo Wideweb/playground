@@ -12,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Threading.Tasks;
 using Shop.Hubs;
+using Microsoft.Extensions.Logging;
 
 namespace Shop
 {
@@ -82,8 +83,10 @@ namespace Shop
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddAzureWebAppDiagnostics();
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

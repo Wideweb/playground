@@ -19,7 +19,7 @@ namespace Shop.Controllers
 
         public DictionaryController(
           UserManager<ApplicationUser> userManager,
-          ILogger<ManageController> logger)
+          ILogger<DictionaryController> logger)
         {
             _userManager = userManager;
             _logger = logger;

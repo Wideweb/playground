@@ -193,11 +193,9 @@
     background-color: darkslategrey;
 }
 
-end-inicator-wrapper {
+.end-inicator-wrapper {
     width: 100%;
     height: 100%;
-    background-color: black;
-    opacity: .5;
 }
 
 .end-inicator {
@@ -209,7 +207,7 @@ end-inicator-wrapper {
     padding: 15px;
     text-align: center;
     box-sizing: border-box;
-    opacity: 0.9;
+    opacity: 1;
     color: white;
 }
 
@@ -219,4 +217,11 @@ end-inicator-wrapper {
 
 .end-inicator.draw {
     background-color: orange;
+}
+
+.end-inicator-back {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .5;
 }
