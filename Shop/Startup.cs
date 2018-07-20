@@ -76,6 +76,7 @@ namespace Shop
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEntityRepository<Translation>, EntityRepository<Translation>>();
             services.AddTransient<IEntityRepository<Word>, EntityRepository<Word>>();
             services.AddTransient<IDataAcessService<Word>, DictionaryAccess>();
 

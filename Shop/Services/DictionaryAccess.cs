@@ -10,48 +10,32 @@ namespace Shop.Services
 {
     public class DictionaryAccess : IDataAcessService<Word>
     {
-        private IEntityRepository<Word> _wordsRepository;
+        private readonly IEntityRepository<Word> _wordsRepository;
+        private readonly IEntityRepository<Translation> _translationsRepository;
         
-        public DictionaryAccess(IEntityRepository<Word> wordsRepository)
+        public DictionaryAccess(IEntityRepository<Word> wordsRepository, IEntityRepository<Translation> translationsRepository)
         {
             _wordsRepository = wordsRepository;
+            _translationsRepository = translationsRepository;
         }
 
-        public List<DictionaryItemView> GetAll()
+        public List<Word> GetAll()
         {
             var values = _wordsRepository
-                .GetWhere(w => true)
-                .Select(w => new DictionaryItemView
-                {
-                    Id = w.Id,
-                    Term = w.Text,
-                    Translation = w.Translations.First()?.Text ?? "no translation"
-                });,
+                .GetWhere(w => true);
 
             return values.ToList();
         }
 
-        public void Save(DictionaryItemView item)
-        {
-            var word = new Word
-            {
-                Text = item.Term
-            };
-
-            var translation = new Translation
-            {
-                Text = item.Translation,
-                Word = word
-            };
-            
-            word.Translations = new List<Translation> {translation};
-            
+        public void Save(Word word)
+        {       
             _wordsRepository.Add(word);
         }
 
         public void Delete(long id)
         {
             _wordsRepository.DeleteWhere(it => it.Id == id);
+            _translationsRepository.DeleteWhere(it => it.Word.Id == id);
         }
     }
 }

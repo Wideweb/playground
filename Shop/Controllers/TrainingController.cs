@@ -34,7 +34,7 @@ namespace Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var words = _dictionary.GetAll();
+            var words = _dictionary.GetAll().Select(it => it.ToDictionaryItemView()).ToList();
             words.Shuffle();
             
             var training = new List<TrainingItemView>();

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Shop.Models;
 using System.Linq;
 using Shop.Data.Models;
+using Shop.Extensions;
 using Shop.Services;
 using Shop.Utils;
 
@@ -32,7 +33,7 @@ namespace Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var values = _dictionary.GetAll();
+            var values = _dictionary.GetAll().Select(it => it.ToDictionaryItemView());
             return Ok(values);
         }
 
@@ -41,7 +42,7 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dictionary.Save(item);
+                _dictionary.Save(item.ToWord());
                 return Ok();
             }
 

@@ -7,8 +7,8 @@ namespace Shop.Services
 {
     public interface IDataAcessService<T> where T : class, IEntity
     {
-        List<DictionaryItemView> GetAll();
-        void Save(DictionaryItemView item);
+        List<Word> GetAll();
+        void Save(Word item);
         void Delete(long id);
     }
 }

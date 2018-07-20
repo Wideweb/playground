@@ -51,7 +51,7 @@ namespace Shop.Data.Migrations
                         column: x => x.WordId,
                         principalTable: "Words",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetDefault);
                 });
 
             migrationBuilder.CreateIndex(
