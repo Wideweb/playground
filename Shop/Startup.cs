@@ -13,6 +13,8 @@ using System;
 using System.Threading.Tasks;
 using Shop.Hubs;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace Shop
 {
@@ -85,7 +87,7 @@ namespace Shop
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddAzureWebAppDiagnostics();
+            loggerFactory.AddNLog();
 
             if (env.IsDevelopment())
             {
