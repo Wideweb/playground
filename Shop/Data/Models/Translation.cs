@@ -1,6 +1,4 @@
-﻿using Shop.Services.Repository;
-
-namespace Shop.Data.Models
+﻿namespace Shop.Data.Models
 {
     public class Translation : IEntity
     {

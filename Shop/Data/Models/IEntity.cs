@@ -1,4 +1,4 @@
-﻿namespace Shop.Services.Repository
+﻿namespace Shop.Data.Models
 {
     public interface IEntity
     {

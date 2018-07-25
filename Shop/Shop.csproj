@@ -178,4 +178,13 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Data\Repository\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Data\Repository\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Data\Repository\**" />
+  </ItemGroup>
 </Project>

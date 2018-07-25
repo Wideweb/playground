@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Shop.Data.Models;
-using Shop.Models;
-using Shop.Services.Repository;
 
 namespace Shop.Services
 {

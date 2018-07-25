@@ -44,7 +44,7 @@ namespace Shop.Controllers
             {
                 words.Shuffle();
                 var dictionaryItem = words[i];
-                var options = words.Take(4).Select(w => w.Term).ToList();
+                var options = words.Take(4).Select(w => w.Translation).ToList();
 
                 if(options.All(it => it != dictionaryItem.Translation))
                 {

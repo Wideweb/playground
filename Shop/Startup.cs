@@ -13,7 +13,6 @@ using System;
 using System.Threading.Tasks;
 using Shop.Data.Models;
 using Shop.Hubs;
-using Shop.Services.Repository;
 
 namespace Shop
 {
@@ -76,8 +75,6 @@ namespace Shop
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<IEntityRepository<Translation>, EntityRepository<Translation>>();
-            services.AddTransient<IEntityRepository<Word>, EntityRepository<Word>>();
             services.AddTransient<IDataAcessService<Word>, DictionaryAccess>();
 
             services.AddMvc();

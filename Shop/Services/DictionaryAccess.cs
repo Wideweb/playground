@@ -1,41 +1,41 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Razor.Language;
-using Shop.Controllers;
+using Microsoft.EntityFrameworkCore;
+using Shop.Data;
 using Shop.Data.Models;
-using Shop.Models;
-using Shop.Services.Repository;
 
 namespace Shop.Services
 {
     public class DictionaryAccess : IDataAcessService<Word>
     {
-        private readonly IEntityRepository<Word> _wordsRepository;
-        private readonly IEntityRepository<Translation> _translationsRepository;
+        private ApplicationDbContext _dbContext;
         
-        public DictionaryAccess(IEntityRepository<Word> wordsRepository, IEntityRepository<Translation> translationsRepository)
+        public DictionaryAccess(ApplicationDbContext dbContext)
         {
-            _wordsRepository = wordsRepository;
-            _translationsRepository = translationsRepository;
+            _dbContext = dbContext;
         }
 
         public List<Word> GetAll()
         {
-            var values = _wordsRepository
-                .GetWhere(w => true);
-
-            return values.ToList();
+            var values = _dbContext
+                .Words
+                .Include(w => w.Translations)
+                .ToList();
+            
+            return values;
         }
 
         public void Save(Word word)
         {       
-            _wordsRepository.Add(word);
+            _dbContext.Words.Add(word);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(long id)
         {
-            _wordsRepository.DeleteWhere(it => it.Id == id);
-            _translationsRepository.DeleteWhere(it => it.Word.Id == id);
+            var entity = _dbContext.Words.FirstOrDefault(w => w.Id == id);
+            _dbContext.Entry(entity).State = EntityState.Deleted;
+            _dbContext.SaveChanges();
         }
     }
 }
