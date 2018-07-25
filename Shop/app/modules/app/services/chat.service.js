@@ -234,7 +234,7 @@ export default class {
      * Break connection with the Chat Hub
      ******************************************************************************************/
     disconnect() {
-        Controller.connection.stop().then(() => {
+        return Controller.connection.stop().then(() => {
             Controller.isConnected = false;
             Controller.connection = null;
             Controller.clear();

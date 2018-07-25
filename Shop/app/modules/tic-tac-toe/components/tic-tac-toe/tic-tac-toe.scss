@@ -1,0 +1,235 @@
+﻿.page.tic-tac-toe-page {
+    overflow: hidden;
+}
+
+.search-status {
+    box-sizing: border-box;
+    padding-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.winner {
+    box-sizing: border-box;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+.game {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.game > .container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto
+}
+
+.users .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.users .user {
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.turn-indicator {
+    text-align: center;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.board {}
+
+.board > .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.board .row {
+    display: flex;
+    flex-direction: row;
+}
+
+.board .cell {
+    width: 50px;
+    height: 50px;
+    border-top: solid 1px darkgray;
+    border-left: solid 1px darkgray;
+    cursor: pointer;
+}
+
+.board .cell.cell-mine {
+    background-color: teal;
+}
+
+.board .cell.cell-enemy {
+    background-color: tomato;
+}
+
+.board .cell:not(.cell-enemy):not(.cell-mine):hover {
+    background-color: blanchedalmond;
+}
+
+.board .cell:not(.cell-enemy):not(.cell-mine).current {
+    background-color: blanchedalmond;
+}
+
+.board .row:last-child .cell {
+    border-bottom: solid 1px darkgray;
+}
+
+.board .row .cell:last-child {
+    border-right: solid 1px darkgray;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.page.tic-tac-toe-page .quest {
+    position: relative;
+    width: 100%;
+    transform: none;
+    left: 0;
+}
+
+.page.tic-tac-toe-page .quest .question > .container {
+    padding-top: 0;
+}
+
+.page.tic-tac-toe-page .answers > .container {
+    justify-content: center;
+}
+
+.page.tic-tac-toe-page .cell-wrong {
+    animation-name: blink-wrong;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+.page.tic-tac-toe-page .cell-enemy-wrong {
+    animation-name: blink-enemy-wrong;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes blink-wrong {
+    50% {
+        background-color: tomato;
+    }
+}
+
+@keyframes blink-enemy-wrong {
+    50% {
+        background-color: orange;
+    }
+}
+
+.page.tic-tac-toe-page .cell-winner {
+    animation-name: blink-winner;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes blink-winner {
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.disconnect-inicator-wrapper {
+    position: absolute;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.disconnect-inicator-back {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .5;
+}
+
+.disconnect-inicator {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: coral;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    box-sizing: border-box;
+    opacity: 0.9;
+    color: white;
+}
+
+.new-game-button {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 10px;
+    margin-top: 15px;
+    color: white;
+    background-color: darkcyan;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.new-game-button:hover {
+    background-color: cadetblue;
+}
+
+.new-game-button:active {
+    background-color: darkslategrey;
+}
+
+.end-inicator-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.end-inicator {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: coral;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    box-sizing: border-box;
+    opacity: 1;
+    color: white;
+}
+
+.end-inicator.won {
+    background-color: forestgreen;
+}
+
+.end-inicator.draw {
+    background-color: orange;
+}
+
+.end-inicator-back {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .5;
+}

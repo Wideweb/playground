@@ -13,6 +13,9 @@ using System;
 using System.Threading.Tasks;
 using Shop.Data.Models;
 using Shop.Hubs;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace Shop
 {
@@ -76,6 +79,7 @@ namespace Shop
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IDataAcessService<Word>, DictionaryAccess>();
+            services.AddTransient<TrainingService, TrainingService>();
 
             services.AddMvc();
 
@@ -83,8 +87,10 @@ namespace Shop
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddNLog();
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -104,6 +110,7 @@ namespace Shop
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chatHub");
+                routes.MapHub<TicTacToeHub>("/ticTacToeHub");
             });
 
             app.UseMvc();

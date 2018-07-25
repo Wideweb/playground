@@ -22,7 +22,7 @@ namespace Shop.Controllers
 
         public DictionaryController(
             UserManager<ApplicationUser> userManager,
-            ILogger<ManageController> logger,
+            ILogger<DictionaryController> logger,
             IDataAcessService<Word> dictionary)
         {
             _userManager = userManager;
