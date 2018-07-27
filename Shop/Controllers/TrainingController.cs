@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,12 @@ namespace Shop.Controllers
         public async Task<IActionResult> Get()
         {
             return Ok(_trainingService.GenerateSession(10));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] IList<TrainingResultItemView> result)
+        {
+            return Ok();
         }
     }
 }

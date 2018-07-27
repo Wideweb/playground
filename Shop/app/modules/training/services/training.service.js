@@ -1,4 +1,14 @@
-﻿/**********************************************************************************************
+﻿const STUDY_LEVEL_CLASS_MAP = {
+    0: '',
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four'
+}
+
+const STUDY_LEVEL_MAX = 4;
+
+/**********************************************************************************************
  * Training Item Model
 **********************************************************************************************/
 class Model {
@@ -9,12 +19,25 @@ class Model {
     constructor(
         /* Object */ data
     ) {
+        this.id = data.dictionaryItem.id;
         this.word = data.dictionaryItem.term;
         this.answer = data.dictionaryItem.translation;
         this.options = data.options;
+        this.studyLevel = data.studyLevel;
+
+        this.studyLevelClass = this.studyLevel > STUDY_LEVEL_MAX
+            ? STUDY_LEVEL_CLASS_MAP[STUDY_LEVEL_MAX]
+            : STUDY_LEVEL_CLASS_MAP[this.studyLevel];
 
         this.isAnswered = false;
         this.isCorrect = undefined;
+    }
+
+    serialize() {
+        return {
+            dictionaryItemId: this.id,
+            isCorrect: this.isCorrect
+        }
     }
 }
 
@@ -116,5 +139,13 @@ export default class {
 
     next() {
         !this.finish ? Controller.index++ : void 0;
+    }
+
+    /******************************************************************************************
+     Save training results
+     ******************************************************************************************/
+    save() {
+        return this.proxy
+            .call('SaveTraining', {}, this.list.map(item => item.serialize()));
     }
 }

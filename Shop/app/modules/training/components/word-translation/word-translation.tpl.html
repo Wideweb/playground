@@ -3,6 +3,10 @@
         <ul ng-if="!$ctrl.training.finish" class="quest">
             <li class="question">
                 <ul class="container">
+                    <li class="study-level">
+                        <div class="study-level-overlay"></div>
+                        <div class="study-level-icon {{ $ctrl.training.current.studyLevelClass }}"></div>
+                    </li>
                     <li class="hint" ng-click="$ctrl.hint()">?</li>
                     <li class="image"></li>
                     <li class="word">{{ $ctrl.training.current.word }}</li>

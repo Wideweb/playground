@@ -7,5 +7,9 @@ namespace Shop.Models
         public DictionaryItemView DictionaryItem { get; set; }
 
         public List<string> Options { get; set; }
+
+        public bool IsCorrect { get; set; }
+
+        public long StudyLevel { get; set; }
     }
 }

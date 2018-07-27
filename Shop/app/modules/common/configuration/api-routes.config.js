@@ -47,4 +47,8 @@ export const API_ROUTES = {
         url: API_ENDPOINT + '/api/Training',
         options: { method: 'GET' }
     },
+    SaveTraining: {
+        url: API_ENDPOINT + '/api/Training',
+        options: { method: 'POST' }
+    },
 };

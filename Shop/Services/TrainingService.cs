@@ -22,7 +22,7 @@ namespace Shop.Services
             words.Shuffle();
             var training = new List<TrainingItemView>();
             var trainingCapacity = words.Count < capacity ? words.Count : capacity;
-            var trainingItems = words.Take(trainingCapacity);
+            var trainingItems = words.Take(trainingCapacity).ToList();
 
             foreach(var trainingItem in trainingItems)
             {
@@ -38,7 +38,8 @@ namespace Shop.Services
                 training.Add(new TrainingItemView
                 {
                     DictionaryItem = trainingItem,
-                    Options = options
+                    Options = options,
+                    StudyLevel = 0
                 });
             }
 

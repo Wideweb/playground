@@ -30,6 +30,7 @@
         this.$timeout(() => {
             this.training.next();
             this.wait = false;
-        }, 1000);
+            this.training.finish && this.training.save();
+        }, 500);
     }
 }
