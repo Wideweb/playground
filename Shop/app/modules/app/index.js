@@ -9,6 +9,7 @@ import AUTH_MODULE from '../auth';
 import TRAINING_MODULE from '../training';
 import DICTIONARY_MODULE from '../dictionary';
 import TIC_TAC_TOE_MODULE from '../tic-tac-toe';
+import PHYSICS_MODULE from '../physics';
 
 import { appState, homeState } from './states';
 
@@ -26,7 +27,8 @@ const ngModule = angular
         AUTH_MODULE.name,
         TRAINING_MODULE.name,
         DICTIONARY_MODULE.name,
-        TIC_TAC_TOE_MODULE.name
+        TIC_TAC_TOE_MODULE.name,
+        PHYSICS_MODULE.name
     ])
 
     .component('layout', layoutComponent)
