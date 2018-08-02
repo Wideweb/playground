@@ -20,10 +20,14 @@
     <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.tpl.html" />
     <None Remove="app\modules\dictionary\index.js" />
     <None Remove="app\modules\dictionary\states.js" />
+    <None Remove="app\modules\physics\arm.js" />
+    <None Remove="app\modules\physics\ball.js" />
+    <None Remove="app\modules\physics\chain-screen.js" />
     <None Remove="app\modules\physics\components\chain\chain.component.js" />
     <None Remove="app\modules\physics\components\chain\chain.ctrl.js" />
     <None Remove="app\modules\physics\components\chain\chain.scss" />
     <None Remove="app\modules\physics\components\chain\chain.tpl.html" />
+    <None Remove="app\modules\physics\screen.js" />
     <None Remove="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.component.js" />
     <None Remove="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.ctrl.js" />
     <None Remove="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.scss" />
@@ -98,6 +102,9 @@
     <Content Include="app\modules\dictionary\states.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="app\modules\physics\ball.js" />
+    <Content Include="app\modules\physics\arm.js" />
+    <Content Include="app\modules\physics\chain-screen.js" />
     <Content Include="app\modules\tic-tac-toe\components\tic-tac-toe\tic-tac-toe.component.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -236,6 +243,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Data\Repository\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\modules\physics\screen.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="nlog.config">
