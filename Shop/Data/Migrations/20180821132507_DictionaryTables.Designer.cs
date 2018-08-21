@@ -10,7 +10,7 @@ using Shop.Data;
 namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180719081234_DictionaryTables")]
+    [Migration("20180821132507_DictionaryTables")]
     partial class DictionaryTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,6 +154,8 @@ namespace Shop.Data.Migrations
                     b.Property<int>("Language");
 
                     b.Property<string>("Text");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 

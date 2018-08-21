@@ -25,6 +25,7 @@ namespace Shop.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true),
                     Text = table.Column<string>(nullable: true),
                     Language = table.Column<int>(nullable: false)
                 },
@@ -51,7 +52,7 @@ namespace Shop.Data.Migrations
                         column: x => x.WordId,
                         principalTable: "Words",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetDefault);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
