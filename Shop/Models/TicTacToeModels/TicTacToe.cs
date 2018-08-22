@@ -6,30 +6,28 @@ namespace Shop.Models.TicTacToeModels
 {
     public class TicTacToe
     {
-        private Guid _rid;
         private bool _turn;
         private string _firstPlayer;
         private string _secondPlayer;
-        private string _disconnectedPlayer;
         private string[] _map;
         private string _winner;
         private int[] _path;
 
-        public Guid Rid => _rid;
+        public Guid Rid { get; }
         public bool IsReady => !string.IsNullOrEmpty(_firstPlayer) && !string.IsNullOrEmpty(_secondPlayer);
         public bool IsEmpty => string.IsNullOrEmpty(_firstPlayer) && string.IsNullOrEmpty(_secondPlayer);
         public IEnumerable<string> Players => new List<string>() { _firstPlayer, _secondPlayer }.Where(item => !string.IsNullOrEmpty(item));
         public bool Started { get; set; }
         public List<TrainingItemView> Questions { get; set; }
-        public string DisconnectedPlayer => _disconnectedPlayer;
+        public string DisconnectedPlayer { get; private set; }
 
         public TicTacToe(Guid rid)
         {
-            _rid = rid;
+            Rid = rid;
             _turn = true;
             _firstPlayer = null;
             _secondPlayer = null;
-            _disconnectedPlayer = null;
+            DisconnectedPlayer = null;
             _winner = null;
             _map = new string[9];
         }
@@ -55,13 +53,13 @@ namespace Shop.Models.TicTacToeModels
         {
             if (_firstPlayer == name)
             {
-                _disconnectedPlayer = _firstPlayer;
+                DisconnectedPlayer = _firstPlayer;
                 _firstPlayer = null;
             }
 
             if (_secondPlayer == name)
             {
-                _disconnectedPlayer = _secondPlayer;
+                DisconnectedPlayer = _secondPlayer;
                 _secondPlayer = null;
             }
         }
@@ -147,7 +145,7 @@ namespace Shop.Models.TicTacToeModels
         {
             return new TicTacToeViewModel
             {
-                Rid = _rid,
+                Rid = Rid,
                 FirstPlayer = _firstPlayer,
                 SecondPlayer = _secondPlayer,
                 Map = _map,

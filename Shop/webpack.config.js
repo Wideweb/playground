@@ -3,8 +3,11 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const bundleFolder = "wwwroot";
+const resourceFolder = path.resolve(`${__dirname}/app/resources`);
+const distFolder = path.resolve(`${__dirname}/${bundleFolder}`);
 
 const defaultEnvironment = 'development';
 const environment = (process.env.NODE_ENV || defaultEnvironment).toLowerCase();
@@ -25,7 +28,13 @@ const plugins = [
     new ExtractTextPlugin('styles.[chunkhash].css'),
     new webpack.EnvironmentPlugin({
         PRODUCTION: !DEV
-    })
+    }),
+    new CopyWebpackPlugin([
+        {
+            from: `${resourceFolder}/fonts`,
+            to: `${distFolder}/fonts`,
+        },
+    ], {}),
 ];
 
 if (!DEV) {
