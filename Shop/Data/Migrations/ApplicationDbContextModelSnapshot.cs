@@ -153,6 +153,8 @@ namespace Shop.Data.Migrations
 
                     b.Property<string>("Text");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
                     b.ToTable("Words");

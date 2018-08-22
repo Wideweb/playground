@@ -20,10 +20,11 @@ namespace Shop.Extensions
             return item;
         }
 
-        public static Word ToWord(this DictionaryItemView item)
+        public static Word ToWordWithId(this DictionaryItemView item, string userId)
         {
             var word = new Word();
             word.Text = item.Term;
+            word.UserId = userId;
 
             var translation = new Translation
             {

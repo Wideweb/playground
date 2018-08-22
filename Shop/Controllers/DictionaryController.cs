@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Models;
 using System.Linq;
+using System.Security.Claims;
 using Shop.Data.Models;
 using Shop.Extensions;
 using Shop.Services;
@@ -33,7 +34,8 @@ namespace Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var values = _dictionary.GetAll().Select(it => it.ToDictionaryItemView());
+            var userId = _userManager.GetUserId(User);
+            var values = _dictionary.GetAll().Where(it => it.UserId == userId).Select(it => it.ToDictionaryItemView());
             return Ok(values);
         }
 
@@ -42,7 +44,8 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dictionary.Save(item.ToWord());
+                var userId = _userManager.GetUserId(User);
+                _dictionary.Save(item.ToWordWithId(userId));
                 return Ok();
             }
 
