@@ -23,6 +23,8 @@
         this.chat = chat;
 
         this.chat.connect();
+
+        this.collapsed = true;
     }
 
     logout() {

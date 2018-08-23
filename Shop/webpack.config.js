@@ -69,7 +69,12 @@ module.exports = {
                 test: /\.html$/,
                 loader: 'raw-loader',
                 exclude: /node_modules/
-            }
+            },
+            {
+                test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+                exclude: /(img)/,
+                loader: 'file-loader?name=/fonts/[name].[ext]',
+            },
         ]
     },
     plugins: plugins,

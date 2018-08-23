@@ -1,14 +1,13 @@
 ﻿<header>
-    <ul class="container navigation desktop">
-        <li><a ui-sref="home">H</a></li>
-        <li><a ui-sref="wordTranslation">C</a></li>
-        <li><a ui-sref="userDictionary">D</a></li>
-        <li><a ui-sref="ticTacToe">T</a></li>
-        <li><a ui-sref="chain">P</a></li>
-    </ul>
-    <div class="container navigation mobile">
-        <i class="fas fa-bars"></i>
+    <div class="container navigation-toggler" ng-click="$ctrl.collapsed = !$ctrl.collapsed">
+        <i class="bars-ico"></i>
     </div>
+    <ul class="container navigation" ng-class="{'collapsed': $ctrl.collapsed}" ng-click="$ctrl.collapsed = !$ctrl.collapsed">
+        <li><a ui-sref="home">Home</a></li>
+        <li><a ui-sref="wordTranslation">Cards</a></li>
+        <li><a ui-sref="userDictionary">Dictionary</a></li>
+        <li><a ui-sref="ticTacToe">Tic-Tac-Toe</a></li>
+    </ul>
     <ul class="container">
         <li><a href="javascript:void(0);" ng-click="$ctrl.logout()">{{ $ctrl.me.name }}</a></li>
     </ul>

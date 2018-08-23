@@ -19,6 +19,7 @@ header .container > li {
 header .container > li a {
     display: inline-block;
     height: 100%;
+    width: 100%;
     padding: 20px 10px;
     box-sizing: border-box;
     text-decoration: none;
@@ -85,14 +86,28 @@ footer .copy-right {
     background-color: white;
 }
 
-@media only screen and (max-width: 767px) {
-    .desktop {
-        display: none !important;
+@media only screen and (min-width: 768px) {
+    header .container.navigation-toggler {
+        display: none;
     }
 }
 
-@media only screen and (min-width: 768px) {
-    .mobile {
-        display: none !important;
+@media only screen and (max-width: 767px) {
+    header .navigation {
+        position: absolute;
+        flex-direction: column;
+        z-index: 1000;
+        background-color: cadetblue;
+        top: 55px;
+        left: 0;
+        width: 100%;
+    }
+
+    header .navigation > li {
+        width: 100%;
+    }
+
+    header .navigation.collapsed {
+        display: none;
     }
 }
