@@ -10,13 +10,12 @@ import TRAINING_MODULE from '../training';
 import DICTIONARY_MODULE from '../dictionary';
 import TIC_TAC_TOE_MODULE from '../tic-tac-toe';
 import PHYSICS_MODULE from '../physics';
+import CHAT_MODULE from '../chat';
 
 import { appState, homeState } from './states';
 
 import layoutComponent from './components/layout/layout.component';
 import homeComponent from './components/home/home.component';
-
-import chatService from './services/chat.service';
 
 const ngModule = angular
     .module('app', [
@@ -28,13 +27,12 @@ const ngModule = angular
         TRAINING_MODULE.name,
         DICTIONARY_MODULE.name,
         TIC_TAC_TOE_MODULE.name,
-        PHYSICS_MODULE.name
+        PHYSICS_MODULE.name,
+        CHAT_MODULE.name
     ])
 
     .component('layout', layoutComponent)
     .component('home', homeComponent)
-
-    .service('chatService', chatService)
 
     .config(['$stateProvider', $stateProvider => {
         $stateProvider

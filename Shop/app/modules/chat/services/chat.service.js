@@ -318,4 +318,8 @@ export default class {
             })
             .then(() => this.$q.resolve());
     }
+
+    resetCurrent() {
+        Controller.current = null;
+    }
 }

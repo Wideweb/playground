@@ -10,6 +10,16 @@
     <None Remove="app\index.html" />
     <None Remove="app\index.js" />
     <None Remove="app\index.scss" />
+    <None Remove="app\modules\chat\components\channel-list\channel-list.component.js" />
+    <None Remove="app\modules\chat\components\channel-list\channel-list.ctrl.js" />
+    <None Remove="app\modules\chat\components\channel-list\channel-list.scss" />
+    <None Remove="app\modules\chat\components\channel-list\channel-list.tpl.html" />
+    <None Remove="app\modules\chat\components\channel\channel.component.js" />
+    <None Remove="app\modules\chat\components\channel\channel.ctrl.js" />
+    <None Remove="app\modules\chat\components\channel\channel.scss" />
+    <None Remove="app\modules\chat\components\channel\channel.tpl.html" />
+    <None Remove="app\modules\chat\index.js" />
+    <None Remove="app\modules\chat\states.js" />
     <None Remove="app\modules\app\components\home\home.component.js" />
     <None Remove="app\modules\app\components\home\home.ctrl.js" />
     <None Remove="app\modules\app\components\home\home.scss" />
@@ -70,6 +80,36 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="app\index.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\components\channel\channel.component.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\components\channel\channel.ctrl.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\components\channel\channel.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\components\channel\channel.tpl.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\components\channel-list\channel-list.component.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\components\channel-list\channel-list.ctrl.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\components\channel-list\channel-list.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\components\channel-list\channel-list.tpl.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\index.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\chat\states.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="app\modules\app\components\home\home.component.js">

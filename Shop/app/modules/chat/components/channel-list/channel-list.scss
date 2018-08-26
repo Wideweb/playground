@@ -1,0 +1,124 @@
+﻿.page.channels-page {
+    display: flex;
+    flex-direction: row;
+}
+
+.aside {
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    background-color: beige;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.aside .title {
+    font-size: 15px;
+    color: gray;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+.aside-list + .title {
+    padding-top: 30px;
+}
+
+.aside-list li {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.aside-list li:hover {
+    background-color: blanchedalmond;
+}
+
+.aside-list li + li {
+    border-top: 2px solid white;
+}
+
+@media only screen and (min-width: 768px) {
+    .page.channels-page.moblie {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page.channels-page.desktop {
+        display: none;
+    }
+}
+
+.page.channels-page.moblie {
+    .contacts {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+
+    .section + .section {
+        margin-top: 10px;
+    }
+
+    .section-title {
+        padding: 10px 0 0 10px;
+        font-size: 15px;
+        line-height: normal;
+    }
+
+    .section-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .row {
+        padding: 10px;
+    }
+
+    .row + .row {
+        border-top: solid 1px lightgray;
+    }
+
+    .user, .channel {
+        cursor: pointer;
+        font-size: 15px;
+        line-height: normal;
+
+        &:hover {
+            background-color: aliceblue;
+        }
+
+        & > .container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .id {
+            text-overflow: ellipsis;
+            overflow-x: hidden;
+        }
+    }
+
+    .avatar {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        min-height: 40px;
+        display: inline-block;
+        background-color: gray;
+        border-radius: 50%;
+        margin-right: 10px
+    }
+}
+
+.unread {
+    font-weight: bold;
+}

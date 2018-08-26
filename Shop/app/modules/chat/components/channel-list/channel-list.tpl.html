@@ -1,0 +1,46 @@
+﻿<div class="page channels-page desktop">
+    <div class="aside">
+        <div class="title">Channels</div>
+        <ul class="aside-list">
+            <li ng-click="$ctrl.selectChannel(channel.id)" ng-class="{'unread': channel.unreadNumber > 0 }" class="channel" ng-repeat="channel in $ctrl.chat.channels" title="{{ channel.id }}">#{{ channel.id }}<span ng-show="channel.unreadNumber > 0">&nbsp({{channel.unreadNumber}})</span></li>
+        </ul>
+        <div class="title">Users</div>
+        <ul class="aside-list">
+            <li ng-click="$ctrl.selectUser(user.id)" ng-class="{'unread': user.unreadNumber > 0 }" class="user" ng-repeat="user in $ctrl.chat.users" title="{{ user.id }}">{{ user.id }}<span ng-show="user.unreadNumber > 0">&nbsp({{user.unreadNumber}})</span></li>
+        </ul>
+    </div>
+    <div class="flexible" ng-if="$ctrl.chat.id">
+        <ui-view></ui-view>
+    </div>
+</div>
+<div class="page channels-page moblie">
+    <ul class="contacts" ng-hide="$ctrl.chat.id">
+        <li class="section">
+            <div class="section-title">Channels</div>
+            <ul class="section-content">
+                <li ng-click="$ctrl.selectChannel(channel.id)" ng-class="{'unread': channel.unreadNumber > 0 }" class="row channel" ng-repeat="channel in $ctrl.chat.channels" title="{{ channel.id }}">
+                    <ul class="container">
+                        <li class="avatar"></li>
+                        <li class="id">#{{ channel.id }}</li>
+                        <li class="unread-number" ng-show="channel.unreadNumber > 0">&nbsp({{channel.unreadNumber}})</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="section">
+            <div class="section-title">Users</div>
+            <ul class="section-content">
+                <li ng-click="$ctrl.selectUser(user.id)" ng-class="{'unread': user.unreadNumber > 0 }" class="row user" ng-repeat="user in $ctrl.chat.users" title="{{ user.id }}">
+                    <ul class="container">
+                        <li class="avatar"></li>
+                        <li class="id">#{{ user.id }}</li>
+                        <li class="unread-number" ng-show="user.unreadNumber > 0">&nbsp({{user.unreadNumber}})</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="flexible" ng-if="$ctrl.chat.id">
+        <ui-view></ui-view>
+    </div>
+</div>
