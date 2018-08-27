@@ -2,6 +2,7 @@
 import angularLocalStorage from 'angular-local-storage';
 
 import equalToDirective from './directives/equalTo';
+import fileSelectDirective from './directives/file-select';
 
 import apiRouterService from './services/api-router.service';
 import httpProxyService from './services/http-proxy.service';
@@ -20,6 +21,7 @@ const ngModule = angular
     .service('storageService', storageService)
     .service('spinnerService', spinnerService)
 
-    .directive('equalTo', equalToDirective);
+    .directive('equalTo', equalToDirective)
+    .directive('fileSelect', fileSelectDirective);
 
 export default ngModule;
