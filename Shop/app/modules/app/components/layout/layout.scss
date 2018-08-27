@@ -1,40 +1,42 @@
-﻿header {
+﻿@import '../../../../funcs.scss';
+
+header {
     display: flex;
     justify-content: space-between;
     height: 55px;
     box-sizing: border-box;
     padding: 0 20px;
     background-color: darkcyan;
-}
 
-header .container {
-    display: flex;
-    align-items: center;
-}
+    .container {
+        display: flex;
+        align-items: center;
+    }
 
-header .container > li {
-    height: 100%;
-}
+    .container > li {
+        height: 100%;
+    }
 
-header .container > li a {
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    padding: 20px 10px;
-    box-sizing: border-box;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    font-family: Arial;
-}
+    .container > li a {
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        padding: 20px 10px;
+        box-sizing: border-box;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        font-family: Arial;
+    }
 
-header .container > li a:hover {
-    background-color: cadetblue;
-}
+    .container > li a:hover {
+        background-color: cadetblue;
+    }
 
-header .container > li a:active {
-    background-color: darkslategrey;
+    .container > li a:active {
+        background-color: darkslategrey;
+    }
 }
 
 main {
@@ -43,12 +45,12 @@ main {
     width: 100%;
     height: calc(100vh - 55px - 75px);
     box-sizing: border-box;
-}
 
-main > .container {
-    height: 100%;
-    position: relative;
-    overflow: hidden;
+    & > .container {
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
 }
 
 footer {
@@ -57,57 +59,26 @@ footer {
     box-sizing: border-box;
     background-color: darkslategray;
     color: white;
+
+    & > .container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 5px;
+    }
+
+    .copy-right {
+        text-align: center;
+    }
 }
 
-footer > .container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 5px;
-}
-
-footer .copy-right {
-    text-align: center;
-}
-
-.spinner {
-    top: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-}
-
-.spinner > .container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-}
-
-@media only screen and (min-width: 768px) {
+@include desktop {
     header .container.navigation-toggler {
         display: none;
     }
 }
 
-@media only screen and (max-width: 767px) {
-    header .navigation {
-        position: absolute;
-        flex-direction: column;
-        z-index: 1000;
-        background-color: cadetblue;
-        top: 55px;
-        left: 0;
-        width: 100%;
-    }
-
-    header .navigation > li {
-        width: 100%;
-    }
-
-    header .navigation.collapsed {
-        display: none;
-    }
+@include phone {
+    @import './layout.phone.scss';
 }

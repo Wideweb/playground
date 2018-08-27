@@ -1,26 +1,31 @@
 ﻿<div class="chat" ng-if="$ctrl.chat.id">
-    <div class="to">#{{ $ctrl.chat.id }}</div>
-    <ul class="message-list flexible">
-        <li ng-class="{ 'mine': message.isMine, 'private': $ctrl.chat.isPrivate }" ng-repeat="message in $ctrl.chat.messages" class="message">
-            <ul class="container">
-                <li class="message-from-wrapper"><a class="message-from">{{ message.from }}</a></li>
-                <li><p class="message-text">{{ message.text }}</p></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="heading">
+        <i class="undo-ico back-btn" ng-click="$ctrl.back()"></i>
+        <div class="to">#{{ $ctrl.chat.id }}</div>
+    </div>
+    <div class="message-list flexible">
+        <ul class="container">
+            <li ng-class="{ 'mine': message.isMine, 'private': $ctrl.chat.isPrivate }" ng-repeat="message in $ctrl.chat.messages" class="message">
+                <ul class="container">
+                    <li class="message-from-wrapper"><a class="message-from">{{ message.from }}</a></li>
+                    <li><p class="message-text">{{ message.text }}</p></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
     <form class="message-form" name="$ctrl.form" ng-submit="$ctrl.sendMessage()" novalidate autocomplete="off">
         <div class="form-group">
-            <div class="input-wrapper">
+            <div class="input-wrapper input-group">
                 <input name="message"
                        type="text"
                        ng-model="$ctrl.message"
                        required
                        class="form-control"
                        placeholder="Message" />
+                <div class="input-group-addon">
+                    <button type="submit" class="btn btn-full" ng-disabled="!$ctrl.canSendMessage()"><i class="compass-ico"></i></button>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-full" ng-disabled="!$ctrl.canSendMessage()">Send</button>
         </div>
     </form>
 </div>

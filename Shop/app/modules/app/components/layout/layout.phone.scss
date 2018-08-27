@@ -1,0 +1,19 @@
+﻿header {
+    .navigation {
+        position: absolute;
+        flex-direction: column;
+        z-index: 1000;
+        background-color: cadetblue;
+        top: 55px;
+        left: 0;
+        width: 100%;
+    }
+
+    .navigation > li {
+        width: 100%;
+    }
+
+    .navigation.collapsed {
+        display: none;
+    }
+}

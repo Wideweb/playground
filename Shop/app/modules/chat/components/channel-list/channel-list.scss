@@ -1,4 +1,6 @@
-﻿.page.channels-page {
+﻿@import '../../../../funcs.scss';
+
+.page.channels-page {
     display: flex;
     flex-direction: row;
 }

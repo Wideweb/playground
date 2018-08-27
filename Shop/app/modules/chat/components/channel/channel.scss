@@ -1,4 +1,6 @@
-﻿.message-form {
+﻿@import '../../../../funcs.scss';
+
+.message-form {
     padding: 20px;
 }
 
@@ -97,8 +99,27 @@
 }
 
 .chat .to {
-    box-sizing: border-box;
-    padding: 10px 20px;
     color: dimgray;
-    border-bottom: solid 1px darkgray
+}
+
+.chat .heading {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    border-bottom: solid 1px darkgray;
+}
+
+@include desktop {
+    .chat .heading .back-btn {
+        display: none;
+    }
+
+    .chat .to {
+        padding: 15px 20px;
+    }
+}
+
+@include phone {
+    @import './channel.phone.scss';
 }

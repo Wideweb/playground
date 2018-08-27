@@ -38,6 +38,10 @@
         return !!this.chat.id && !this.sending
     }
 
+    back() {
+        this.$state.go('channels');
+    }
+
     $onDestroy() {
         this.chat.resetCurrent();
     }

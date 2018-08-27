@@ -1,0 +1,11 @@
+﻿.chat .heading {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    border-bottom: solid 1px darkgray;
+
+    .back-btn {
+        padding: 10px;
+    }
+}

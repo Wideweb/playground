@@ -5,111 +5,156 @@
     transform: translateX(-50%);
     box-sizing: border-box;
     padding: 30px 0 10px 0;
+
+    .question {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+        background-color: beige;
+    }
+
+    .question > .container {
+        position: relative;
+        padding-top: 100px;
+        padding-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .question .hint {
+        width: 15px;
+        height: 15px;
+        background-color: cornflowerblue;
+        text-align: center;
+        border-radius: 50%;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 12px;
+        color: white;
+        box-sizing: border-box;
+        padding: 2px 0 1px 0;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .question .image {
+        width: 90px;
+        height: 90px;
+        border: solid lightgray 1px;
+        border-radius: 3px;
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+    }
+
+    .question .word {
+        text-align: center;
+        box-sizing: border-box;
+        font-size: 18px;
+        padding-top: 15px;
+    }
+
+    .question .description {
+        text-align: center;
+        box-sizing: border-box;
+        color: blueviolet;
+        font-size: 13px;
+        font-weight: bold;
+        padding-top: 15px;
+    }
+
+    .question .answer {
+        text-align: center;
+        box-sizing: border-box;
+        color: darkgreen;
+        font-size: 13px;
+        font-weight: bold;
+        padding-top: 15px;
+    }
+
+    .question .answer.wrong {
+        color: brown;
+    }
+
+    .answers > .container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .answers > .container > li {
+        background-color: beige;
+        padding: 10px;
+        border-radius: 2px;
+        box-sizing: border-box;
+        margin: 10px 10px 0 0;
+        cursor: pointer;
+    }
+
+    &.previous {
+        animation-name: previous-quest;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+
+    &.next {
+        animation-name: next-quest;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+
+    .study-level {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+    .study-level-icon {
+        position: relative;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 2px solid white;
+        background-color: white;
+    }
+
+    .study-level-overlay {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        width: 24px;
+        height: 24px;
+        background: darkcyan;
+        border-radius: 50%;
+    }
+
+    .study-level-icon.one {
+        background-color: darkcyan;
+        background-image: linear-gradient(180deg, transparent 50%, white 50%), linear-gradient(90deg, white 50%, transparent 50%);
+    }
+
+    .study-level-icon.two {
+        background-color: darkcyan;
+        background-image: linear-gradient(90deg, white 50%, transparent 50%);
+    }
+
+    .study-level-icon.three {
+        background-color: darkcyan;
+        background-image: linear-gradient(180deg, transparent 50%, darkcyan 50%), linear-gradient(90deg, white 50%, transparent 50%);
+    }
+
+    .study-level-icon.four {
+        background-color: darkcyan;
+        background-image: none;
+    }
 }
 
 @media only screen and (max-width: 330px) {
     .quest {
         width: 90%;
     }
-}
-
-.quest .question {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-    background-color: beige;
-}
-
-.quest .question > .container {
-    position: relative;
-    padding-top: 100px;
-    padding-bottom: 20px;
-    box-sizing: border-box;
-}
-
-.quest .question .hint {
-    width: 15px;
-    height: 15px;
-    background-color: cornflowerblue;
-    text-align: center;
-    border-radius: 50%;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 12px;
-    color: white;
-    box-sizing: border-box;
-    padding: 2px 0 1px 0;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.quest .question .image {
-    width: 90px;
-    height: 90px;
-    border: solid lightgray 1px;
-    border-radius: 3px;
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
-}
-
-.quest .question .word {
-    text-align: center;
-    box-sizing: border-box;
-    font-size: 18px;
-    padding-top: 15px;
-}
-
-.quest .question .description {
-    text-align: center;
-    box-sizing: border-box;
-    color: blueviolet;
-    font-size: 13px;
-    font-weight: bold;
-    padding-top: 15px;
-}
-
-.quest .question .answer {
-    text-align: center;
-    box-sizing: border-box;
-    color: darkgreen;
-    font-size: 13px;
-    font-weight: bold;
-    padding-top: 15px;
-}
-
-.quest .question .answer.wrong {
-    color: brown;
-}
-
-.quest .answers > .container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.quest .answers > .container > li {
-    background-color: beige;
-    padding: 10px;
-    border-radius: 2px;
-    box-sizing: border-box;
-    margin: 10px 10px 0 0;
-    cursor: pointer;
-}
-
-.quest.previous {
-    animation-name: previous-quest;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-}
-
-.quest.next {
-    animation-name: next-quest;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
 }
 
 
@@ -133,49 +178,4 @@
     100% {
         left: 50%;
     }
-}
-
-.quest .study-level {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-.quest .study-level-icon {
-    position: relative;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    border: 2px solid white;
-    background-color: white;
-}
-
-.quest .study-level-overlay {
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    width: 24px;
-    height: 24px;
-    background: darkcyan;
-    border-radius: 50%;
-}
-
-.quest .study-level-icon.one {
-    background-color: darkcyan;
-    background-image: linear-gradient(180deg, transparent 50%, white 50%), linear-gradient(90deg, white 50%, transparent 50%);
-}
-
-.quest .study-level-icon.two {
-    background-color: darkcyan;
-    background-image: linear-gradient(90deg, white 50%, transparent 50%);
-}
-
-.quest .study-level-icon.three {
-    background-color: darkcyan;
-    background-image: linear-gradient(180deg, transparent 50%, darkcyan 50%), linear-gradient(90deg, white 50%, transparent 50%);
-}
-
-.quest .study-level-icon.four {
-    background-color: darkcyan;
-    background-image: none;
 }

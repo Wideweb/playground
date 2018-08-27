@@ -1,0 +1,16 @@
+﻿/************************************************
+    MEDIA
+ ************************************************/
+$breakpoint-phone: 768px;
+
+@mixin phone {
+    @media (max-width: #{$breakpoint-phone - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: #{$breakpoint-phone}) {
+        @content;
+    }
+}
