@@ -5,7 +5,8 @@
         template: `
             <div ng-hide="image"></div>
             <img ng-src="{{ image }}" />
-            <input type="file"> `,
+            <input type="file" name="file" id="file" class="inputfile">
+            <label for="file" class="btn">Choose a file</label>`,
         link: link
     };
 
