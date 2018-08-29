@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Models;
 using System.Linq;
-using System.Security.Claims;
 using Shop.Data.Models;
 using Shop.Extensions;
 using Shop.Services;
-using Shop.Utils;
+using Amazon.S3.Transfer;
+using System;
 
 namespace Shop.Controllers
 {
@@ -20,15 +20,18 @@ namespace Shop.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
         private readonly IDataAcessService<Word> _dictionary;
+        private readonly IFileManager _fileManager;
 
         public DictionaryController(
             UserManager<ApplicationUser> userManager,
             ILogger<DictionaryController> logger,
-            IDataAcessService<Word> dictionary)
+            IDataAcessService<Word> dictionary,
+            IFileManager fileManager)
         {
             _userManager = userManager;
             _logger = logger;
             _dictionary = dictionary;
+            _fileManager = fileManager;
         }
 
         [HttpGet]
@@ -46,6 +49,14 @@ namespace Shop.Controllers
             {
                 var userId = _userManager.GetUserId(User);
                 _dictionary.Save(item.ToWordWithId(userId));
+
+                if (!string.IsNullOrEmpty(item.Image))
+                {
+                    string image = item.Image.Split(',')[1];
+                    await _fileManager.Save(Convert.FromBase64String(image), "item", "dictionary");
+                    var file = await _fileManager.Get("item", "dictionary");
+                }
+                
                 return Ok();
             }
 

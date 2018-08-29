@@ -16,6 +16,7 @@ using Shop.Hubs;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using Amazon.S3;
 
 namespace Shop
 {
@@ -80,10 +81,14 @@ namespace Shop
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IDataAcessService<Word>, DictionaryAccess>();
             services.AddTransient<TrainingService, TrainingService>();
+            services.AddTransient<IFileManager, AmazonFileStorage>();
 
             services.AddMvc();
 
             services.AddSignalR();
+
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

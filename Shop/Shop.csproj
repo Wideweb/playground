@@ -269,6 +269,8 @@
     <Content Include="app\reset.css" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.6" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.21.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="1.0.2" />

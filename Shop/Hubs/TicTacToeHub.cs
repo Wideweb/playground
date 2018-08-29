@@ -57,7 +57,7 @@ namespace Shop.Hubs
             }
             catch (Exception e)
             {
-                _logger.LogWarning($"Failed to select slot | user:{name}, rid:{rid}, index:{index}, option:{option}, error:{e.Message}");
+                _logger.LogError($"Failed to select slot | user:{name}, rid:{rid}, index:{index}, option:{option}, error:{e.Message}");
                 foreach (var player in room.Players)
                 {
                     foreach (var connectionId in _connections.GetConnections(player))
