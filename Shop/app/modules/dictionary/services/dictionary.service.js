@@ -11,6 +11,7 @@ class Model {
     ) {
         this.id = data.id;
         this.term = data.term;
+        this.image = data.image;
         this.translation = data.translation;
     }
 
@@ -122,10 +123,11 @@ export default class {
      ******************************************************************************************/
     save(
         /* string */ term,
-        /* string */ translation
+        /* string */ translation,
+        /* base64*/ image
     ) {
         return this.proxy
-            .call('SaveDictionaryItem', {}, { term, translation })
+            .call('SaveDictionaryItem', {}, { term, translation, image })
             .then(() => this.load());
     }
 

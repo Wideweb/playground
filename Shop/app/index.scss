@@ -125,15 +125,15 @@ $ico_map: ( bars: "\e900", compass: "\e949", undo: "\e967", bin: "\e9ac" );
     left: 0px;
 }
 
-.form-group label {
-    display: inline-block;
-    font-size: 15px;
-    min-width: 100px;
-    color: black;
-    font-weight: normal;
-    font-size: 15px;
-    font-family: Arial;
-}
+//.form-group label {
+//    display: inline-block;
+//    font-size: 15px;
+//    min-width: 100px;
+//    color: black;
+//    font-weight: normal;
+//    font-size: 15px;
+//    font-family: Arial;
+//}
 
 .input-group {
     display: flex;
@@ -168,6 +168,14 @@ file-select {
     flex-direction: column;
 }
 
+file-select img {
+    max-height: 100px;
+    max-width: 100px;
+}
+file-select .controls {
+    margin-top: 5px;
+}
+
 .inputfile {
     width: 0.1px;
     height: 0.1px;
@@ -182,11 +190,6 @@ file-select {
     cursor: pointer;
 }
 
-.inputfile:focus + label,
-.inputfile + label:hover {
-    background-color: red;
-}
-
 /************************************************
     BUTTONS
  ************************************************/
@@ -199,6 +202,11 @@ file-select {
     font-weight: bold;
     font-size: 15px;
     font-family: Arial;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: cadetblue;
 }
 
 .btn-full {

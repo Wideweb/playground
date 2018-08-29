@@ -1,12 +1,18 @@
 ﻿function fileSelectDirective() {
     return {
         require: "ngModel",
-        scope: {},
+        scope: {
+            image: "=ngModel"
+        },
         template: `
-            <div ng-hide="image"></div>
-            <img ng-src="{{ image }}" />
-            <input type="file" name="file" id="file" class="inputfile">
-            <label for="file" class="btn">Choose a file</label>`,
+            <div class="image-placeholder" ng-hide="image"></div>
+            <img ng-show="image" ng-src="{{ image }}" />
+            <input type="file" id="file" class="inputfile">
+            <div class="controls">
+                <label ng-hide="image" for="file" class="btn">Pick Image</label>
+                <label ng-show="image" for="file" class= "btn">Pick new</label>
+                <button ng-show="image" type="button" class= "btn" ng-click="remove()">Remove</button>
+            </div>`,
         link: link
     };
 
@@ -17,9 +23,12 @@
 
             reader.onload = () => scope.$apply(() => scope.image = reader.result);
             reader.readAsDataURL(file);
-
-            ngModel.$modelValue = file;
         });
+
+        scope.remove = function () {
+            scope.image = null;
+            element.find('input').val('');
+        }
     }
 
 }

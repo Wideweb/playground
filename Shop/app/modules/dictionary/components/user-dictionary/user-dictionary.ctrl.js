@@ -20,6 +20,6 @@
             return;
         }
 
-        this.dictionary.save(this.term, this.translation).catch(() => this.error = "Error");
+        this.dictionary.save(this.term, this.translation, this.image).catch(() => this.error = "Error");
     }
 }

@@ -11,5 +11,7 @@ namespace Shop.Models
 
         [Required]
         public string Translation { get; set; }
+
+        public string Image { get; set; }
     }
 }

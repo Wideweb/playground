@@ -11,6 +11,10 @@
 
     .navigation > li {
         width: 100%;
+
+        & > a:hover {
+            background-color: slategrey;
+        }
     }
 
     .navigation.collapsed {
