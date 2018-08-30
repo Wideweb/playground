@@ -10,6 +10,7 @@ using Shop.Extensions;
 using Shop.Services;
 using Amazon.S3.Transfer;
 using System;
+using Shop.Utils;
 
 namespace Shop.Controllers
 {
@@ -48,14 +49,14 @@ namespace Shop.Controllers
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
-                _dictionary.Save(item.ToWordWithId(userId));
 
                 if (!string.IsNullOrEmpty(item.Image))
                 {
-                    string image = item.Image.Split(',')[1];
-                    await _fileManager.Save(Convert.FromBase64String(image), "item", "dictionary");
-                    var file = await _fileManager.Get("item", "dictionary");
+                    var imageId = await _fileManager.Save(FileConverter.FromBase64String(item.Image), Folder.Dictionary);
                 }
+
+                _dictionary.Save(item.ToWordWithId(userId));
+
                 
                 return Ok();
             }

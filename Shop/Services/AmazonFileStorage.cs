@@ -24,7 +24,7 @@ namespace Shop.Services
             _logger = logger;
         }
 
-        public async Task<string> Get(string fileName, string directory = null)
+        public async Task<string> Get(string directory, string fileName)
         {
             var request = new GetObjectRequest
             {
@@ -48,8 +48,10 @@ namespace Shop.Services
             }
         }
 
-        public async Task<bool> Save(byte[] file, string fileName, string directory = null)
+        public async Task<string> Save(byte[] file, string directory = null, string fileName = null)
         {
+            fileName = this.ResolveFileName(fileName);
+
             var utility = new TransferUtility(_s3Client);
             var request = new TransferUtilityUploadRequest
             {
@@ -61,13 +63,18 @@ namespace Shop.Services
             try
             {
                 await utility.UploadAsync(request);
-                return true;
+                return fileName;
             }
             catch (Exception e)
             {
                 _logger.LogError($"Failed to upload a file | fileName:{fileName}, directory:{directory}, bucketName:{bucketName}, error:{e.Message}");
-                return false;
+                return null;
             }
+        }
+
+        private string ResolveFileName(string fileName)
+        {
+            return string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() : fileName;
         }
 
         private string ResolveBucketName(string directory)
