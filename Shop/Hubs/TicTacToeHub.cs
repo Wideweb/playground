@@ -114,11 +114,11 @@ namespace Shop.Hubs
         private TicTacToe FindRoomForUser(string name)
         {
             _logger.LogTrace($"Search started game | user:{name}");
-            var openedRoom = _rooms.Values.FirstOrDefault(room => room.Started && room.DisconnectedPlayer == name);
+            var openedRoom = _rooms.Values.FirstOrDefault(room => room.IsStarted && !room.IsOver && room.DisconnectedPlayer == name);
             if (openedRoom == null)
             {
                 _logger.LogTrace($"Search new game | user:{name}");
-                openedRoom = _rooms.Values.FirstOrDefault(room => !room.IsReady && !room.Started);
+                openedRoom = _rooms.Values.FirstOrDefault(room => !room.IsReady && !room.IsStarted);
             }
             if (openedRoom == null)
             {
@@ -133,7 +133,7 @@ namespace Shop.Hubs
 
         private async void StartGame(TicTacToe room)
         {
-            if (!room.Started)
+            if (!room.IsStarted)
             {
                 room.Questions = _trainingService.GenerateSession(9);
                 _logger.LogTrace($"Start new game | rid:{room.Rid}");
@@ -151,7 +151,7 @@ namespace Shop.Hubs
                 }
             }
 
-            room.Started = true;
+            room.IsStarted = true;
             _logger.LogTrace($"Game started | rid:{room.Rid}");
         }
 

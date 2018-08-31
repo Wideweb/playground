@@ -16,8 +16,9 @@ namespace Shop.Models.TicTacToeModels
         public Guid Rid { get; }
         public bool IsReady => !string.IsNullOrEmpty(_firstPlayer) && !string.IsNullOrEmpty(_secondPlayer);
         public bool IsEmpty => string.IsNullOrEmpty(_firstPlayer) && string.IsNullOrEmpty(_secondPlayer);
+        public bool IsOver => !string.IsNullOrEmpty(_winner);
         public IEnumerable<string> Players => new List<string>() { _firstPlayer, _secondPlayer }.Where(item => !string.IsNullOrEmpty(item));
-        public bool Started { get; set; }
+        public bool IsStarted { get; set; }
         public List<TrainingItemView> Questions { get; set; }
         public string DisconnectedPlayer { get; private set; }
 

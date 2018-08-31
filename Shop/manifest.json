@@ -1,0 +1,16 @@
+﻿{
+  "name": "shop20180707014520",
+  "short_name": "shop",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#008b8b",
+  "icons": [
+    {
+      "src": "/icons/main.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

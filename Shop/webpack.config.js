@@ -31,8 +31,12 @@ const plugins = [
     }),
     new CopyWebpackPlugin([
         {
-            from: `${resourceFolder}/fonts`,
-            to: `${distFolder}/fonts`,
+            from: `${__dirname}/manifest.json`,
+            to: `${distFolder}/manifest.json`,
+        },
+        {
+            from: `${resourceFolder}`,
+            to: `${distFolder}`
         },
     ], {}),
 ];
