@@ -78,6 +78,7 @@ namespace Shop
             });
 
             // Add application services.
+            services.AddTransient<IDictionaryService, DictionaryService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IDataAcessService<Word>, DictionaryAccess>();
             services.AddTransient<TrainingService, TrainingService>();

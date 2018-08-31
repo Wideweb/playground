@@ -20,7 +20,7 @@ namespace Shop.Extensions
             return item;
         }
 
-        public static Word ToWordWithId(this DictionaryItemView item, string userId)
+        public static Word ToWordWithUserId(this DictionaryItemView item, string userId)
         {
             var word = new Word();
             word.Text = item.Term;
@@ -34,6 +34,12 @@ namespace Shop.Extensions
             
             word.Translations.Add(translation);
 
+            return word;
+        }
+
+        public static Word WithImageId(this Word word, string imageId)
+        {
+            word.ImageId = imageId;
             return word;
         }
     }
