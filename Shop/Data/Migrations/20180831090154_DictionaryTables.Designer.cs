@@ -10,7 +10,7 @@ using Shop.Data;
 namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180821132507_DictionaryTables")]
+    [Migration("20180831090154_DictionaryTables")]
     partial class DictionaryTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,6 +151,8 @@ namespace Shop.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ImageId");
+
                     b.Property<int>("Language");
 
                     b.Property<string>("Text");
@@ -176,6 +178,8 @@ namespace Shop.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("ImageId");
 
                     b.Property<bool>("LockoutEnabled");
 

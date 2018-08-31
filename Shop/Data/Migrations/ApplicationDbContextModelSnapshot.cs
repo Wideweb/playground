@@ -149,6 +149,8 @@ namespace Shop.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ImageId");
+
                     b.Property<int>("Language");
 
                     b.Property<string>("Text");
@@ -174,6 +176,8 @@ namespace Shop.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("ImageId");
 
                     b.Property<bool>("LockoutEnabled");
 

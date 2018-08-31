@@ -19,6 +19,11 @@ namespace Shop.Data.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles");
 
+            migrationBuilder.AddColumn<string>(
+                name: "ImageId",
+                table: "AspNetUsers",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "Words",
                 columns: table => new
@@ -27,7 +32,8 @@ namespace Shop.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: true),
                     Text = table.Column<string>(nullable: true),
-                    Language = table.Column<int>(nullable: false)
+                    Language = table.Column<int>(nullable: false),
+                    ImageId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -102,6 +108,10 @@ namespace Shop.Data.Migrations
             migrationBuilder.DropIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles");
+
+            migrationBuilder.DropColumn(
+                name: "ImageId",
+                table: "AspNetUsers");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
