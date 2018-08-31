@@ -1,13 +1,4 @@
 ﻿.dictionary-page {
-    .search-dictionary-item-form {
-        background-color: cadetblue;
-        padding: 20px;
-
-        .form-group {
-            max-width: 400px;
-        }
-    }
-
     .grid {
         overflow-y: auto;
     }
@@ -52,6 +43,11 @@
         font-size: 15px;
         color: gray;
         line-height: normal;
+    }
+
+    .add-dictionary-item-form {
+        padding: 20px;
+        max-width: 400px
     }
 
     .empty-grid-message {

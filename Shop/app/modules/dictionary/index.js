@@ -6,6 +6,8 @@ import { userDictionaryState } from './states';
 import COMMON_MODULE from '../common';
 
 import userDictionaryComponent from './components/user-dictionary/user-dictionary.component';
+import addDictionaryItemComponent from './components/add-dictionary-item/add-dictionary-item.component';
+import dictionaryItemViewComponent from './components/dictionary-item-view/dictionary-item-view.component';
 
 import dictionaryService from './services/dictionary.service';
 
@@ -17,6 +19,8 @@ const ngModule = angular
     ])
     
     .component('userDictionary', userDictionaryComponent)
+    .component('addDictionaryItem', addDictionaryItemComponent)
+    .component('dictionaryItemView', dictionaryItemViewComponent)
 
     .service('dictionaryService', dictionaryService)
 

@@ -1,38 +1,14 @@
 ﻿<ul class="page dictionary-page">
-    <li class="add-dictionary-item-form">
+    <li class="search-dictionary-item-form">
         <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate autocomplete="off">
-            <div ng-if="$ctrl.error" class="text-danger validation-summary-errors">{{ $ctrl.error }}</div>
             <div class="form-group">
                 <div class="input-wrapper">
                     <input name="term"
                            type="text"
                            ng-model="$ctrl.term"
-                           required
                            class="form-control"
-                           placeholder="Word" />
+                           placeholder="Search" />
                 </div>
-                <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.term.$error">
-                    <div class="text-danger" ng-message="required">The Word field is required.</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-wrapper">
-                    <input name="translation"
-                           type="text"
-                           ng-model="$ctrl.translation"
-                           required
-                           class="form-control"
-                           placeholder="Translation" />
-                </div>
-                <div ng-if="$ctrl.form.$submitted" ng-messages="$ctrl.form.translation.$error">
-                    <div class="text-danger" ng-message="required">The Translation field is required.</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <file-select ng-model="$ctrl.image"></file-select>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-full">Save</button>
             </div>
         </form>
     </li>
