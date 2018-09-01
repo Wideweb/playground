@@ -2,12 +2,13 @@
 import uiRouter from 'angular-ui-router';
 import angularCookies from 'angular-cookies';
 
-import { loginState, registerState } from './states';
+import { loginState, registerState, profileState } from './states';
 
 import COMMON_MODULE from '../common';
 
 import loginComponent from './components/login/login.component';
 import registerComponent from './components/register/register.component';
+import profileComponent from './components/profile/profile.component';
 
 import authService from './services/auth.service';
 import userService from './services/user.service';
@@ -22,6 +23,7 @@ const ngModule = angular
 
     .component('login', loginComponent)
     .component('register', registerComponent)
+    .component('profile', profileComponent)
 
     .service('authService', authService)
     .service('userService', userService)
@@ -29,7 +31,8 @@ const ngModule = angular
     .config(['$stateProvider', $stateProvider => {
         $stateProvider
             .state(loginState.name, loginState)
-            .state(registerState.name, registerState);
+            .state(registerState.name, registerState)
+            .state(profileState.name, profileState);
     }])
 
     .run(['httpResponseHandler', 'userService', '$state', (handler, user, $state) => {

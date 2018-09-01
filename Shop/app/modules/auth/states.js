@@ -15,3 +15,13 @@ export const registerState = {
         requireAuthorization: false
     }
 }
+
+export const profileState = {
+	parent: 'app',
+    name: 'profile',
+    url: '/profile',
+    template: '<profile></profile>',
+    data: {
+        requireAuthorization: true
+    }
+}
