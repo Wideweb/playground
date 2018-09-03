@@ -342,3 +342,71 @@ file-select .controls {
     height: 100%;
     background-color: white;
 }
+
+
+/************************************************
+    OPTIONS
+ ************************************************/
+.options {
+	position: relative;
+
+	.options-toggle {
+		padding-right: 30px;
+	
+		&::after {
+			content: '';
+			width: 0;
+			height: 0;
+			border-left: 5px solid transparent;
+			border-right: 5px solid transparent;
+			border-top: 5px solid #fff;
+			top: 50%;
+			position: absolute;
+			margin-left: 10px;
+			margin-top: -1px;
+		}
+	}
+
+	ul.options-menu {
+		position: absolute;
+		box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
+		right: 0;
+		top: 50px;
+		background-color: white;
+		min-width: 250px;
+		z-index: 10000;
+		display: none;
+
+		& > li > a {
+			display: block;
+			padding: 10px 15px;
+			color: #222;
+			text-decoration: none;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #DDD;
+			}
+		}
+
+		& > li:last-child {
+			padding-bottom: 5px;
+		}
+
+		& > li:first-child {
+			padding-top: 5px;
+		}
+
+		& > li.heading-item {
+			color: #222;
+			padding: 10px 15px;
+			border-bottom: 1px solid #CCC;
+			margin-bottom: 5px;
+		}
+
+		&.open {
+			display: block;
+		}
+	}
+}
+  

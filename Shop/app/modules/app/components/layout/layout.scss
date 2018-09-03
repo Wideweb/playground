@@ -17,7 +17,7 @@ header {
         height: 100%;
     }
 
-    .container > li a {
+    .container > li > a {
         display: inline-block;
         height: 100%;
         width: 100%;
@@ -30,13 +30,23 @@ header {
         font-family: Arial;
     }
 
-    .container > li a:hover {
+    .container.navigation > li > a:hover {
         background-color: cadetblue;
     }
 
-    .container > li a:active {
+    .container.navigation > li > a:active {
         background-color: darkslategrey;
-    }
+	}
+	
+	.avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background-color: white;
+		display: inline-block;
+		position: relative;
+		top: -13px;
+	}
 }
 
 main {

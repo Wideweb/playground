@@ -9,7 +9,14 @@
         <li><a ui-sref="ticTacToe">Tic-Tac-Toe</a></li>
     </ul>
     <ul class="container">
-        <li><a href="javascript:void(0);" ng-click="$ctrl.logout()">{{ $ctrl.me.name }}</a></li>
+        <li class="options">
+			<a href="javascript:void(0);" class="options-toggle" toggle="userMenu"><span class="avatar"></span></a>
+			<ul id="userMenu" class="options-menu">
+				<li class="heading-item">{{ $ctrl.me.name }}</li>
+				<li><a ui-sref="profile">Profile</a></li>
+				<li><a ng-click="$ctrl.logout()">Log out</a></li>
+			</ul>
+		</li>
     </ul>
 </header>
 <main>
