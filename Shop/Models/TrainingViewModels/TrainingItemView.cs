@@ -11,5 +11,7 @@ namespace Shop.Models
         public bool IsCorrect { get; set; }
 
         public long StudyLevel { get; set; }
+
+        public string Image { get; set; }
     }
 }

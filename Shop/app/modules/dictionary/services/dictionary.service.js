@@ -42,7 +42,11 @@ const Controller = {
     register: (list = []) => {
         list.forEach(data => {
             let item = new Model(data);
-            Controller.list.push(item);
+
+            if (!Controller.map[item.id]) {
+                Controller.list.push(item);
+            }
+
             Controller.map[item.id] = item;
         });
 
@@ -105,6 +109,13 @@ export default class {
     }
 
     /******************************************************************************************
+     * registered instances reference
+     ******************************************************************************************/
+    get current() {
+        return Controller.current;
+    }
+
+    /******************************************************************************************
      Public Methods
      ******************************************************************************************
      Load user dictionary
@@ -127,8 +138,8 @@ export default class {
         return this.proxy
             .call('GetDictionaryItem', { id })
             .then((data) => {
-                Controller.clear();
-                Controller.register(data);
+                Controller.register([data]);
+                Controller.setCurrent(id);
             });
     }
 

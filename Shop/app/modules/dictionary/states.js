@@ -21,7 +21,7 @@ export const addDictionaryItemState = {
 export const dictionaryItemViewState = {
     parent: 'app',
     name: 'dictionaryItemView',
-    url: '/dictionary/id',
+    url: '/dictionary/:id',
     template: '<dictionary-item-view></dictionary-item-view>',
     params: {
         id: '',
@@ -50,10 +50,11 @@ function dictionaryData(dictionary) {
  * DICTIONARY ITEM DATA loading
  **********************************************************************************************/
 dictionaryItemData.$inject = [
-    'dictionaryService'
+    'dictionaryService',
+    '$stateParams'
 ];
-function dictionaryItemData(dictionary) {
+function dictionaryItemData(dictionary, $params) {
     console.log('Dictionary data loading...');
 
-    return dictionary.load();
+    return dictionary.loadItem($params.id);
 }

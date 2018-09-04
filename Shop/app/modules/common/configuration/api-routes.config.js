@@ -36,7 +36,7 @@ export const API_ROUTES = {
         options: { method: 'GET' }
     },
     GetDictionaryItem: {
-        url: API_ENDPOINT + '/api/Dictionary/{}',
+        url: API_ENDPOINT + '/api/Dictionary/{id}',
         options: { method: 'GET' }
     },
     SaveDictionaryItem: {

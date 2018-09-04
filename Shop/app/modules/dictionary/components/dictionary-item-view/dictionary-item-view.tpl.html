@@ -1,1 +1,13 @@
-﻿view
+﻿<ul class="page cards-page">
+    <li class="content">
+        <ul class="quest">
+            <li class="question">
+                <ul class="container">
+                    <li><img class="image" ng-if="$ctrl.model.image" ng-src="{{ $ctrl.model.image }}"/></li>
+                    <li class="word">{{ $ctrl.model.term }}</li>
+                    <li class="answer">{{ $ctrl.model.translation }}</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>

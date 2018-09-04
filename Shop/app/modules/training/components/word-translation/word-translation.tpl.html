@@ -8,7 +8,7 @@
                         <div class="study-level-icon {{ $ctrl.training.current.studyLevelClass }}"></div>
                     </li>
                     <li class="hint" ng-click="$ctrl.hint()">?</li>
-                    <li class="image"></li>
+                    <li><img class="image" ng-if="$ctrl.training.current.image" ng-src="{{ $ctrl.training.current.image }}"/></li>
                     <li class="word">{{ $ctrl.training.current.word }}</li>
                     <li class="description" ng-if="!$ctrl.training.current.isAnswered">Выберите правильный ответ</li>
                     <li class="answer" ng-if="$ctrl.training.current.isAnswered" ng-class="{ 'wrong': !$ctrl.training.current.isCorrect }">{{ $ctrl.training.current.answer }}</li>

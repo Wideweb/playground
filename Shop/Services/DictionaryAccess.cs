@@ -18,7 +18,9 @@ namespace Shop.Services
 
         public Task<Word> Get(long id)
         {
-            return _dbContext.Words.FirstOrDefaultAsync(w => w.Id == id);
+            return _dbContext.Words
+                .Include(w => w.Translations)
+                .FirstOrDefaultAsync(w => w.Id == id);
         }
 
         public List<Word> GetAll()

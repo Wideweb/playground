@@ -24,7 +24,7 @@ namespace Shop.Services
             _logger = logger;
         }
 
-        public async Task<string> Get(string directory, string fileName)
+        public async Task<byte[]> Get(string directory, string fileName)
         {
             var request = new GetObjectRequest
             {
@@ -37,8 +37,13 @@ namespace Shop.Services
                 using (var response = await _s3Client.GetObjectAsync(request))
                 using (var responseStream = response.ResponseStream)
                 using (var reader = new StreamReader(responseStream))
+                using (var memstream = new MemoryStream())
                 {
-                    return await reader.ReadToEndAsync();
+                    var buffer = new byte[512];
+                    var bytesRead = default(int);
+                    while ((bytesRead = reader.BaseStream.Read(buffer, 0, buffer.Length)) > 0)
+                        memstream.Write(buffer, 0, bytesRead);
+                    return memstream.ToArray();
                 }
             }
             catch (Exception e)

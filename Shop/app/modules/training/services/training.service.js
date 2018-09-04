@@ -24,6 +24,7 @@ class Model {
         this.answer = data.dictionaryItem.translation;
         this.options = data.options;
         this.studyLevel = data.studyLevel;
+        this.image = image;
 
         this.studyLevelClass = this.studyLevel > STUDY_LEVEL_MAX
             ? STUDY_LEVEL_CLASS_MAP[STUDY_LEVEL_MAX]

@@ -1,8 +1,8 @@
-﻿.dictionary-page {
+﻿.dictionary-page.add-dictionary-item-page {
+    overflow: auto;
 
     .add-dictionary-item-form {
         padding: 20px;
         max-width: 400px;
-        overflow: auto;
     }
 }

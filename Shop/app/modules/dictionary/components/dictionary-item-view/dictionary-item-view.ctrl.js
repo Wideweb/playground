@@ -11,15 +11,11 @@
         this.dictionary = dictionary;
     }
 
-    remove(id) {
-        this.dictionary.remove(id);
+    get model() {
+        return this.dictionary.current;
     }
 
-    submit() {
-        if (this.form.$invalid) {
-            return;
-        }
-
-        this.dictionary.save(this.term, this.translation, this.image).catch(() => this.error = "Error");
+    remove(id) {
+        this.dictionary.remove(id);
     }
 }

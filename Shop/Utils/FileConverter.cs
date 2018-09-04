@@ -10,12 +10,9 @@ namespace Shop.Utils
             return Convert.FromBase64String(body);
         }
 
-        public static string ToBase64String(string input)
+        public static string ToBase64String(byte[] input)
         {
-            byte[] toEncodeAsBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            string returnValue = Convert.ToBase64String(toEncodeAsBytes);
-
-            return returnValue;
+            return "data:image/png;base64, " + Convert.ToBase64String(input);
         }
     }
 }

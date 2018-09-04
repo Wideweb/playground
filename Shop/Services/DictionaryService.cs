@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ namespace Shop.Services
         {
             var word = await _dictionaryAcessService
                 .Get(id);
+
+            if(word == null)
+            {
+                throw new ArgumentException(nameof(id));
+            }
 
             var sourceImage = await _imageManager.Get(Folder.Dictionary, word.ImageId);
             var encodedImage = FileConverter.ToBase64String(sourceImage);
