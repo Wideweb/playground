@@ -7,7 +7,30 @@
         showSpinner: true
     },
     resolve: {
-        dictionaryData: dictionaryData
+        dictionaryData
+    }
+}
+
+export const addDictionaryItemState = {
+    parent: 'app',
+    name: 'addDictionaryItem',
+    url: '/add-dictionary-item',
+    template: '<add-dictionary-item></add-dictionary-item>'
+}
+
+export const dictionaryItemViewState = {
+    parent: 'app',
+    name: 'dictionaryItemView',
+    url: '/dictionary/id',
+    template: '<dictionary-item-view></dictionary-item-view>',
+    params: {
+        id: '',
+    },
+    data: {
+        showSpinner: true
+    },
+    resolve: {
+        dictionaryItemData
     }
 }
 
@@ -18,6 +41,18 @@ dictionaryData.$inject = [
     'dictionaryService'
 ];
 function dictionaryData(dictionary) {
+    console.log('Dictionary data loading...');
+
+    return dictionary.load();
+}
+
+/**********************************************************************************************
+ * DICTIONARY ITEM DATA loading
+ **********************************************************************************************/
+dictionaryItemData.$inject = [
+    'dictionaryService'
+];
+function dictionaryItemData(dictionary) {
     console.log('Dictionary data loading...');
 
     return dictionary.load();

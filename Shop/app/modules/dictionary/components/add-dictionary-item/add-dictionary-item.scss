@@ -1,57 +1,8 @@
 ﻿.dictionary-page {
-    .grid {
-        overflow-y: auto;
-    }
-
-    .grid .row {
-        box-sizing: border-box;
-        padding: 10px 40px;
-        cursor: pointer;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .grid .row + .row {
-        border-top: gainsboro solid 1px;
-    }
-
-    .grid .column + .column {
-        margin-left: 20px;
-    }
-
-    .grid .action {
-        visibility: hidden;
-    }
-
-    .grid .row:hover .action {
-        padding-top: 10px;
-        visibility: visible;
-    }
-
-    .grid li:hover {
-        background-color: blanchedalmond;
-    }
-
-    .word .term {
-        font-size: 18px;
-        padding-bottom: 4px;
-        line-height: normal;
-        box-sizing: border-box;
-    }
-
-    .word .translation {
-        font-size: 15px;
-        color: gray;
-        line-height: normal;
-    }
 
     .add-dictionary-item-form {
         padding: 20px;
-        max-width: 400px
-    }
-
-    .empty-grid-message {
-        padding: 10px 20px;
-        color: darkgray;
+        max-width: 400px;
+        overflow: auto;
     }
 }

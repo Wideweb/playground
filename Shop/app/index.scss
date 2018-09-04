@@ -43,7 +43,7 @@ $font-icon: 'icomoon';
     -moz-osx-font-smoothing: grayscale;
 }
 
-$ico_map: ( bars: "\e900", compass: "\e949", undo: "\e967", bin: "\e9ac" );
+$ico_map: ( bars: "\e900", compass: "\e949", undo: "\e967", bin: "\e9ac", plus: "\ea0a" );
 
 @function get-ico-symbol($ico_name) {
     @return map-get($ico_map, $ico_name);
@@ -81,6 +81,14 @@ $ico_map: ( bars: "\e900", compass: "\e949", undo: "\e967", bin: "\e9ac" );
     font-size: 23px;
     color: lightcoral;
     @include ico('bin');
+    cursor: pointer;
+}
+
+.plus-ico {
+    font-size: 15px;
+    font-weight: normal;
+    color: white;
+    @include ico('plus');
     cursor: pointer;
 }
 

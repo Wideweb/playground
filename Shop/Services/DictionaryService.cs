@@ -19,7 +19,24 @@ namespace Shop.Services
             _dictionaryAcessService = dictionaryAcessService;
             _imageManager = imageManager;
         }
-        
+
+        public async Task<DictionaryItemView> GetItemViewById(long id)
+        {
+            var word = await _dictionaryAcessService
+                .Get(id);
+
+            var sourceImage = await _imageManager.Get(Folder.Dictionary, word.ImageId);
+            var encodedImage = FileConverter.ToBase64String(sourceImage);
+
+            return new DictionaryItemView
+            {
+                Id = word.Id,
+                Term = word.Text,
+                Translation = word.Translations.FirstOrDefault()?.Text ?? "no translation",
+                Image = encodedImage
+            };
+        }
+
         public async Task<List<DictionaryItemView>> GetItemViewsByUserId(string userId)
         {
             var words = _dictionaryAcessService

@@ -1,18 +1,25 @@
 ﻿export default class {
     static get $inject() {
         return [
+            '$state',
             'dictionaryService'
         ];
     }
 
     constructor(
+        $state,
         /*Service*/ dictionary
     ) {
+        this.$state = $state;
         this.dictionary = dictionary;
     }
 
     remove(id) {
         this.dictionary.remove(id);
+    }
+
+    addItem() {
+        this.$state.go('addDictionaryItem');
     }
 
     submit() {

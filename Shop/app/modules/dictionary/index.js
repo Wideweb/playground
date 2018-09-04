@@ -1,7 +1,7 @@
 ﻿import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 
-import { userDictionaryState } from './states';
+import { userDictionaryState, addDictionaryItemState, dictionaryItemViewState } from './states';
 
 import COMMON_MODULE from '../common';
 
@@ -26,7 +26,9 @@ const ngModule = angular
 
     .config(['$stateProvider', $stateProvider => {
         $stateProvider
-            .state(userDictionaryState.name, userDictionaryState);
+            .state(userDictionaryState.name, userDictionaryState)
+            .state(addDictionaryItemState.name, addDictionaryItemState)
+            .state(dictionaryItemViewState.name, dictionaryItemViewState);
     }]);
 
 export default ngModule;

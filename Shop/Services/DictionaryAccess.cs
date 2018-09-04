@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Data.Models;
@@ -13,6 +14,11 @@ namespace Shop.Services
         public DictionaryAccess(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public Task<Word> Get(long id)
+        {
+            return _dbContext.Words.FirstOrDefaultAsync(w => w.Id == id);
         }
 
         public List<Word> GetAll()

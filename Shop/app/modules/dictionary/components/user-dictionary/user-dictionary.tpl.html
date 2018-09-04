@@ -1,20 +1,23 @@
 ﻿<ul class="page dictionary-page">
     <li class="search-dictionary-item-form">
-        <form name="$ctrl.form" ng-submit="$ctrl.submit()" novalidate autocomplete="off">
+        <form novalidate autocomplete="off">
             <div class="form-group">
-                <div class="input-wrapper">
+                <div class="input-wrapper input-group">
                     <input name="term"
                            type="text"
                            ng-model="$ctrl.term"
                            class="form-control"
                            placeholder="Search" />
+                    <div class="input-group-addon">
+                        <button type="button" class="btn btn-full" ng-click="$ctrl.addItem()"><i class="plus-ico"></i></button>
+                    </div>
                 </div>
             </div>
         </form>
     </li>
     <li ng-if="$ctrl.dictionary.list.length" class="grid flexible">
         <ul class="container">
-            <li class="row" ng-repeat="item in $ctrl.dictionary.list">
+            <li class="row" ng-repeat="item in $ctrl.dictionary.list | filter: { 'term': $ctrl.term }">
                 <div class="column flexible">
                     <dl class="word">
                         <dt class="term">{{ item.term }}</dt>

@@ -4,14 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Models;
-using System.Linq;
-using Shop.Data.Models;
-using Shop.Extensions;
 using Shop.Services;
-using Amazon.S3.Transfer;
-using System;
-using Shop.Utils;
-using SQLitePCL;
 
 namespace Shop.Controllers
 {
@@ -40,6 +33,12 @@ namespace Shop.Controllers
             var userId = _userManager.GetUserId(User);
             var items = await _dictionaryService.GetItemViewsByUserId(userId);
             return Ok(items);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(long id)
+        {
+            return Ok(await _dictionaryService.GetItemViewById(id));
         }
 
         [HttpPost]

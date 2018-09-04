@@ -36,22 +36,4 @@
             </div>
         </form>
     </li>
-    <li ng-if="$ctrl.dictionary.list.length" class="grid flexible">
-        <ul class="container">
-            <li class="row" ng-repeat="item in $ctrl.dictionary.list">
-                <div class="column flexible">
-                    <dl class="word">
-                        <dt class="term">{{ item.term }}</dt>
-                        <dd class="translation">{{ item.translation }}</dd>
-                    </dl>
-                </div>
-                <div class="column">
-                    <div class="action">
-                        <a ng-click="$ctrl.remove(item.id)"><i class="bin-ico"></i></a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </li>
-    <li class="empty-grid-message" ng-if="!$ctrl.dictionary.list.length">Dictionary is empty</li>
 </ul>
