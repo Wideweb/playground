@@ -14,7 +14,8 @@ namespace Shop.Extensions
             {
                 Id = word.Id,
                 Term = word.Text,
-                Translation = word.Translations.FirstOrDefault()?.Text ?? "no translation"
+                Translation = word.Translations.FirstOrDefault()?.Text ?? "no translation",
+                ImageId = word.ImageId
             };
 
             return item;

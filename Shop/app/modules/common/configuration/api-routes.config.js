@@ -31,6 +31,10 @@ export const API_ROUTES = {
         url: API_ENDPOINT + '/api/Manage',
         options: { method: 'GET' }
     },
+    UpdateUser: {
+        url: API_ENDPOINT + '/api/Manage',
+        options: { method: 'POST' }
+    },
     GetDictionary: {
         url: API_ENDPOINT + '/api/Dictionary',
         options: { method: 'GET' }

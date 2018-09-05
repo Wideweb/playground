@@ -30,7 +30,7 @@ namespace Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(_trainingService.GenerateSession(10));
+            return Ok(await _trainingService.GenerateSession(10));
         }
 
         [HttpPost]

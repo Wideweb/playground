@@ -10,7 +10,9 @@
     </ul>
     <ul class="container">
         <li class="options">
-			<a href="javascript:void(0);" class="options-toggle" toggle="userMenu"><span class="avatar"></span></a>
+			<a href="javascript:void(0);" class="options-toggle" toggle="userMenu">
+                <img class="avatar" ng-src="{{ $ctrl.me.image }}"/>
+            </a>
 			<ul id="userMenu" class="options-menu">
 				<li class="heading-item">{{ $ctrl.me.name }}</li>
 				<li><a ui-sref="profile">Profile</a></li>

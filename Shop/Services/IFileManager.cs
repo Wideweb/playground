@@ -5,6 +5,7 @@ namespace Shop.Services
     public static class Folder
     {
         public const string Dictionary = "Dictionary";
+        public const string Profile = "Profile";
     }
 
     public interface IFileManager

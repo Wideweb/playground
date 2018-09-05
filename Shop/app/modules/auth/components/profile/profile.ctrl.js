@@ -16,11 +16,19 @@
         this.me = me;
         this.spinner = spinner;
 
-		this.name = this.me.userName;
-		this.email = this.me.name;
-		this.image = null;
+        this.model = this.me.clone();
         this.error = [];
     }
 
-    submit() {}
+    submit() {
+        if (this.form.$invalid) {
+            return;
+        }
+
+        this.spinner.show();
+
+        this.me.update(this.model)
+            .catch(error => this.error = error[""])
+            .finally(() => this.spinner.hide());
+    }
 }

@@ -7,6 +7,7 @@ export class UserModel {
         this.email = data.email;
         this.role = data.role;
         this.isEmailConfirmed = data.IsEmailConfirmed;
+        this.image = data.image;
     }
 }
 
@@ -50,10 +51,20 @@ export default class {
         return this.user.email;
     }
 
+    get image() {
+        return this.user.image;
+    }
+
     load() {
         return this.proxy
             .call('GetUser')
             .then(data => this.store(data));
+    }
+
+    update(model){
+        return this.proxy
+            .call('UpdateUser', {}, model)
+            .then(() => this.load());
     }
 
     store(user) {
@@ -77,5 +88,9 @@ export default class {
 
     isLoggedIn() {
         return !this.inRole(DEFAULT_ANONYMOUS_USER);
+    }
+
+    clone() {
+        return JSON.parse(JSON.stringify(this.user));
     }
 }

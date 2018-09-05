@@ -11,7 +11,7 @@
 						<div class="input-wrapper">
 							<input name="name"
 									type="text"
-									ng-model="$ctrl.name"
+									ng-model="$ctrl.model.userName"
 									required
 									class="form-control"
 									placeholder="Name" />
@@ -24,7 +24,7 @@
 						<div class="input-wrapper">
 							<input name="email"
 									type="text"
-									ng-model="$ctrl.email"
+									ng-model="$ctrl.model.email"
 									required
 									class="form-control"
 									placeholder="Email" />
@@ -34,7 +34,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<file-select ng-model="$ctrl.image"></file-select>
+						<file-select ng-model="$ctrl.model.image"></file-select>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-full">Update profile</button>

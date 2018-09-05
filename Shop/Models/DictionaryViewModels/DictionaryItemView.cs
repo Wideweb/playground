@@ -13,5 +13,7 @@ namespace Shop.Models
         public string Translation { get; set; }
 
         public string Image { get; set; }
+
+        public string ImageId { get; set; }
     }
 }

@@ -4,19 +4,25 @@ using Shop.Models;
 using Shop.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shop.Services
 {
     public class TrainingService
     {
         private readonly IDataAcessService<Word> _dictionary;
+        private readonly IFileManager _imageManager;
 
-        public TrainingService(IDataAcessService<Word> dictionary)
+        public TrainingService(
+            IDataAcessService<Word> dictionary,
+            IFileManager imageManager
+            )
         {
             _dictionary = dictionary;
+            _imageManager = imageManager;
         }
 
-        public List<TrainingItemView> GenerateSession(int capacity)
+        public async Task<List<TrainingItemView>> GenerateSession(int capacity)
         {
             var words = _dictionary.GetAll().Select(it => it.ToDictionaryItemView()).ToList();
             words.Shuffle();
@@ -35,11 +41,20 @@ namespace Shop.Services
                     options.Add(trainingItem.Translation);
                 }
 
+                var encodedImage = string.Empty;
+
+                if (!string.IsNullOrEmpty(trainingItem.ImageId))
+                {
+                    var sourceImage = await _imageManager.Get(Folder.Dictionary, trainingItem.ImageId);
+                    encodedImage = FileConverter.ToBase64String(sourceImage);
+                }
+
                 training.Add(new TrainingItemView
                 {
                     DictionaryItem = trainingItem,
                     Options = options,
-                    StudyLevel = 0
+                    StudyLevel = 0,
+                    Image = encodedImage
                 });
             }
 

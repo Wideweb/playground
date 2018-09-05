@@ -31,8 +31,13 @@ namespace Shop.Services
                 throw new ArgumentException(nameof(id));
             }
 
-            var sourceImage = await _imageManager.Get(Folder.Dictionary, word.ImageId);
-            var encodedImage = FileConverter.ToBase64String(sourceImage);
+            var encodedImage = string.Empty;
+
+            if (!string.IsNullOrEmpty(word.ImageId))
+            {
+                var sourceImage = await _imageManager.Get(Folder.Dictionary, word.ImageId);
+                encodedImage = FileConverter.ToBase64String(sourceImage);
+            }
 
             return new DictionaryItemView
             {
@@ -57,9 +62,14 @@ namespace Shop.Services
                 item.Id = word.Id;
                 item.Term = word.Text;
                 item.Translation = word.Translations.FirstOrDefault()?.Text ?? "no translation";
-                
-                var sourceImage = await _imageManager.Get(Folder.Dictionary, word.ImageId);
-                var encodedImage = FileConverter.ToBase64String(sourceImage);
+
+                var encodedImage = string.Empty;
+
+                if (!string.IsNullOrEmpty(word.ImageId))
+                {
+                    var sourceImage = await _imageManager.Get(Folder.Dictionary, word.ImageId);
+                    encodedImage = FileConverter.ToBase64String(sourceImage);
+                }
 
                 item.Image = encodedImage;
                 
