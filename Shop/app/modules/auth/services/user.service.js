@@ -7,19 +7,39 @@ export class UserModel {
         this.email = data.email;
         this.role = data.role;
         this.isEmailConfirmed = data.IsEmailConfirmed;
-        this.image = data.image;
+        this.imageId = data.imageId;
+
+        this._image = data.image;
+    }
+
+    set image(value) {
+        this._image = value;
+        this.imageId = null;
+    }
+
+    get image() {
+        return this._image;
+    }
+
+    serialize() {
+        return {
+            userName: this.userName,
+            email: this.email,
+            imageId: this.imageId,
+            image: this.image
+        }
     }
 }
 
 const Controller = {
     current: null,
     getDefaultUser: function() {
-        return new UserModel({
+        return {
             userName: '',
             email: '',
             role: DEFAULT_ANONYMOUS_USER,
             isEmailConfirmed: undefined,
-        });
+        };
     }
 }
 
@@ -41,7 +61,8 @@ export default class {
 
     get user() {
         if (!Controller.current) {
-            Controller.current = this.storage.get(USER_STORAGE_KEY) || Controller.getDefaultUser();
+            let userData = this.storage.get(USER_STORAGE_KEY) || Controller.getDefaultUser();
+            Controller.current = new UserModel(userData);
         }
 
         return Controller.current;
@@ -63,7 +84,7 @@ export default class {
 
     update(model){
         return this.proxy
-            .call('UpdateUser', {}, model)
+            .call('UpdateUser', {}, model.serialize())
             .then(() => this.load());
     }
 
@@ -72,7 +93,7 @@ export default class {
             user = new UserModel(user);
         }
 
-        this.storage.set(USER_STORAGE_KEY, user);
+        this.storage.set(USER_STORAGE_KEY, user.serialize());
 
         Controller.current = user;
     }
@@ -91,6 +112,6 @@ export default class {
     }
 
     clone() {
-        return JSON.parse(JSON.stringify(this.user));
+        return new UserModel(this.user.serialize());
     }
 }
