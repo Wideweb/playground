@@ -81,17 +81,15 @@ namespace Shop.Services
 
         public async Task SaveItemViewByUserId(DictionaryItemView item, string userId)
         {
+            var word = item.ToWordWithUserId(userId);
+            
             if (!string.IsNullOrEmpty(item.Image))
             {
                 var imageId = await _imageManager.Save(FileConverter.FromBase64String(item.Image), Folder.Dictionary);
-                var word = item.ToWordWithUserId(userId).WithImageId(imageId);
-                _dictionaryAcessService.Save(word);
+                word.ImageId = imageId;
             }
-            else
-            {
-                var word = item.ToWordWithUserId(userId);
-                _dictionaryAcessService.Save(word);
-            }
+            
+            _dictionaryAcessService.Save(word);
         }
 
         public void DeleteItemById(long id)
