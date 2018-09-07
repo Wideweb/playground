@@ -14,6 +14,8 @@ namespace Shop.Models.ManageViewModels
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
+        public string ImageId { get; set; }
+        
         public string Image { get; set; }
     }
 }

@@ -25,5 +25,7 @@ namespace Shop.Models.ManageViewModels
         public string Role { get; set; }
 
         public string Image { get; set; }
+        
+        public string ImageId { get; set; }
     }
 }

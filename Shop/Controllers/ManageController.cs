@@ -52,6 +52,7 @@ namespace Shop.Controllers
                 Email = user.Email,
                 IsEmailConfirmed = user.EmailConfirmed,
                 Role = "User",
+                ImageId = user.ImageId,
                 Image = encodedImage
             };
 
