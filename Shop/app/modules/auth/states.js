@@ -17,11 +17,26 @@ export const registerState = {
 }
 
 export const profileState = {
-	parent: 'app',
+    parent: 'app',
     name: 'profile',
     url: '/profile',
     template: '<profile></profile>',
     data: {
         requireAuthorization: true
+    },
+    resolve: {
+        userData: userData
     }
+}
+
+/**********************************************************************************************
+ * USER DATA loading
+ **********************************************************************************************/
+userData.$inject = [
+    'userService'
+];
+function userData(user) {
+    console.log('user data loading...');
+
+    return user.load();
 }

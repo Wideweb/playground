@@ -26,7 +26,9 @@ export class UserModel {
             userName: this.userName,
             email: this.email,
             imageId: this.imageId,
-            image: this.image
+            image: this.image,
+            isEmailConfirmed: this.isEmailConfirmed,
+            role: this.role
         }
     }
 }
