@@ -1,5 +1,25 @@
-﻿const Controller = {
-    counter: 0
+﻿const SERVICE_WORKER_PATH = 'service-wrokers/notification.js';
+const APP_KEY = 'BC_CvaRNT3HMqsPKZpXwB6O4FiVnmb8Umt8yIfBf-glhU_XxPG3KJ7Cy1KA7XRNsEvyfYbKNB62iOOUTWK0muO8';
+
+function urlB64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+}
+
+const Controller = {
+    serviceWorkerReg: null,
+    isSubscribed: false,
+    applicationServerKey: null
 };
 
 /**********************************************************************************************
@@ -9,52 +29,56 @@ export default class {
 
     static get $inject() {
         return [
-            'serviceWorker',
+            '$q'
         ];
     }
 
     constructor(
-        serviceWorker
+        $q
     ) {
-        this.serviceWorker = serviceWorker;
+        this.$q = $q;
+        Controller.applicationServerKey = urlB64ToUint8Array(APP_KEY);
     }
 
-    /******************************************************************************************
-     PUBLIC METHODS
-     ******************************************************************************************
-     show spinner
-     ******************************************************************************************/
+    init() {
+        this.registerServiceWorkder()
+            .then(() => this.subscribe())
+    }
+
     subscribe() {
-        const applicationServerKey = urlB64ToUint8Array('BC_CvaRNT3HMqsPKZpXwB6O4FiVnmb8Umt8yIfBf-glhU_XxPG3KJ7Cy1KA7XRNsEvyfYbKNB62iOOUTWK0muO8');
+        let swReg = Controller.serviceWorkerReg;
 
-        this.serviceWorker
-            .register('sw.js')
-            .then(swReg => swReg.pushManager.subscribe({
+        if (!swReg) {
+            return this.$q.reject();
+        }
+
+        return swReg.pushManager
+            .subscribe({
                 userVisibleOnly: true,
-                applicationServerKey: applicationServerKey
-            }))
-            .then((subscription) => {
-                //updateSubscriptionOnServer(subscription);
-                isSubscribed = true;
+                applicationServerKey: Controller.applicationServerKey
+            }).
+            then((subscription) => {
+                updateSubscriptionOnServer(subscription);
+                Controller.isSubscribed = true;
             })
-            .catch(function (err) {
+            .catch((err) => {
                 console.log('Failed to subscribe the user: ', err);
-            });
+            });;
     }
 
-    urlB64ToUint8Array(base64String) {
-        const padding = '='.repeat((4 - base64String.length % 4) % 4);
-        const base64 = (base64String + padding)
-            .replace(/\-/g, '+')
-            .replace(/_/g, '/');
-
-        const rawData = window.atob(base64);
-        const outputArray = new Uint8Array(rawData.length);
-
-        for (let i = 0; i < rawData.length; ++i) {
-            outputArray[i] = rawData.charCodeAt(i);
+    registerServiceWorkder() {
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            return navigator.serviceWorker
+                .register(SERVICE_WORKER_PATH)
+                .catch((error) => console.error('Service Worker Error', error));
         }
-        return outputArray;
+
+        console.warn('Push messaging is not supported');
+        return Promise.reject();
+    }
+
+    updateSubscription(subscription) {
+        /* server call */
     }
 
 }

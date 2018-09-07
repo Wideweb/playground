@@ -7,6 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const bundleFolder = "wwwroot";
 const resourceFolder = path.resolve(`${__dirname}/app/resources`);
+const swFolder = path.resolve(`${__dirname}/app/service-wrokers`);
 const distFolder = path.resolve(`${__dirname}/${bundleFolder}`);
 
 const defaultEnvironment = 'development';
@@ -37,6 +38,14 @@ const plugins = [
         {
             from: `${resourceFolder}`,
             to: `${distFolder}`
+        },
+        {
+            from: `${resourceFolder}`,
+            to: `${distFolder}`
+        },
+        {
+            from: `${swFolder}`,
+            to: `${distFolder}/service-wrokers`
         },
     ], {}),
 ];
