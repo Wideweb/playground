@@ -138,9 +138,6 @@
     <Content Include="app\modules\common\directives\file-select.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="app\modules\dictionary\components\user-dictionary\user-dictionary - Copy.scss">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="app\modules\dictionary\components\user-dictionary\user-dictionary.component.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

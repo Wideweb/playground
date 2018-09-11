@@ -1,4 +1,6 @@
 ﻿header {
+    padding: 0px;
+
     .navigation {
         position: absolute;
         flex-direction: column;
@@ -23,6 +25,11 @@
 
     .user-menu {
         display: none;
+    }
+
+    .navigation-toggler { 
+        padding: 0 20px; 
+        box-sizing: border-box;
     }
 }
 

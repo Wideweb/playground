@@ -15,7 +15,8 @@
     "angular-ui-router": "^1.0.18",
     "jquery": "^3.3.1",
     "tslib": "^1.9.3",
-    "whatwg-fetch": "^2.0.4"
+    "whatwg-fetch": "^2.0.4",
+    "ng-dialog": "^1.4.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

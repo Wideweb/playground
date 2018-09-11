@@ -53,6 +53,7 @@ $ico_map: ( bars: "\e900", compass: "\e949", undo: "\e967", bin: "\e9ac", plus: 
     &:before {
         font-family: $font-icon;
         content: get-ico-symbol($ico_name);
+        outline: none;
     }
 }
 

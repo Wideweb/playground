@@ -13,7 +13,8 @@ import spinnerService from './services/spinner.service';
 
 const ngModule = angular
     .module('common', [
-        angularLocalStorage
+        angularLocalStorage,
+        'ngDialog'
     ])
 
     .service('apiRouterService', apiRouterService)

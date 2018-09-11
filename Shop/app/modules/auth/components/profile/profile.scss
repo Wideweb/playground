@@ -1,4 +1,6 @@
-﻿.profile-page {
+﻿@import '../../../../funcs.scss';
+
+.profile-page {
 	.page-header {
 		font-size: 20px;
 		padding: 10px 20px;
@@ -14,4 +16,8 @@
 		display: flex;
 		flex-direction: row;
 	}
+}
+
+@include phone {
+    @import './profile.phone.scss';
 }

@@ -22,7 +22,9 @@ export const profileState = {
     url: '/profile',
     template: '<profile></profile>',
     data: {
-        requireAuthorization: true
+        requireAuthorization: true,
+        isAddWordButtonVisible: false,
+        showSpinner: true
     },
     resolve: {
         userData: userData
