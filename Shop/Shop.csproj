@@ -28,6 +28,7 @@
     <None Remove="app\modules\app\components\home\home.scss" />
     <None Remove="app\modules\app\components\home\home.tpl.html" />
     <None Remove="app\modules\common\directives\file-select.js" />
+    <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary - Copy.scss" />
     <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.component.js" />
     <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.ctrl.js" />
     <None Remove="app\modules\dictionary\components\user-dictionary\user-dictionary.scss" />
@@ -135,6 +136,9 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="app\modules\common\directives\file-select.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="app\modules\dictionary\components\user-dictionary\user-dictionary - Copy.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="app\modules\dictionary\components\user-dictionary\user-dictionary.component.js">
