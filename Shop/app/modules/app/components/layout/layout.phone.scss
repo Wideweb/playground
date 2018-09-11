@@ -20,4 +20,17 @@
     .navigation.collapsed {
         display: none;
     }
+
+    .user-menu {
+        display: none;
+    }
+}
+
+footer {
+    display: none;
+}
+
+
+main {
+    height: calc(100vh - 55px);
 }

@@ -17,6 +17,8 @@ import { appState, homeState } from './states';
 import layoutComponent from './components/layout/layout.component';
 import homeComponent from './components/home/home.component';
 
+import controlsService from './services/controls.service';
+
 const ngModule = angular
     .module('app', [
         uiRouter,
@@ -33,6 +35,8 @@ const ngModule = angular
 
     .component('layout', layoutComponent)
     .component('home', homeComponent)
+
+    .service('controlsService', controlsService)
 
     .config(['$stateProvider', $stateProvider => {
         $stateProvider

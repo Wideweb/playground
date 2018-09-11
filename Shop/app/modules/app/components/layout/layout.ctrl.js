@@ -5,7 +5,8 @@
             'authService',
             'spinnerService',
             'userService',
-            'chatService'
+            'chatService',
+            'controlsService',
         ];
     }
 
@@ -14,13 +15,15 @@
         /* Service */ auth,
         /* Service */ spinner,
         /* Service */ me,
-        /* Service */ chat
+        /* Service */ chat,
+        /* Service */ controls
     ) {
         this.$state = $state;
         this.auth = auth;
         this.spinner = spinner;
         this.me = me;
         this.chat = chat;
+        this.controls = controls;
 
         this.chat.connect();
 

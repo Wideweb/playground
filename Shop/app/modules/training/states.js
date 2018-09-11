@@ -4,7 +4,8 @@
     url: '/word-translation',
     template: '<word-translation></word-translation>',
     data: {
-        showSpinner: true
+        showSpinner: true,
+        isAddWordButtonVisible: false
     },
     resolve: {
         trainingData: trainingData

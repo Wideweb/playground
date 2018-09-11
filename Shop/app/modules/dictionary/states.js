@@ -15,7 +15,10 @@ export const addDictionaryItemState = {
     parent: 'app',
     name: 'addDictionaryItem',
     url: '/add-dictionary-item',
-    template: '<add-dictionary-item></add-dictionary-item>'
+    template: '<add-dictionary-item></add-dictionary-item>',
+    data: {
+        isAddWordButtonVisible: false
+    },
 }
 
 export const dictionaryItemViewState = {

@@ -1,4 +1,6 @@
-﻿.dictionary-page {
+﻿@import '../../../../funcs.scss';
+
+.dictionary-page {
     .search-dictionary-item-form {
         background-color: cadetblue;
         padding: 20px;
@@ -58,4 +60,8 @@
         padding: 10px 20px;
         color: darkgray;
     }
+}
+
+@include phone {
+    @import './user-dictionary.phone.scss';
 }

@@ -8,5 +8,8 @@
 export const channelState = {
     name: 'channels.channel',
     url: '/channel',
-    template: '<channel></channel>'
+    template: '<channel></channel>',
+    data: {
+        isAddWordButtonVisible: false
+    }
 }

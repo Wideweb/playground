@@ -8,7 +8,7 @@ function setRoutes($urlRouterProvider) {
 }
 setRoutes.$inject = ['$urlRouterProvider'];
 
-function setEvents($transitions, $state, auth, spinner) {
+function setEvents($transitions, $state, auth, spinner, controls) {
     $transitions.onStart({}, onTransitionStart);
     $transitions.onSuccess({}, onTransitionSuccess);
     $transitions.onError({}, onTransitionError);
@@ -22,7 +22,14 @@ function setEvents($transitions, $state, auth, spinner) {
 
     function onTransitionSuccess(transition) {
         let toState = transition.$to();
+
         toState.data && toState.data.showSpinner && spinner.hide();
+
+        if (toState.data && angular.isDefined(toState.data.isAddWordButtonVisible)) {
+            controls.isAddWordButtonVisible = toState.data.isAddWordButtonVisible;
+        } else {
+            controls.isAddWordButtonVisible = true;
+        }
     }
 
     function onTransitionError(transition) {
@@ -32,7 +39,7 @@ function setEvents($transitions, $state, auth, spinner) {
 
     function handleUnauthenticatedUsers(transition) {
         let toState = transition.$to();
-        
+
         if (auth.isLoggedIn() === false) {
             if (toState.data && toState.data.requireAuthorization === false) {
                 return;
@@ -46,7 +53,7 @@ function setEvents($transitions, $state, auth, spinner) {
         }
     }
 }
-setEvents.$inject = ['$transitions', '$state', 'authService', 'spinnerService'];
+setEvents.$inject = ['$transitions', '$state', 'authService', 'spinnerService', 'controlsService'];
 
 export default function (appModule) {
     appModule

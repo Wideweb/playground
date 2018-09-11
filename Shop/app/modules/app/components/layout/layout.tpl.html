@@ -1,14 +1,14 @@
 ﻿<header>
-    <div class="container navigation-toggler" ng-click="$ctrl.collapsed = !$ctrl.collapsed">
+    <div class="container navigation-toggler" toggle="asideMenu">
         <i class="bars-ico"></i>
     </div>
-    <ul class="container navigation" ng-class="{'collapsed': $ctrl.collapsed}" ng-click="$ctrl.collapsed = !$ctrl.collapsed">
+    <ul class="container navigation collapsed">
         <li><a ui-sref="channels">Channels</a></li>
         <li><a ui-sref="wordTranslation">Cards</a></li>
         <li><a ui-sref="userDictionary">Dictionary</a></li>
         <li><a ui-sref="ticTacToe">Tic-Tac-Toe</a></li>
     </ul>
-    <ul class="container">
+    <ul class="container user-menu">
         <li class="options">
 			<a href="javascript:void(0);" class="options-toggle" toggle="userMenu">
                 <img class="avatar" ng-src="{{ $ctrl.me.image }}"/>
@@ -21,6 +21,23 @@
 		</li>
     </ul>
 </header>
+<aside id="asideMenu">
+    <div class="overlay"></div>
+    <ul class="container">
+        <li class="heading">
+            <img class="avatar" ng-src="{{ $ctrl.me.image }}" />
+            <div class="user-name">{{ $ctrl.me.name }}</div>
+        </li>
+        <li class="navigation">
+            <ul class="container">
+                <li><a ui-sref="channels">Channels</a></li>
+                <li><a ui-sref="wordTranslation">Cards</a></li>
+                <li><a ui-sref="userDictionary">Dictionary</a></li>
+                <li><a ui-sref="ticTacToe">Tic-Tac-Toe</a></li>
+            </ul>
+        </li>
+    </ul>
+</aside>
 <main>
     <div class="container">
         <ui-view></ui-view>
@@ -35,6 +52,7 @@
                 </ul>
             </div>
         </div>
+        <a ng-show="$ctrl.controls.isAddWordButtonVisible" ui-sref="addDictionaryItem" class="add-global-btn"><span>+</span></a>
     </div>
 </main>
 <footer>
