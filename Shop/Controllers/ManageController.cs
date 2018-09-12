@@ -66,15 +66,8 @@ namespace Shop.Controllers
             {
                 var user = await _userManager.GetUserAsync(User);
 
-                if (!string.IsNullOrEmpty(model.Image))
-                {
-                    user.ImageId = await _imageManager.Save(FileConverter.FromBase64String(model.Image), Folder.Profile);
-                }
-                else
-                {
-                    user.ImageId = null;
-                }
-
+                await UpdateUserImageFromModel(model, user);
+                
                 user.UserName = model.UserName;
                 user.Email = model.Email;
                 user.PhoneNumber = model.PhoneNumber;
@@ -84,6 +77,35 @@ namespace Shop.Controllers
             }
 
             return BadRequest(model);
+        }
+
+        private async Task UpdateUserImageFromModel(UpdateProfileViewModel model, ApplicationUser user)
+        {
+            if (IsNewImageFromModel(model))
+            {
+                await _imageManager.Delete(Folder.Profile, user.ImageId);
+                user.ImageId = await _imageManager.Save(FileConverter.FromBase64String(model.Image), Folder.Profile);
+            }
+            else if(IsImageDeleted(model, user))
+            {
+                await _imageManager.Delete(Folder.Profile, user.ImageId);
+                user.ImageId = null;
+            }
+        }
+
+        private bool IsNewImageFromModel(UpdateProfileViewModel model)
+        {
+            return !String.IsNullOrEmpty(model.Image) && String.IsNullOrEmpty(model.ImageId);
+        }
+
+        private bool IsTheSameImageFromModel(UpdateProfileViewModel model)
+        {
+            return !String.IsNullOrEmpty(model.Image) && !String.IsNullOrEmpty(model.ImageId);
+        }
+
+        private bool IsImageDeleted(UpdateProfileViewModel model, ApplicationUser user)
+        {
+            return String.IsNullOrEmpty(model.Image) && !String.IsNullOrEmpty(user.ImageId);
         }
     }
 }

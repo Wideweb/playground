@@ -13,5 +13,6 @@ namespace Shop.Services
 
         Task<byte[]> Get(string directory, string fileName);
         Task<string> Save(byte[] file, string directory = null, string fileName = null);
+        Task Delete(string directory, string fileName);
     }
 }

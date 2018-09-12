@@ -77,6 +77,24 @@ namespace Shop.Services
             }
         }
 
+        public async Task Delete(string directory, string fileName)
+        {
+            var request = new DeleteObjectRequest
+            {
+                Key = fileName,
+                BucketName = ResolveBucketName(directory)
+            };
+
+            try
+            {
+                await _s3Client.DeleteObjectAsync(request);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Failed to delete a file | fileName:{fileName}, directory:{directory}, bucketName:{bucketName}, error:{e.Message}");
+            }
+        }
+
         private string ResolveFileName(string fileName)
         {
             return string.IsNullOrEmpty(fileName) ? Guid.NewGuid().ToString() : fileName;
