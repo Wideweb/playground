@@ -1,25 +1,23 @@
-﻿const SERVICE_WORKER_PATH = 'service-wrokers/notification.js';
-const APP_KEY = 'BC_CvaRNT3HMqsPKZpXwB6O4FiVnmb8Umt8yIfBf-glhU_XxPG3KJ7Cy1KA7XRNsEvyfYbKNB62iOOUTWK0muO8';
+﻿const SERVICE_WORKER_PATH = 'service-wrokers/notifications.js';
+const APP_KEY = 'BGCUkcP1P9NnIyYH4aI1BE8N8VfG-mdzBSJDaMeKxLODMUYCrknrUP7UQ7uEAVUtxk0lqp7gT0AO5yxykzdg5Tw';
 
 function urlB64ToUint8Array(base64String) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding)
-        .replace(/\-/g, '+')
-        .replace(/_/g, '/');
+	const padding = '='.repeat((4 - base64String.length % 4) % 4);
+	const base64 = (base64String + padding)
+		.replace(/\-/g, '+')
+		.replace(/_/g, '/');
 
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
+	const rawData = window.atob(base64);
+	const outputArray = new Uint8Array(rawData.length);
 
-    for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
+	for (let i = 0; i < rawData.length; ++i) {
+		outputArray[i] = rawData.charCodeAt(i);
+	}
+	return outputArray;
 }
 
 const Controller = {
-    serviceWorkerReg: null,
-    isSubscribed: false,
-    applicationServerKey: null
+	isSubscribed: false,
 };
 
 /**********************************************************************************************
@@ -27,58 +25,41 @@ const Controller = {
  **********************************************************************************************/
 export default class {
 
-    static get $inject() {
-        return [
-            '$q'
-        ];
-    }
+	static get $inject() {
+		return [
+			'$q'
+		];
+	}
 
-    constructor(
-        $q
-    ) {
-        this.$q = $q;
-        Controller.applicationServerKey = urlB64ToUint8Array(APP_KEY);
-    }
+	constructor(
+		$q
+	) {
+		this.$q = $q;
+	}
 
-    init() {
-        this.registerServiceWorkder()
-            .then(() => this.subscribe())
-    }
+	subscribe() {
+		if (!('serviceWorker' in navigator && 'PushManager' in window)) {
+			console.warn('Push messaging is not supported');
+			return this.$q.reject();
+		}
 
-    subscribe() {
-        let swReg = Controller.serviceWorkerReg;
+		const settings = {
+			userVisibleOnly: true,
+			applicationServerKey: urlB64ToUint8Array(APP_KEY)
+		}
 
-        if (!swReg) {
-            return this.$q.reject();
-        }
+		return navigator.serviceWorker
+			.register(SERVICE_WORKER_PATH)
+			.then((reg) => reg.pushManager.subscribe(settings))
+			.then((subscription) => {
+				Controller.isSubscribed = true;
+				console.log('Service Worker Registered');
+			})
+			.catch((error) => console.error('Service Worker Error', error));
+	}
 
-        return swReg.pushManager
-            .subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: Controller.applicationServerKey
-            }).
-            then((subscription) => {
-                updateSubscriptionOnServer(subscription);
-                Controller.isSubscribed = true;
-            })
-            .catch((err) => {
-                console.log('Failed to subscribe the user: ', err);
-            });;
-    }
-
-    registerServiceWorkder() {
-        if ('serviceWorker' in navigator && 'PushManager' in window) {
-            return navigator.serviceWorker
-                .register(SERVICE_WORKER_PATH)
-                .catch((error) => console.error('Service Worker Error', error));
-        }
-
-        console.warn('Push messaging is not supported');
-        return Promise.reject();
-    }
-
-    updateSubscription(subscription) {
-        /* server call */
-    }
+	updateSubscription(subscription) {
+		/* server call */
+	}
 
 }

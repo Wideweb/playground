@@ -1,38 +1,44 @@
 ﻿export default class {
-    static get $inject() {
-        return [
-            '$state',
-            'authService',
-            'spinnerService',
-            'userService',
-            'chatService'
-        ];
-    }
+	static get $inject() {
+		return [
+			'$state',
+			'authService',
+			'spinnerService',
+			'userService',
+			'chatService',
+			'subscriptionService',
+		];
+	}
 
-    constructor(
-        $state,
+	constructor(
+		$state,
         /* Service */ auth,
         /* Service */ spinner,
         /* Service */ me,
-        /* Service */ chat
-    ) {
-        this.$state = $state;
-        this.auth = auth;
-        this.spinner = spinner;
-        this.me = me;
-        this.chat = chat;
+        /* Service */ chat,
+        /* Service */ subscriptionService,
+	) {
+		this.$state = $state;
+		this.auth = auth;
+		this.spinner = spinner;
+		this.me = me;
+		this.chat = chat;
+		this.subscriptionService = subscriptionService;
 
-        this.chat.connect();
+		this.chat.connect();
 
-        this.collapsed = true;
-    }
+		this.collapsed = true;
+		this.subscriptionService.subscribe();
+	}
 
-    logout() {
-        this.chat.disconnect();
+	logout() {
+		this.auth
+			.logout()
+			.then(() => this.$state.go('login'));
+	}
 
-        this.auth
-            .logout()
-            .then(() => this.$state.go('login'));
-    }
-  
+	$onDestroy() {
+		this.chat.disconnect();
+	}
+
 }
