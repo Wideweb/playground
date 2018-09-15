@@ -20,6 +20,10 @@
                 </ul>
             </li>
         </ul>
-        <div ng-if="$ctrl.training.finish">Results: {{ $ctrl.training.correct.length }} / {{ $ctrl.training.list.length }}</div>
+        <div ng-if="$ctrl.training.finish" class="result">
+			<div class="result-message">Correct {{ $ctrl.training.correct.length }} from {{ $ctrl.training.list.length }}</div>
+			<div class="result-exp">+ {{ $ctrl.training.correct.length }} experience</div>
+			<button type="button" class="btn" ng-click="$ctrl.play()">Play again</button>
+		</div>
     </li>
 </ul>
