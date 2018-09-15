@@ -71,7 +71,7 @@ export default class {
     }
 
     get name() {
-        return this.user.email;
+        return this.user.userName || this.user.email;
     }
 
     get image() {

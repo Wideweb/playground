@@ -135,7 +135,7 @@ namespace Shop.Hubs
         {
             if (!room.IsStarted)
             {
-                room.Questions = await _trainingService.GenerateSession(9);
+                room.Questions = await _trainingService.GenerateSession(9, Context.UserIdentifier);
                 _logger.LogTrace($"Start new game | rid:{room.Rid}");
             }
             else

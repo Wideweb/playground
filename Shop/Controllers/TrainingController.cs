@@ -30,7 +30,8 @@ namespace Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _trainingService.GenerateSession(10));
+            var userId = _userManager.GetUserId(User);
+            return Ok(await _trainingService.GenerateSession(10, userId));
         }
 
         [HttpPost]

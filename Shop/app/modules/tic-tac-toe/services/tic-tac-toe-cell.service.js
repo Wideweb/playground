@@ -17,7 +17,7 @@ class Model {
      Initialization
      ******************************************************************************************/
     constructor(
-        /* Object */ data
+        /* Object */ data = {}
     ) {
         this.word = data.dictionaryItem.term;
         this.answer = data.dictionaryItem.translation;

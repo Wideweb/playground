@@ -10,11 +10,11 @@ namespace Shop.Services
 {
     public class TrainingService
     {
-        private readonly IDataAcessService<Word> _dictionary;
+        private readonly IDictionaryService _dictionary;
         private readonly IFileManager _imageManager;
 
         public TrainingService(
-            IDataAcessService<Word> dictionary,
+            IDictionaryService dictionary,
             IFileManager imageManager
             )
         {
@@ -22,9 +22,9 @@ namespace Shop.Services
             _imageManager = imageManager;
         }
 
-        public async Task<List<TrainingItemView>> GenerateSession(int capacity)
+        public async Task<List<TrainingItemView>> GenerateSession(int capacity, string userId)
         {
-            var words = _dictionary.GetAll().Select(it => it.ToDictionaryItemView()).ToList();
+            var words = await _dictionary.GetItemViewsByUserId(userId);
             words.Shuffle();
             var training = new List<TrainingItemView>();
             var trainingCapacity = words.Count < capacity ? words.Count : capacity;
