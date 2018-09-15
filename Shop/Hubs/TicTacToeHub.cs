@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using Shop.Models;
 using Shop.Models.TicTacToeModels;
 using Shop.Services;
 using System;
@@ -18,15 +19,18 @@ namespace Shop.Hubs
 
         private readonly static Dictionary<Guid, TicTacToe> _rooms = 
             new Dictionary<Guid, TicTacToe>();
-
+        
+        private readonly IDictionaryService _dictionaryService;
         private readonly TrainingService _trainingService;
         private readonly ILogger _logger;
 
         public TicTacToeHub(
+            IDictionaryService dictionaryService,
             TrainingService trainingService,
             ILogger<TicTacToeHub> logger
             )
         {
+            _dictionaryService = dictionaryService;
             _trainingService = trainingService;
             _logger = logger;
         }
@@ -74,6 +78,12 @@ namespace Shop.Hubs
             TicTacToe openedRoom;
 
             _logger.LogTrace($"User connected | user:{name}");
+
+            if(_dictionaryService.GetCapacity(Context.UserIdentifier) < 9)
+            {
+                _logger.LogTrace($"Dictionary capacity error | user:{name}");
+                await Clients.Client(Context.ConnectionId).SendAsync("Error", new DictionaryCapacityError(9));
+            }
 
             _connections.Add(name, Context.ConnectionId);
 

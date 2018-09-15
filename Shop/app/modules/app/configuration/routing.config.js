@@ -8,7 +8,7 @@ function setRoutes($urlRouterProvider) {
 }
 setRoutes.$inject = ['$urlRouterProvider'];
 
-function setEvents($transitions, $state, auth, spinner, controls) {
+function setEvents($transitions, $state, auth, spinner, controls, errorHandler) {
     $transitions.onStart({}, onTransitionStart);
     $transitions.onSuccess({}, onTransitionSuccess);
     $transitions.onError({}, onTransitionError);
@@ -35,6 +35,7 @@ function setEvents($transitions, $state, auth, spinner, controls) {
     function onTransitionError(transition) {
         let toState = transition.$to();
         toState.data && toState.data.showSpinner && spinner.hide();
+        errorHandler.handle(transition.error().detail);
     }
 
     function handleUnauthenticatedUsers(transition) {
@@ -53,7 +54,7 @@ function setEvents($transitions, $state, auth, spinner, controls) {
         }
     }
 }
-setEvents.$inject = ['$transitions', '$state', 'authService', 'spinnerService', 'controlsService'];
+setEvents.$inject = ['$transitions', '$state', 'authService', 'spinnerService', 'controlsService', 'errorHandler'];
 
 export default function (appModule) {
     appModule

@@ -65,7 +65,8 @@ export default class {
             '$q',
             'httpProxyService',
             'userService',
-            'ticTacToeCellService'
+			'ticTacToeCellService',
+			'errorHandler'
         ];
     }
 
@@ -77,13 +78,15 @@ export default class {
         $q,
         proxy,
         me,
-        map
+		map,
+		errorHandler
     ) {
         this.$rootScope = $rootScope;
         this.$q = $q;
         this.proxy = proxy;
         this.me = me;
-        this.map = map;
+		this.map = map;
+		this.errorHandler = errorHandler;
 
         Controller.connection = null;
     }
@@ -164,7 +167,11 @@ export default class {
 
         connection.on("UserDisconnected", (rid, user) => {
             this.$rootScope.$apply(() => this.current.isEnemyConnected = false);
-        });
+		});
+		
+		connection.on("Error", (error) => {
+			this.$rootScope.$apply(() => this.errorHandler.handle(error));
+		});
 
         Controller.connection = connection;
     }

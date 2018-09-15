@@ -1,1 +1,5 @@
-﻿<h1>CI Test</h1>
+﻿<div class="home-page">
+	<div ng-if="!$ctrl.error.viewed" class="error-message-container">
+		<span class="error-message">{{ $ctrl.error.description }}</span>
+	</div>
+</div>

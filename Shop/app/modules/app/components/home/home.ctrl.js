@@ -1,7 +1,17 @@
 ﻿export default class {
     static get $inject() {
-        return [];
+        return [
+			'errorHandler'
+		];
     }
 
-    constructor() {}
+    constructor(
+		error
+	) {
+		this.error = error;
+	}
+
+	$onDestroy() {
+        this.error.viewed = true;
+    }
 }

@@ -21,6 +21,11 @@ namespace Shop.Services
             _imageManager = imageManager;
         }
 
+        public long GetCapacity(string userId)
+        {
+            return _dictionaryAcessService.GetAll().Count(it => it.UserId == userId);
+        }
+
         public async Task<DictionaryItemView> GetItemViewById(long id)
         {
             var word = await _dictionaryAcessService
