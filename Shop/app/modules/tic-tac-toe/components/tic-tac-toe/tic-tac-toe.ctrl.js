@@ -11,7 +11,7 @@
         this.ticTacToe = ticTacToe;
         this.wait = false;
 
-        this.ticTacToe.search();
+        this.ticTacToe.connect();
     }
 
     get map() {
@@ -44,8 +44,8 @@
         this.ticTacToe.submit(option);
     }
 
-    search() {
-        this.ticTacToe.disconnect().then(() => this.ticTacToe.search());
+    newGame() {
+        this.ticTacToe.leave().then(() => this.ticTacToe.search());
     }
 
     $onDestroy() {

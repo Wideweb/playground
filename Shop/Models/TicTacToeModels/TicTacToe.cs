@@ -21,6 +21,7 @@ namespace Shop.Models.TicTacToeModels
         public bool IsStarted { get; set; }
         public List<TrainingItemView> Questions { get; set; }
         public string DisconnectedPlayer { get; private set; }
+        public List<string> LeftPlayers { get; private set; }
 
         public TicTacToe(Guid rid)
         {
@@ -31,6 +32,7 @@ namespace Shop.Models.TicTacToeModels
             DisconnectedPlayer = null;
             _winner = null;
             _map = new string[9];
+            LeftPlayers = new List<string>();
         }
 
         public void AddPlayer(string name)
@@ -50,7 +52,7 @@ namespace Shop.Models.TicTacToeModels
             }
         }
 
-        public void RemovePlayer(string name)
+        public void RemovePlayer(string name, bool isLeft)
         {
             if (_firstPlayer == name)
             {
@@ -63,6 +65,17 @@ namespace Shop.Models.TicTacToeModels
                 DisconnectedPlayer = _secondPlayer;
                 _secondPlayer = null;
             }
+
+            if(isLeft)
+            {
+                LeftPlayers.Add(name);
+            }
+        }
+
+        public bool CanJoin(string name)
+        {
+            return (!IsReady && !IsStarted)
+                || (IsStarted && !IsOver && DisconnectedPlayer == name && !LeftPlayers.Any(p => p == name));
         }
 
         public void SelectSlot(int index, int option, string player)

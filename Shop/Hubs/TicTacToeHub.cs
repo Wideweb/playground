@@ -72,6 +72,21 @@ namespace Shop.Hubs
             }
         }
 
+        public async Task LeaveRoom(Guid rid)
+        {
+            string name = Context.User.Identity.Name;
+
+            _logger.LogTrace($"User left the room| user:{name}, rid:{rid}");
+
+            if (!_rooms.TryGetValue(rid, out TicTacToe room))
+            {
+                _logger.LogWarning($"Room doesn\'t exist | user:{name}, rid:{rid}");
+                return;
+            }
+            
+            RemoveUserFromRoom(room, name, true);
+        }
+
         public override async Task OnConnectedAsync()
         {
             string name = Context.User.Identity.Name;
@@ -87,6 +102,16 @@ namespace Shop.Hubs
 
             _connections.Add(name, Context.ConnectionId);
 
+            Search();
+
+            await base.OnConnectedAsync();
+        }
+
+        public async Task Search()
+        {
+            string name = Context.User.Identity.Name;
+            TicTacToe openedRoom;
+            
             lock (_rooms)
             {
                 openedRoom = FindRoomForUser(name);
@@ -98,8 +123,6 @@ namespace Shop.Hubs
             {
                 StartGame(openedRoom);
             }
-
-            await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
@@ -123,13 +146,8 @@ namespace Shop.Hubs
 
         private TicTacToe FindRoomForUser(string name)
         {
-            _logger.LogTrace($"Search started game | user:{name}");
-            var openedRoom = _rooms.Values.FirstOrDefault(room => room.IsStarted && !room.IsOver && room.DisconnectedPlayer == name);
-            if (openedRoom == null)
-            {
-                _logger.LogTrace($"Search new game | user:{name}");
-                openedRoom = _rooms.Values.FirstOrDefault(room => !room.IsReady && !room.IsStarted);
-            }
+            _logger.LogTrace($"Search game | user:{name}");
+            var openedRoom = _rooms.Values.FirstOrDefault(room => room.CanJoin(name));
             if (openedRoom == null)
             {
                 var rid = Guid.NewGuid();
@@ -165,11 +183,11 @@ namespace Shop.Hubs
             _logger.LogTrace($"Game started | rid:{room.Rid}");
         }
 
-        private async void RemoveUserFromRoom(TicTacToe room, string name)
+        private async void RemoveUserFromRoom(TicTacToe room, string name, bool isLeft = false)
         {
             lock (_rooms)
             {
-                room.RemovePlayer(name);
+                room.RemovePlayer(name, isLeft);
             }
 
             _logger.LogTrace($"User left the room | user:{name}, rid:{room.Rid}");

@@ -38,7 +38,8 @@
                     <li class="question">
                         <ul class="container">
                             <li class="word">{{ $ctrl.question.word }}</li>
-                            <li class="description" ng-if="!$ctrl.question.isAnswered">Выберите правильный ответ</li>
+                            <li class="description" ng-if="!$ctrl.question.isAnswered">Choose the correct answer
+							</li>
                             <li class="answer" ng-if="$ctrl.question.isAnswered">{{ $ctrl.question.answer }}</li>
                         </ul>
                     </li>
@@ -52,8 +53,8 @@
             <li class="disconnect-inicator-wrapper" ng-if="!$ctrl.ticTacToe.current.isEnemyConnected && !$ctrl.ticTacToe.current.winner">
                 <div class="disconnect-inicator-back"></div>
                 <ul class="disconnect-inicator">
-                    <li>{{ $ctrl.ticTacToe.current.firstPlayer }} disconnected</li>
-                    <li><a class="new-game-button" ng-click="$ctrl.search()">Start new game</a></li>
+                    <li>{{ $ctrl.ticTacToe.enemy }} disconnected</li>
+                    <li><a class="new-game-button" ng-click="$ctrl.newGame()">Start new game</a></li>
                 </ul>
             </li>
             <li class="end-inicator-wrapper" ng-if="$ctrl.ticTacToe.current.winner">
@@ -64,7 +65,7 @@
                         <span ng-if="!$ctrl.ticTacToe.current.won && !$ctrl.ticTacToe.current.draw">You lost</span>
                         <span ng-if="$ctrl.ticTacToe.current.draw">Draw</span>
                     </li>
-                    <li><a class="new-game-button" ng-click="$ctrl.search()">Start new game</a></li>
+                    <li><a class="new-game-button" ng-click="$ctrl.newGame()">Start new game</a></li>
                 </ul>
             </li>
         </ul>
