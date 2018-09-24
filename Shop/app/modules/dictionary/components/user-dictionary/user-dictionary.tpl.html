@@ -17,7 +17,7 @@
     </li>
     <li ng-if="$ctrl.dictionary.list.length" class="grid flexible">
         <ul class="container">
-            <li class="row" ng-repeat="item in $ctrl.dictionary.list | filter: { 'term': $ctrl.term }" ui-sref="dictionaryItemView({ id: item.id })">
+            <li class="row" ng-repeat="item in $ctrl.dictionary.list | filter: { 'term': $ctrl.term }" >
                 <div class="column flexible">
                     <dl class="word">
                         <dt class="term">{{ item.term }}</dt>

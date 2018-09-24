@@ -1,0 +1,13 @@
+﻿.tetris {
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .cell {
+        width: 20px;
+        height: 20px;
+        background-color: bisque;
+        margin: 2px;
+    }
+}

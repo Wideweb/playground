@@ -11,6 +11,7 @@ import DICTIONARY_MODULE from '../dictionary';
 import TIC_TAC_TOE_MODULE from '../tic-tac-toe';
 import PHYSICS_MODULE from '../physics';
 import CHAT_MODULE from '../chat';
+import TETRIS_MODULE from '../tetris';
 
 import { appState, homeState } from './states';
 
@@ -30,7 +31,8 @@ const ngModule = angular
         DICTIONARY_MODULE.name,
         TIC_TAC_TOE_MODULE.name,
         PHYSICS_MODULE.name,
-        CHAT_MODULE.name
+        CHAT_MODULE.name,
+        TETRIS_MODULE.name,
     ])
 
     .component('layout', layoutComponent)
