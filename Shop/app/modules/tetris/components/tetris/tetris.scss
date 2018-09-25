@@ -9,5 +9,9 @@
         height: 20px;
         background-color: bisque;
         margin: 2px;
+
+        &.busy {
+            background-color: black;
+        }
     }
 }
