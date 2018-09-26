@@ -5,7 +5,20 @@
     template: '<tetris></tetris>',  
     resolve: {
         tetrisData: tetrisData
-    }
+    },
+    data: {
+        isAddWordButtonVisible: false
+    },
+}
+
+export const tetrisResultsState = {
+    parent: 'app',
+    name: 'tetris-results',
+    url: '/tetris-results',
+    template: '<tetris-results></tetris-results>',
+    data: {
+        isAddWordButtonVisible: false
+    },
 }
 
 /**********************************************************************************************

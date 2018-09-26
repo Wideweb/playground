@@ -1,6 +1,7 @@
 ﻿<div class="page tetris">
-    <div ng-repeat="row in $ctrl.map.cells" class="row">
-        <div ng-repeat="cell in row" class="cell" ng-class="cell.status"></div>
+    <div class="container">
+        <div ng-repeat="row in $ctrl.map.cells" class="row">
+            <div ng-repeat="cell in row" class="cell" ng-class="cell.status"></div>
+        </div>
     </div>
-    
 </div>

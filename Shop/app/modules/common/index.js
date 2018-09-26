@@ -11,6 +11,7 @@ import httpResponseHandler from './services/http-response.handler';
 import storageService from './services/storage.service';
 import spinnerService from './services/spinner.service';
 import errorHandler from './services/error.handler';
+import inputManager from './services/input-manager';
 
 const ngModule = angular
     .module('common', [
@@ -24,6 +25,7 @@ const ngModule = angular
     .service('storageService', storageService)
     .service('spinnerService', spinnerService)
     .service('errorHandler', errorHandler)
+    .service('inputManager', inputManager)
 
     .directive('equalTo', equalToDirective)
     .directive('fileSelect', fileSelectDirective)

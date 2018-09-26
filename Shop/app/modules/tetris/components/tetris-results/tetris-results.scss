@@ -1,0 +1,27 @@
+﻿.tetris-results {
+    width: 100%;
+    height: 100%;
+
+    & > .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .title {
+        font-size: 20px;
+        text-align: center;
+        padding: 20px 10px;
+    }
+
+    .action-bar {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .new-game-button {
+        margin-top: 0;
+    }
+}
