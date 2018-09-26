@@ -1,7 +1,7 @@
 ﻿import FigureFactory, { DotsBagModel } from '../../services/figure.factory';
 import MapModel from './tetris.map';
 
-const DEFAULT_DELAY = 200;
+const DEFAULT_DELAY = 400;
 const ACCELERATED_DELAY = 25;
 
 export default class {
@@ -9,21 +9,25 @@ export default class {
         return [
             '$timeout',
             '$state',
-            'inputManager'
+			'inputManager',
+			'dictionaryService'
         ];
     }
 
     constructor(
         $timeout,
         $state,
-        inputManager
+		inputManager,
+		dictionary
     ) {
         this.$timeout = $timeout;
         this.$state = $state;
-        this.inputManager = inputManager;
+		this.inputManager = inputManager;
+		this.dictionary = dictionary;
 
         this.isOver = false;
 
+		this.figureFactory = new FigureFactory(this.dictionary.list.map(item => item.term));
         this.map = new MapModel(10, 20);
         this.bag = new DotsBagModel();
         this.v = { x: 0, y: 0 };
@@ -79,7 +83,7 @@ export default class {
 
     next() {
         this.current && this.bag.addFigureDots(this.current);
-        this.current = FigureFactory.createRandom();
+        this.current = this.figureFactory.createRandom();
         if (!this.current.canMove(this.map, { x: 0, y: 0 })) {
             this.finish();
         }

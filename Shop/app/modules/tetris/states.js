@@ -25,9 +25,10 @@ export const tetrisResultsState = {
  * TRAINING DATA loading
  **********************************************************************************************/
 tetrisData.$inject = [
-    'tetrisService'
+	'tetrisService',
+	'dictionaryService'
 ];
-function tetrisData(tetris) {
+function tetrisData(tetris, dictionary) {
     console.log('tetris data loading...');
-    return Promise.resolve();
+    return dictionary.load();
 }

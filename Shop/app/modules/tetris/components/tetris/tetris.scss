@@ -14,10 +14,16 @@
         width: 20px;
         height: 20px;
         background-color: bisque;
-        margin: 2px;
+		margin: 2px;
+		
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
         &.busy {
-            background-color: black;
+			background-color: black;
+			color: white;
+			font-weight: bold;
         }
     }
 }
