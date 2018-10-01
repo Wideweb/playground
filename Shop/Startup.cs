@@ -10,6 +10,7 @@ using Shop.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Shop.Data.Models;
 using Shop.Hubs;
@@ -83,6 +84,7 @@ namespace Shop
             services.AddTransient<IDataAcessService<Word>, DictionaryAccess>();
             services.AddTransient<TrainingService, TrainingService>();
             services.AddTransient<IFileManager, AmazonFileStorage>();
+            services.AddTransient<IImageService, ImageService>();
 
             services.AddMvc();
 

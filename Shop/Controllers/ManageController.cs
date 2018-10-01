@@ -17,16 +17,16 @@ namespace Shop.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger _logger;
-        private readonly IFileManager _imageManager;
+        private readonly IImageService _imageService;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
           ILogger<ManageController> logger,
-          IFileManager imageManager)
+          IImageService imageService)
         {
             _userManager = userManager;
             _logger = logger;
-            _imageManager = imageManager;
+            _imageService = imageService;
         }
 
         [HttpGet]
@@ -38,14 +38,6 @@ namespace Shop.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var encodedImage = string.Empty;
-
-            if (!string.IsNullOrEmpty(user.ImageId))
-            {
-                var sourceImage = await _imageManager.Get(Folder.Profile, user.ImageId);
-                encodedImage = FileConverter.ToBase64String(sourceImage);
-            }
-
             var model = new IndexViewModel
             {
                 UserName = user.UserName,
@@ -53,7 +45,7 @@ namespace Shop.Controllers
                 IsEmailConfirmed = user.EmailConfirmed,
                 Role = "User",
                 ImageId = user.ImageId,
-                Image = encodedImage
+                Image = await _imageService.GetEncodedProfileImage(user)
             };
 
             return Ok(model);
@@ -66,7 +58,7 @@ namespace Shop.Controllers
             {
                 var user = await _userManager.GetUserAsync(User);
 
-                await UpdateUserImageFromModel(model, user);
+                await _imageService.SaveEncodedProfileImage(user, model);
                 
                 user.UserName = model.UserName;
                 user.Email = model.Email;
@@ -77,35 +69,6 @@ namespace Shop.Controllers
             }
 
             return BadRequest(model);
-        }
-
-        private async Task UpdateUserImageFromModel(UpdateProfileViewModel model, ApplicationUser user)
-        {
-            if (IsNewImageFromModel(model))
-            {
-                await _imageManager.Delete(Folder.Profile, user.ImageId);
-                user.ImageId = await _imageManager.Save(FileConverter.FromBase64String(model.Image), Folder.Profile);
-            }
-            else if(IsImageDeleted(model, user))
-            {
-                await _imageManager.Delete(Folder.Profile, user.ImageId);
-                user.ImageId = null;
-            }
-        }
-
-        private bool IsNewImageFromModel(UpdateProfileViewModel model)
-        {
-            return !String.IsNullOrEmpty(model.Image) && String.IsNullOrEmpty(model.ImageId);
-        }
-
-        private bool IsTheSameImageFromModel(UpdateProfileViewModel model)
-        {
-            return !String.IsNullOrEmpty(model.Image) && !String.IsNullOrEmpty(model.ImageId);
-        }
-
-        private bool IsImageDeleted(UpdateProfileViewModel model, ApplicationUser user)
-        {
-            return String.IsNullOrEmpty(model.Image) && !String.IsNullOrEmpty(user.ImageId);
         }
     }
 }
